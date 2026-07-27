@@ -27,7 +27,10 @@
   #logowrap{flex:none;width:36px;height:36px;border-radius:9px;background:#fff;
     display:grid;place-items:center;overflow:hidden}
   #logowrap:empty,#logowrap:has(#logo[hidden]){background:transparent;width:0}
-  #live{margin-left:auto;text-align:right;flex:none;max-width:38vw}
+  /* el bloque de estado va pegado al boton de informacion, no suelto al
+     extremo derecho: los dos son metadatos de la ejecucion */
+  #live{margin-left:auto;text-align:right;flex:none;max-width:46vw;
+    min-width:0;overflow:hidden}
   #liverow{display:flex;align-items:center;justify-content:flex-end;gap:5px;
     font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg)}
   #livedot{width:6px;height:6px;border-radius:50%;background:var(--ok);
@@ -43,10 +46,17 @@
   #brand{flex:none;min-width:0}
   #brand small{display:block;font-size:9px;color:var(--fg-dim);
     letter-spacing:.16em;text-transform:uppercase;line-height:1.5}
-  #infobtn{flex:none;width:20px;height:20px;padding:0;margin-left:auto;
-    border-radius:50%;font-size:10px;line-height:1;font-style:italic}
-  #info{position:fixed;top:62px;right:12px;border-radius:10px;overflow:hidden;width:min(420px,90vw);z-index:40;
+  #infobtn{flex:none;width:22px;height:22px;padding:0;margin-left:0;
+    border-radius:50%;font-size:10px;line-height:1;font-style:italic;
+    align-self:center}
+  #infoveil{position:fixed;inset:0;z-index:39;background:rgba(6,7,9,.62);
+    backdrop-filter:blur(2px)}
+  #infoveil[hidden]{display:none}
+  #info{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+    border-radius:10px;overflow:hidden;width:min(520px,92vw);z-index:40;
+    max-height:80vh;display:flex;flex-direction:column;
     background:var(--panel);border:1px solid var(--line)}
+  #infobody{overflow-y:auto}
   #info[hidden]{display:none}
   #infohead{display:flex;justify-content:space-between;align-items:center;
     padding:7px 8px 7px 10px;border-bottom:1px solid var(--line);
@@ -191,6 +201,7 @@
   </div>
   <button id="infobtn" type="button" title="Fuentes y creditos">i</button>
 </div>
+<div id="infoveil" hidden></div>
 <div id="info" hidden>
   <div id="infohead"><span>Fuentes y creditos</span>
     <button id="infoclose" type="button">&#215;</button></div>
@@ -252,8 +263,8 @@
     <div class="lbl">Limites administrativos</div>
     <select id="adm">
       <option value="none">ninguno</option>
-      <option value="municipio" selected>municipios</option>
-      <option value="provincia">provincias</option>
+      <option value="municipio">municipios</option>
+      <option value="provincia" selected>provincias</option>
       <option value="both">ambos</option>
     </select>
   </div>
@@ -264,10 +275,10 @@
   <div class="grp">
     <div class="lbl">Reticula geografica</div>
     <select id="grat">
-      <option value="0">sin reticula</option>
+      <option value="0" selected>sin reticula</option>
       <option value="0.5">cada 0.5°</option>
       <option value="0.25">cada 0.25°</option>
-      <option value="0.1" selected>cada 0.1°</option>
+      <option value="0.1">cada 0.1°</option>
       <option value="0.05">cada 0.05°</option>
     </select>
   </div>
@@ -379,8 +390,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+const BUILD = '2026-07-27.5';   // subir a mano en cada entrega
 const boot = m => window.__boot?.(m);
-boot('three.js r' + THREE.REVISION + ' cargado');
+boot(`visor build ${BUILD} · three.js r${THREE.REVISION}`);
 
 const $ = id => document.getElementById(id);
 const fail = msg => { $('fail').style.display='grid'; $('failmsg').textContent = msg; };
@@ -505,7 +517,7 @@ function utm(lat, lon){
 const S = {
   man:null, nx:0, ny:0, dx:0, dy:0, W:0, H:0,
   terrain:null, lat:null, lon:null,
-  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0.1, adm:'municipio', lab:2, mode:'3d',
+  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0, adm:'provincia', lab:2, mode:'3d',
   cache:new Map(), playing:false, timer:null,
   pins:[], hover:null, gridNorth:0,
 };
@@ -1197,8 +1209,10 @@ function bindUI(){
     mat.uniforms.ci.value = S.ci;
     $('ctrL').textContent = S.ci ? S.ci+' m' : 'sin curvas';
   };
-  $('infobtn').onclick = () => { $('info').hidden = !$('info').hidden; };
-  $('infoclose').onclick = () => { $('info').hidden = true; };
+  const infoShow = on => { $('info').hidden = !on; $('infoveil').hidden = !on; };
+  $('infobtn').onclick = () => infoShow($('info').hidden);
+  $('infoclose').onclick = () => infoShow(false);
+  $('infoveil').onclick = () => infoShow(false);   // clic fuera cierra
   $('adm').onchange = e => { S.adm = e.target.value; buildAdmin(); };
   $('lab').oninput = e => {
     S.lab = +e.target.value;
@@ -1239,7 +1253,10 @@ function bindUI(){
     if (e.key === 'ArrowLeft'){ S.t = (S.t-1+S.man.times.length)%S.man.times.length; showQueued(); }
     if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
     if (e.key.toLowerCase() === 'm'){ openMeteogram(); }
-    if (e.key === 'Escape'){ $('mgram').hidden = true; $('info').hidden = true; }
+    if (e.key === 'Escape'){
+      $('mgram').hidden = true;
+      $('info').hidden = true; $('infoveil').hidden = true;
+    }
   });
 }
 function togglePlay(){
@@ -1459,6 +1476,7 @@ async function loadSite(){
   if (cfg.accent) document.documentElement.style.setProperty('--accent', cfg.accent);
   if (cfg.accent2) document.documentElement.style.setProperty('--accent2', cfg.accent2);
   if (cfg.liveLabel) $('livelbl').textContent = cfg.liveLabel;
+  $('livelbl').title = `Visor build ${BUILD}`;
   if (!cfg.kicker){
     const sub2 = [cfg.subtitle, cfg.org].filter(Boolean).join(' \u00b7 ');
     if (sub2) $('bsub').textContent = sub2;
@@ -1941,7 +1959,8 @@ addEventListener('resize', fitCameras);
       `<p>Ejecucion mostrada: ${man.grid.model || 'WRF'}, dominio d0`
       + `${man.grid.grid_id} de ${man.grid.nx}\u00d7${man.grid.ny} puntos a `
       + `${man.grid.dx.toFixed(0)} m, ${man.grid.map_proj}. `
-      + `Inicializada ${man.grid.init}. Empaquetado ${man.generated}.</p>`);
+      + `Inicializada ${man.grid.init}. Empaquetado ${man.generated}.</p>`
+      + `<p>Visor build <b style="color:var(--fg)">${BUILD}</b>.</p>`);
   buildGeoIndex();
   boot('indice geografico listo');
   await loadAdmin();
