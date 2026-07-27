@@ -3,7 +3,7 @@
   "title": "WRF-ARW 500-m | Climatoc-Lab",
   "titleHtml": "WRF-ARW <span class=\"a1\">500-m</span> <span class=\"sep\">|</span> <span class=\"a2\">Climatoc-Lab</span>",
   "org": "CIDE (CSIC–UV–GVA)",
-  "logo": "assets/logo.png",
+  "logo": "assets/climatoc-lab.png",
   "logoHeight": 26,
   "liveLabel": "Pronostico",
   "accent": "#f2662a",
