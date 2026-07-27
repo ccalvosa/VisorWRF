@@ -13,6 +13,8 @@ function mkEl(id = '') {
     id, tagName: 'DIV', className: '', textContent: '', innerHTML: '',
     style: new Proxy({}, { set: () => true, get: () => '' }),
     dataset: {}, children: [], value: '0', max: '0', min: '0',
+    clientWidth: 700, clientHeight: 250,
+    getBoundingClientRect: () => ({ left:0, top:0, width:700, height:250 }),
     hidden: false, title: '',
     appendChild(c) { this.children.push(c); return c; },
     removeChild(c) { this.children = this.children.filter(x => x !== c); return c; },
@@ -22,6 +24,11 @@ function mkEl(id = '') {
       if (kind !== '2d') return null;
       return {
         drawImage() {}, putImageData() {},
+        setTransform() {}, clearRect() {}, beginPath() {}, moveTo() {},
+        lineTo() {}, stroke() {}, fill() {}, arc() {}, closePath() {},
+        fillText() {}, save() {}, restore() {},
+        set fillStyle(v) {}, set strokeStyle(v) {}, set lineWidth(v) {},
+        set font(v) {}, set textAlign(v) {}, set globalAlpha(v) {},
         createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }),
         getImageData: (x, y, w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }),
       };
@@ -45,6 +52,7 @@ globalThis.innerHeight = 900;
 globalThis.devicePixelRatio = 2;
 globalThis.addEventListener = () => {};
 globalThis.matchMedia = () => ({ matches: false });
+globalThis.getComputedStyle = () => ({ getPropertyValue: () => '#888888' });
 globalThis.requestAnimationFrame = () => 0;   // no arrancamos el bucle
 globalThis.performance = { now: () => 0 };
 globalThis.setInterval = () => 0;
@@ -177,6 +185,10 @@ const handlers = [
   ['reticula',            () => els.get('grat').onchange?.({target:{value:'0.25'}})],
   ['slider temporal',     () => { const tr=els.get('tr'); tr.value='3'; tr.oninput?.(); }],
   ['play',                () => els.get('play').onclick?.()],
+  ['meteograma sin punto',() => els.get('mbtn').onclick?.()],
+  ['meteograma con punto',() => { els.get('mbtn').onclick?.(); }],
+  ['clic en el grafico',  () => els.get('mgcv').onclick?.({clientX:300})],
+  ['cerrar meteograma',   () => els.get('mgclose').onclick?.()],
 ];
 for (const [n,f] of handlers) probe(n, f);
 await new Promise(r => setTimeout(r, 800));

@@ -89,6 +89,19 @@
     padding-bottom:9px}
   .pin::after{content:'';position:absolute;bottom:0;left:50%;width:5px;height:5px;
     margin-left:-2.5px;background:#fff;border:1px solid #000;border-radius:50%}
+  #probe button{width:100%;margin-top:7px}
+  #mgram{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);
+    z-index:25;background:var(--panel);border:1px solid var(--line);
+    width:min(720px,94vw)}
+  #mgram[hidden]{display:none}
+  #mghead{display:flex;align-items:center;justify-content:space-between;
+    padding:6px 8px 6px 10px;border-bottom:1px solid var(--line);font-size:11px}
+  #mghead button{width:24px;flex:none;border:0;background:transparent;
+    font-size:15px;line-height:1;color:var(--fg-dim);cursor:pointer;padding:0}
+  #mghead button:hover{color:var(--fg);background:transparent}
+  #mgcv{display:block;width:100%;height:250px;cursor:crosshair}
+  #mgfoot{padding:5px 10px 7px;font-size:10px;color:var(--fg-faint);
+    border-top:1px solid var(--line);line-height:1.45}
   #status{position:fixed;top:46px;left:50%;transform:translateX(-50%);
     background:var(--panel);border:1px solid var(--line);padding:6px 12px;z-index:30;
     color:var(--fg-dim)}
@@ -184,7 +197,16 @@
   <div class="big"><span id="pv">—</span><em id="pu"></em></div>
   <div class="co" id="pc">mueve el cursor sobre el terreno</div>
   <div class="co" id="pu2"></div>
-  <div class="co" id="phint">doble clic: marcar punto · P: copiar puntos</div>
+  <div class="co" id="phint">doble clic: marcar · M: meteograma · P: copiar puntos</div>
+  <button id="mbtn" type="button">Meteograma aqui</button>
+</div>
+<div id="mgram" hidden>
+  <div id="mghead">
+    <span id="mgtitle">Meteograma</span>
+    <button id="mgclose" type="button" title="Cerrar (Esc)">&#215;</button>
+  </div>
+  <canvas id="mgcv"></canvas>
+  <div id="mgfoot"></div>
 </div>
 <div id="ruler">
   <div id="northwrap"><span id="north">&#8593;</span><small>N</small></div>
@@ -952,6 +974,7 @@ async function show(){
     mat.uniforms.lut.value = lutTexture(f.cmap);
     drawLegend(f);
     updateTimeUI();
+    if (!$('mgram').hidden) drawMeteogram();
     await updateWind();
     // prefetch del siguiente paso
     const next = (S.t+1) % S.man.times.length;
@@ -1093,6 +1116,17 @@ function bindUI(){
     S.grat = +e.target.value;
     mat.uniforms.grat.value = S.grat;
   };
+  $('mbtn').onclick = openMeteogram;
+  $('mgclose').onclick = () => { $('mgram').hidden = true; };
+  $('mgcv').onclick = e => {
+    if (!MG.data || !MG.pt) return;
+    const r = $('mgcv').getBoundingClientRect();
+    const L = 44, R = 44, n = S.man.times.length;
+    const f = (e.clientX - r.left - L)/Math.max(r.width - L - R, 1);
+    S.t = Math.max(0, Math.min(n-1, Math.round(f*(n-1))));
+    updateTimeUI(); showQueued(); drawMeteogram();
+  };
+  addEventListener('resize', () => { if (!$('mgram').hidden) drawMeteogram(); });
   $('play').onclick = togglePlay;
 
   addEventListener('keydown', e => {
@@ -1101,6 +1135,8 @@ function bindUI(){
     if (e.key === 'ArrowRight'){ S.t = (S.t+1)%S.man.times.length; showQueued(); }
     if (e.key === 'ArrowLeft'){ S.t = (S.t-1+S.man.times.length)%S.man.times.length; showQueued(); }
     if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
+    if (e.key.toLowerCase() === 'm'){ openMeteogram(); }
+    if (e.key === 'Escape'){ $('mgram').hidden = true; }
     if (e.key.toLowerCase() === 'p' && S.pins.length){
       const json = JSON.stringify(S.pins.map(({name,lat,lon}) =>
         ({ name, lat:+lat.toFixed(5), lon:+lon.toFixed(5) })), null, 1);
@@ -1251,6 +1287,200 @@ async function loadPlaces(){
                   x:worldX(bi), z:worldZ(bj) });
   }
   renderPins();
+}
+
+/* ------------------------------------------------------------------ *
+ * Meteograma
+ *
+ * Los campos del visor estan troceados por instante: un PNG por campo y hora
+ * con todo el dominio dentro. Un meteograma necesita justo lo contrario, y
+ * sacarlo de ahi obligaria a descargar los N PNG de cada variable por cada
+ * punto que se pinche. El cubo es esa misma informacion transpuesta a
+ * [tiempo, punto] y submuestreada: se baja una vez y todo punto es inmediato.
+ * A cambio, la serie es la del punto de malla mas cercano segun el stride del
+ * cubo, no la del pixel exacto; por eso se muestran siempre las coordenadas
+ * del punto realmente usado y no las del cursor.
+ * ------------------------------------------------------------------ */
+const MG = { data:null, loading:false, pt:null };
+
+async function loadMeteoCube(){
+  if (MG.data || MG.loading) return MG.data;
+  const cfg = S.man.meteo;
+  if (!cfg) return null;
+  MG.loading = true;
+  $('status').hidden = false;
+  $('status').textContent = 'descargando cubo de meteogramas…';
+  try {
+    const out = { stride: cfg.stride, nx: cfg.nx, ny: cfg.ny, vars: {} };
+    for (const v of cfg.vars){
+      const d = await decodePNG16('data/'+v.file, v.vmin, v.vmax);
+      out.vars[v.key] = { data: d.data, npts: d.nx, nt: d.ny, units: v.units };
+    }
+    MG.data = out;
+    return out;
+  } catch (e){
+    fail('No se pudo cargar el cubo de meteogramas: ' + e.message);
+    return null;
+  } finally {
+    MG.loading = false;
+    $('status').hidden = true;
+    $('status').textContent = 'cargando…';
+  }
+}
+
+async function openMeteogram(){
+  if (!S.hover){
+    $('phint').textContent = 'pasa el cursor por el terreno primero';
+    return;
+  }
+  if (!S.man.meteo){
+    $('mgram').hidden = false;
+    $('mgtitle').textContent = 'Sin datos de meteograma';
+    $('mgfoot').textContent =
+      'Este paquete no trae el cubo. Generalo con: '
+      + 'python3 make_meteo_cube.py --data data --stride 4';
+    const cv = $('mgcv'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height);
+    return;
+  }
+  const [gi, gj] = worldToGrid(S.hover.x, S.hover.wz);
+  const cube = await loadMeteoCube();
+  if (!cube) return;
+  const mi = Math.max(0, Math.min(cube.nx-1, Math.round(gi/cube.stride)));
+  const mj = Math.max(0, Math.min(cube.ny-1, Math.round(gj/cube.stride)));
+  const p  = mj*cube.nx + mi;
+  const i  = Math.min(S.nx-1, mi*cube.stride), j = Math.min(S.ny-1, mj*cube.stride);
+  const k  = j*S.nx + i;
+  MG.pt = { p, i, j, lat:S.lat[k], lon:S.lon[k], z:S.terrain[k] };
+  $('mgram').hidden = false;
+  drawMeteogram();
+}
+
+function seriesAt(key, p){
+  const v = MG.data.vars[key];
+  if (!v) return null;
+  const out = new Float32Array(v.nt);
+  for (let t=0;t<v.nt;t++) out[t] = v.data[t*v.npts + p];
+  return out;
+}
+
+function drawMeteogram(){
+  if (!MG.data || !MG.pt) return;
+  const cv = $('mgcv'), dpr = Math.min(devicePixelRatio, 2);
+  const W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+  const c = cv.getContext('2d');
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.clearRect(0, 0, W, H);
+
+  const t2 = seriesAt('t2', MG.pt.p), rh = seriesAt('rh2', MG.pt.p);
+  const u  = seriesAt('u10', MG.pt.p), v = seriesAt('v10', MG.pt.p);
+  if (!t2 || !rh || !u || !v) return;
+  const n = t2.length;
+  const sp = new Float32Array(n), dr = new Float32Array(n);
+  for (let t=0;t<n;t++){
+    sp[t] = Math.hypot(u[t], v[t]);
+    dr[t] = (Math.atan2(-u[t], -v[t])*180/Math.PI + 360) % 360;
+  }
+
+  const L = 44, R = 44, T = 12, B = 22, GAP = 16;
+  const pw = W - L - R, ph = (H - T - B - GAP)/2;
+  const yA = T, yB = T + ph + GAP;
+  const X = t => L + (n === 1 ? pw/2 : pw*t/(n-1));
+
+  const CSS = getComputedStyle(document.documentElement);
+  const dim = CSS.getPropertyValue('--fg-faint').trim() || '#55636f';
+  const mid = CSS.getPropertyValue('--fg-dim').trim() || '#7d8c9a';
+  const line = CSS.getPropertyValue('--line').trim() || '#2b3742';
+  const C_T = '#dc8b46', C_R = '#4a90a8', C_W = '#cbd8e2';
+  c.font = '10px ui-monospace, Menlo, Consolas, monospace';
+
+  function nice(lo, hi){
+    if (!(hi > lo)){ lo -= 1; hi += 1; }
+    const pad = (hi-lo)*0.12; lo -= pad; hi += pad;
+    const step = 10**Math.floor(Math.log10((hi-lo)/3));
+    let s = step;
+    for (const m of [1,2,2.5,5,10]) if ((hi-lo)/(step*m) >= 2.2) s = step*m;
+    return [Math.floor(lo/s)*s, Math.ceil(hi/s)*s, s];
+  }
+  const ext = a => [Math.min(...a), Math.max(...a)];
+
+  function axis(y0, h, lo, hi, st, color, side, unit){
+    const Y = val => y0 + h - h*(val-lo)/(hi-lo || 1);
+    c.strokeStyle = line; c.fillStyle = color; c.lineWidth = 1;
+    for (let g=lo; g<=hi+1e-9; g+=st){
+      const y = Math.round(Y(g)) + .5;
+      if (side === 'l'){
+        c.strokeStyle = line; c.beginPath();
+        c.moveTo(L, y); c.lineTo(L+pw, y); c.stroke();
+        c.textAlign = 'right'; c.fillText(fmtNum(g), L-5, y+3);
+      } else {
+        c.textAlign = 'left'; c.fillText(fmtNum(g), L+pw+5, y+3);
+      }
+    }
+    c.textAlign = side === 'l' ? 'right' : 'left';
+    c.fillText(unit, side === 'l' ? L-5 : L+pw+5, y0-2);
+    return Y;
+  }
+  function plot(arr, Y, color, w){
+    c.strokeStyle = color; c.lineWidth = w || 1.6;
+    c.beginPath();
+    for (let t=0;t<n;t++){ const x = X(t), y = Y(arr[t]);
+      t ? c.lineTo(x, y) : c.moveTo(x, y); }
+    c.stroke();
+  }
+
+  // panel superior: temperatura y humedad
+  const [t0,t1,ts] = nice(...ext(t2));
+  const Yt = axis(yA, ph, t0, t1, ts, C_T, 'l', '\u00b0C');
+  const Yr = axis(yA, ph, 0, 100, 25, C_R, 'r', '%');
+  plot(rh, Yr, C_R); plot(t2, Yt, C_T);
+
+  // panel inferior: viento, con la direccion como flechas sobre la serie
+  const [w0,w1,ws] = nice(0, Math.max(...sp));
+  const Yw = axis(yB, ph, Math.max(0,w0), w1, ws, C_W, 'l', 'm/s');
+  plot(sp, Yw, C_W);
+  const every = Math.max(1, Math.ceil(n/26));
+  c.strokeStyle = C_W; c.lineWidth = 1.2;
+  for (let t=0;t<n;t+=every){
+    // la flecha apunta hacia donde sopla el viento, como en un mapa
+    const a = (dr[t] + 180)*Math.PI/180, x = X(t), y = yB - 6;
+    const dx = Math.sin(a)*5, dy = -Math.cos(a)*5;
+    c.beginPath(); c.moveTo(x-dx, y-dy); c.lineTo(x+dx, y+dy); c.stroke();
+    c.beginPath(); c.moveTo(x+dx, y+dy);
+    c.lineTo(x+dx-dx*0.6-dy*0.4, y+dy-dy*0.6+dx*0.4);
+    c.lineTo(x+dx-dx*0.6+dy*0.4, y+dy-dy*0.6-dx*0.4);
+    c.closePath(); c.fillStyle = C_W; c.fill();
+  }
+
+  // eje de tiempos
+  c.fillStyle = mid; c.textAlign = 'center';
+  const tev = Math.max(1, Math.ceil(n/9));
+  for (let t=0;t<n;t+=tev)
+    c.fillText(S.man.times[t].slice(11,16), X(t), H-7);
+
+  // cursor del instante mostrado en el mapa
+  const xc = Math.round(X(S.t)) + .5;
+  c.strokeStyle = '#f2f6f8'; c.lineWidth = 1; c.globalAlpha = .55;
+  c.beginPath(); c.moveTo(xc, T); c.lineTo(xc, H-B); c.stroke();
+  c.globalAlpha = 1;
+  for (const [arr, Y, col] of [[t2,Yt,C_T],[rh,Yr,C_R],[sp,Yw,C_W]]){
+    c.fillStyle = col; c.beginPath();
+    c.arc(xc, Y(arr[S.t]), 2.8, 0, 6.2832); c.fill();
+  }
+
+  const u2 = utm(MG.pt.lat, MG.pt.lon);
+  $('mgtitle').textContent =
+    `${MG.pt.lat.toFixed(4)}\u00b0N ${MG.pt.lon.toFixed(4)}\u00b0E · `
+    + `${MG.pt.z.toFixed(0)} m · UTM ${u2.zone}${u2.band} `
+    + `${u2.x.toFixed(0)}E ${u2.y.toFixed(0)}N`;
+  $('mgfoot').innerHTML =
+    `<span style="color:${C_T}">\u25cf</span> temperatura 2 m &nbsp; `
+    + `<span style="color:${C_R}">\u25cf</span> humedad relativa 2 m &nbsp; `
+    + `<span style="color:${C_W}">\u25cf</span> viento 10 m, flechas en el `
+    + `sentido del flujo<br>`
+    + `Punto de malla i=${MG.pt.i} j=${MG.pt.j}, el mas cercano cada `
+    + `${(S.dx*MG.data.stride/1000).toFixed(1)} km. `
+    + `Horas en UTC. Pincha en el grafico para saltar a ese instante.`;
 }
 
 /* ------------------------------------------------------------------ *
