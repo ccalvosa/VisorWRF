@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visor de superficie WRF</title>
+<style>
+  :root{
+    --bg:#11161b; --panel:#171e25; --panel-2:#1d262e; --line:#2b3742;
+    --fg:#c7d3dd; --fg-dim:#7d8c9a; --fg-faint:#55636f;
+    --warn:#d98f3f;
+    --mono: ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+    --sans: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+    font-family:var(--mono);font-size:12px;overflow:hidden;
+    -webkit-font-smoothing:antialiased}
+  canvas{display:block}
+  #stage{position:fixed;inset:0}
+
+  /* ---- cabecera ---- */
+  #head{position:fixed;top:0;left:0;right:0;height:34px;display:flex;align-items:center;
+    gap:14px;padding:0 12px;background:rgba(17,22,27,.86);
+    border-bottom:1px solid var(--line);backdrop-filter:blur(6px);z-index:20}
+  #head b{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+  .meta{color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tag{border:1px solid var(--warn);color:var(--warn);padding:1px 6px;
+    letter-spacing:.12em;font-size:9.5px;text-transform:uppercase;flex:none}
+
+  /* ---- panel de control ---- */
+  #panel{position:fixed;top:46px;left:12px;width:250px;background:var(--panel);
+    border:1px solid var(--line);z-index:20}
+  .grp{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .grp:last-child{border-bottom:0}
+  .lbl{display:flex;justify-content:space-between;align-items:baseline;
+    text-transform:uppercase;letter-spacing:.12em;font-size:9.5px;
+    color:var(--fg-faint);margin-bottom:6px}
+  .lbl span{color:var(--fg);letter-spacing:0;font-size:11px}
+  select{width:100%;background:var(--panel-2);color:var(--fg);border:1px solid var(--line);
+    padding:5px 6px;font-family:var(--mono);font-size:11.5px}
+  input[type=range]{width:100%;margin:0;accent-color:#8fa7b8;background:transparent}
+  .row{display:flex;gap:6px}
+  button{flex:1;background:var(--panel-2);color:var(--fg);border:1px solid var(--line);
+    padding:5px 0;font-family:var(--mono);font-size:11px;cursor:pointer;
+    text-transform:uppercase;letter-spacing:.08em}
+  button:hover{background:#26313a}
+  button[aria-pressed=true]{background:#cbd8e2;color:#11161b;border-color:#cbd8e2}
+  button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #6fa8c0;outline-offset:1px}
+
+  /* ---- linea de tiempo ---- */
+  #time{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;background:var(--panel);
+    border:1px solid var(--line);z-index:20;width:min(620px,86vw);padding-right:12px}
+  #time button{flex:none;width:38px;align-self:stretch;border:0;
+    border-right:1px solid var(--line)}
+  #tinfo{flex:none;min-width:190px;padding:5px 0 5px 2px;line-height:1.3}
+  #tmain{font-size:13px}
+  #tsub{font-size:10px;color:var(--fg-dim)}
+  #tr{flex:1;min-width:0}
+
+  /* ---- sonda ---- */
+  #probe{position:fixed;bottom:12px;left:12px;background:var(--panel);
+    border:1px solid var(--line);padding:8px 10px;z-index:20;min-width:200px}
+  #probe .big{font-size:19px;letter-spacing:-.01em}
+  #probe .big em{font-style:normal;font-size:11px;color:var(--fg-dim);margin-left:3px}
+  #probe .co{color:var(--fg-dim);margin-top:3px;font-size:10.5px}
+
+  /* ---- leyenda ---- */
+  #legend{position:fixed;bottom:12px;right:12px;background:var(--panel);
+    border:1px solid var(--line);padding:8px 10px;z-index:20;width:210px}
+  #legend .t{color:var(--fg-dim);font-size:10px;margin-bottom:5px}
+  #bar{width:100%;height:9px;display:block;border:1px solid var(--line)}
+  #ends{display:flex;justify-content:space-between;color:var(--fg-dim);
+    font-size:10px;margin-top:3px}
+
+  #ruler{position:fixed;bottom:100px;right:12px;z-index:20;display:flex;
+    align-items:flex-end;gap:14px}
+  #northwrap{text-align:center;color:var(--fg-dim);line-height:1}
+  #north{display:inline-block;font-size:19px;color:var(--fg)}
+  #northwrap small{display:block;font-size:9px;letter-spacing:.1em}
+  #sbar{border-left:1px solid var(--fg);border-right:1px solid var(--fg);
+    border-bottom:1px solid var(--fg);height:6px;position:relative;min-width:40px}
+  #sbar span{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+    white-space:nowrap;color:var(--fg-dim);font-size:10px}
+  #pins{position:fixed;inset:0;pointer-events:none;z-index:15}
+  .pin{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;
+    font-size:10.5px;color:#fff;text-shadow:0 0 3px #000,0 0 6px #000;
+    padding-bottom:9px}
+  .pin::after{content:'';position:absolute;bottom:0;left:50%;width:5px;height:5px;
+    margin-left:-2.5px;background:#fff;border:1px solid #000;border-radius:50%}
+  #status{position:fixed;top:46px;left:50%;transform:translateX(-50%);
+    background:var(--panel);border:1px solid var(--line);padding:6px 12px;z-index:30;
+    color:var(--fg-dim)}
+  #status[hidden]{display:none}
+  #boot{position:fixed;top:46px;left:12px;z-index:40;background:var(--panel);
+    border:1px solid var(--line);padding:8px 10px;font-size:11px;
+    color:var(--fg-dim);max-width:min(420px,88vw);line-height:1.5}
+  #boot[hidden]{display:none}
+  #boot b{color:var(--fg);display:block;margin-bottom:4px}
+  #boot code{color:var(--fg);font-size:10.5px}
+  #fail{position:fixed;inset:0;display:none;place-content:center;padding:40px;
+    z-index:50;background:var(--bg);font-family:var(--sans);line-height:1.6}
+  @media (max-width:720px){
+    #panel{width:calc(100vw - 24px)}
+    #legend,#probe{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+
+<div id="head">
+  <b>Superficie WRF</b>
+  <span class="tag" id="tag">experimental</span>
+  <span class="meta" id="meta"></span>
+</div>
+
+<div id="panel">
+  <div class="grp">
+    <div class="lbl">Campo</div>
+    <select id="field"></select>
+  </div>
+  <div class="grp">
+    <div class="lbl">Vista</div>
+    <div class="row">
+      <button id="b2d" aria-pressed="false">2D</button>
+      <button id="b3d" aria-pressed="true">3D</button>
+    </div>
+  </div>
+  <div class="grp">
+    <div class="lbl">Exageracion vertical <span id="vexL">8×</span></div>
+    <input type="range" id="vex" min="0" max="25" step="0.5" value="8">
+  </div>
+  <div class="grp">
+    <div class="lbl">Viento</div>
+    <select id="wmode">
+      <option value="off">apagado</option>
+      <option value="arrows">flechas</option>
+      <option value="streams">streamlines</option>
+    </select>
+  </div>
+  <div class="grp">
+    <div class="lbl">Densidad <span id="denL">cada 16 puntos</span></div>
+    <input type="range" id="den" min="1" max="13" step="1" value="5">
+  </div>
+  <div class="grp">
+    <div class="lbl">Grosor de linea <span id="wL">2 px</span></div>
+    <input type="range" id="wid" min="1" max="8" step="0.5" value="2">
+  </div>
+  <div class="grp">
+    <div class="lbl">Color del viento</div>
+    <select id="wcol">
+      <option value="#f2f6f8">blanco</option>
+      <option value="#12181e">negro</option>
+      <option value="#f0a33c">ambar</option>
+      <option value="#7fd4e8">cian</option>
+      <option value="#c94f7c">magenta</option>
+      <option value="speed">por velocidad</option>
+    </select>
+  </div>
+  <div class="grp">
+    <div class="lbl">Relieve <span id="shdL">70%</span></div>
+    <input type="range" id="shd" min="0" max="100" step="5" value="70">
+  </div>
+  <div class="grp">
+    <div class="lbl">Curvas de nivel <span id="ctrL">200 m</span></div>
+    <input type="range" id="ctr" min="0" max="4" step="1" value="2">
+  </div>
+  <div class="grp">
+    <div class="lbl">Reticula geografica</div>
+    <select id="grat">
+      <option value="0">sin reticula</option>
+      <option value="0.5">cada 0.5°</option>
+      <option value="0.25">cada 0.25°</option>
+      <option value="0.1" selected>cada 0.1°</option>
+      <option value="0.05">cada 0.05°</option>
+    </select>
+  </div>
+</div>
+
+<div id="probe">
+  <div class="big"><span id="pv">—</span><em id="pu"></em></div>
+  <div class="co" id="pc">mueve el cursor sobre el terreno</div>
+  <div class="co" id="pu2"></div>
+  <div class="co" id="phint">doble clic: marcar punto · P: copiar puntos</div>
+</div>
+<div id="ruler">
+  <div id="northwrap"><span id="north">&#8593;</span><small>N</small></div>
+  <div id="sbar"><span id="sbarL"></span></div>
+</div>
+<div id="pins"></div>
+
+<div id="legend">
+  <div class="t" id="lt"></div>
+  <canvas id="bar" width="256" height="9"></canvas>
+  <div id="ends"><span id="e0"></span><span id="e1"></span></div>
+</div>
+
+<div id="time">
+  <button id="play" title="Reproducir (espacio)">▶</button>
+  <div id="tinfo">
+    <div id="tmain">—</div>
+    <div id="tsub">—</div>
+  </div>
+  <input type="range" id="tr" min="0" max="0" step="1" value="0"
+         aria-label="Paso temporal">
+</div>
+
+<div id="status">cargando…</div>
+<div id="boot"></div>
+<div id="fail"><div>
+  <h2>No se ha podido iniciar el visor</h2>
+  <p id="failmsg" style="white-space:pre-wrap;font-family:var(--mono);font-size:11.5px"></p>
+</div></div>
+
+<!-- three.js va dentro del repositorio a proposito: sin dependencia de CDN el
+     visor funciona en una red aislada, y un fallo de red no puede dejar la
+     pagina en blanco. Para volver al CDN: cambiar estas dos rutas por
+     https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js y
+     https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/ -->
+<script>
+/* Vigilante de arranque. Es un script clasico, no un modulo: se ejecuta
+   siempre, incluso si el modulo falla al importarse. Sin esto, un import roto
+   deja la pagina completamente muda porque el manejador de errores vive
+   dentro del propio modulo que no llego a cargar. */
+(function(){
+  var log = [], done = false;
+  window.__boot = function(msg){
+    log.push(msg);
+    if (msg === 'listo'){ done = true; var b = document.getElementById('boot');
+      if (b) b.hidden = true; return; }
+    render();
+  };
+  function render(){
+    var b = document.getElementById('boot');
+    if (!b) return;
+    b.hidden = false;
+    b.innerHTML = '<b>Arranque</b>' + log.map(function(m){
+      return '\u00b7 ' + m; }).join('<br>');
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    if (!log.length) window.__boot('HTML cargado, esperando el modulo');
+    setTimeout(function(){
+      if (done) return;
+      var b = document.getElementById('boot');
+      if (!b) return;
+      b.hidden = false;
+      if (log.length <= 1){
+        b.innerHTML = '<b>El modulo JavaScript no ha arrancado</b>' +
+          'Ni una sola etapa ha reportado. Casi siempre es una de estas dos:' +
+          '<br>\u00b7 Has abierto el fichero con doble clic. Los modulos y ' +
+          'fetch() no funcionan con <code>file://</code>: hace falta ' +
+          '<code>python3 -m http.server</code> y abrir ' +
+          '<code>http://localhost:8000</code>.' +
+          '<br>\u00b7 Falta la carpeta <code>vendor/</code> con three.js, o ' +
+          'no esta junto a <code>index.html</code>.' +
+          '<br>Mira la consola (F12) para el mensaje exacto.';
+      } else {
+        b.innerHTML = '<b>El arranque se ha quedado a medias</b>' +
+          log.map(function(m){ return '\u00b7 ' + m; }).join('<br>');
+      }
+    }, 6000);
+  });
+})();
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three.module.js",
+  "three/addons/controls/OrbitControls.js": "./vendor/controls/OrbitControls.js"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const boot = m => window.__boot?.(m);
+boot('three.js r' + THREE.REVISION + ' cargado');
+
+const $ = id => document.getElementById(id);
+const fail = msg => { $('fail').style.display='grid'; $('failmsg').textContent = msg; };
+window.addEventListener('error', e => fail(e.message));
+
+/* ------------------------------------------------------------------ *
+ * Paletas. Cada una es una lista de paradas [t, r, g, b] en 0..1/0..255
+ * ------------------------------------------------------------------ */
+const CMAPS = {
+  wind:    [[0,'#1b2a3a'],[.2,'#2f6f8f'],[.4,'#68b8a8'],[.6,'#e6d27a'],[.8,'#e08a3c'],[1,'#a4243b']],
+  thermal: [[0,'#2c3e73'],[.25,'#4a90a8'],[.5,'#e8dfa8'],[.75,'#dc8b46'],[1,'#8c2b2b']],
+  moist:   [[0,'#5a3b24'],[.3,'#b09256'],[.55,'#93b48b'],[.8,'#3d84a8'],[1,'#1f3d78']],
+  dry:     [[0,'#12313a'],[.3,'#3f7d76'],[.55,'#c9c169'],[.8,'#d97b34'],[1,'#7d1f2e']],
+  depth:   [[0,'#101c2b'],[.35,'#39566f'],[.7,'#8aa7b5'],[1,'#eef2f4']],
+  diverge: [[0,'#2a5d8f'],[.5,'#e9e6dd'],[1,'#a3462f']],
+  cyclic:  [[0,'#c96a4a'],[.25,'#c5b356'],[.5,'#5aa06f'],[.75,'#4c72a8'],[1,'#c96a4a']],
+  radar:   [[0,'#0e1b26'],[.25,'#2f8f6a'],[.5,'#d9cf5a'],[.75,'#c9563a'],[1,'#8e3f7d']],
+};
+function hex(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
+function lutBytes(name){
+  const stops = (CMAPS[name] || CMAPS.wind).map(([t,c]) => [t, hex(c)]);
+  const out = new Uint8Array(256*4);
+  for (let i=0;i<256;i++){
+    const t = i/255;
+    let k = 0; while (k < stops.length-2 && t > stops[k+1][0]) k++;
+    const [t0,c0] = stops[k], [t1,c1] = stops[k+1];
+    const f = t1>t0 ? (t-t0)/(t1-t0) : 0;
+    for (let c=0;c<3;c++) out[i*4+c] = Math.round(c0[c] + (c1[c]-c0[c])*f);
+    out[i*4+3] = 255;
+  }
+  return out;
+}
+const LUTS = new Map();
+function lutTexture(name){
+  if (LUTS.has(name)) return LUTS.get(name);
+  const t = new THREE.DataTexture(lutBytes(name), 256, 1, THREE.RGBAFormat);
+  t.minFilter = t.magFilter = THREE.LinearFilter;
+  t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+  t.needsUpdate = true;
+  LUTS.set(name, t);
+  return t;
+}
+
+/* ------------------------------------------------------------------ *
+ * Decodificacion PNG16 -> Float32Array en orden del modelo (fila 0 = sur)
+ * ------------------------------------------------------------------ */
+async function decodePNG16(url, vmin, vmax){
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+  const blob = await res.blob();
+  // colorSpaceConversion:'none' evita que el navegador aplique perfil de color
+  // y nos rompa los bytes; sin canal alfa no hay premultiplicado.
+  const bmp = await createImageBitmap(blob, {
+    colorSpaceConversion:'none', premultiplyAlpha:'none'
+  });
+  const nx = bmp.width, ny = bmp.height;   // ojo: close() los pone a 0
+  const cv = document.createElement('canvas');
+  cv.width = nx; cv.height = ny;
+  const ctx = cv.getContext('2d', { willReadFrequently:true, colorSpace:'srgb' });
+  ctx.drawImage(bmp, 0, 0);
+  const px = ctx.getImageData(0, 0, nx, ny).data;
+  bmp.close?.();
+  const n = nx * ny;
+  const out = new Float32Array(n);
+  const scale = (vmax - vmin) / 65535;
+  for (let i=0;i<n;i++) out[i] = vmin + ((px[i*4]<<8) | px[i*4+1]) * scale;
+  return { data: out, nx, ny };
+}
+
+function fieldTexture(data, nx, ny, vmin, vmax){
+  // RGBA8 con el valor normalizado en R: filtrado lineal garantizado y sin
+  // problemas de alineacion de filas. La precision exacta se conserva en el
+  // Float32Array que usa la sonda, no en la textura.
+  const buf = new Uint8Array(nx*ny*4);
+  const s = 255/(vmax-vmin || 1);
+  for (let i=0;i<data.length;i++){
+    const v = Math.max(0, Math.min(255, Math.round((data[i]-vmin)*s)));
+    buf[i*4] = v; buf[i*4+3] = 255;
+  }
+  const t = new THREE.DataTexture(buf, nx, ny, THREE.RGBAFormat);
+  t.minFilter = t.magFilter = THREE.LinearFilter;
+  t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+  t.needsUpdate = true;
+  return t;
+}
+
+/* ------------------------------------------------------------------ *
+ * UTM (WGS84), serie clasica de Snyder. Suficiente de sobra al metro para
+ * lo que se usa aqui, pero no es geodesia de precision: la cartografia del
+ * IGN va en ETRS89, que difiere de WGS84 en el orden del metro por el
+ * movimiento de la placa euroasiatica desde 1989.
+ * ------------------------------------------------------------------ */
+const BANDS = 'CDEFGHJKLMNPQRSTUVWX';
+function utm(lat, lon){
+  const a = 6378137.0, f = 1/298.257223563, k0 = 0.9996;
+  const e2 = f*(2-f), ep2 = e2/(1-e2);
+  const zone = Math.floor((lon+180)/6) + 1;
+  const lon0 = (zone-1)*6 - 177;
+  const rad = Math.PI/180;
+  const phi = lat*rad, dl = (lon-lon0)*rad;
+  const sn = Math.sin(phi), cs = Math.cos(phi), tn = Math.tan(phi);
+  const N = a/Math.sqrt(1 - e2*sn*sn);
+  const T = tn*tn, C = ep2*cs*cs, A = dl*cs;
+  const e3 = e2*e2*e2;
+  const M = a*((1 - e2/4 - 3*e2*e2/64 - 5*e3/256)*phi
+             - (3*e2/8 + 3*e2*e2/32 + 45*e3/1024)*Math.sin(2*phi)
+             + (15*e2*e2/256 + 45*e3/1024)*Math.sin(4*phi)
+             - (35*e3/3072)*Math.sin(6*phi));
+  const A3 = A*A*A, A5 = A3*A*A, A4 = A3*A, A6 = A5*A;
+  const x = k0*N*(A + (1-T+C)*A3/6
+            + (5 - 18*T + T*T + 72*C - 58*ep2)*A5/120) + 500000;
+  let y = k0*(M + N*tn*(A*A/2 + (5 - T + 9*C + 4*C*C)*A4/24
+            + (61 - 58*T + T*T + 600*C - 330*ep2)*A6/720));
+  if (lat < 0) y += 10000000;
+  const band = BANDS[Math.max(0, Math.min(19, Math.floor((lat+80)/8)))];
+  return { zone, band, x, y };
+}
+
+/* ------------------------------------------------------------------ *
+ * Estado
+ * ------------------------------------------------------------------ */
+const S = {
+  man:null, nx:0, ny:0, dx:0, dy:0, W:0, H:0,
+  terrain:null, lat:null, lon:null,
+  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0.1, mode:'3d',
+  cache:new Map(), playing:false, timer:null,
+  pins:[], hover:null, gridNorth:0,
+};
+const KEYCI = [0,100,200,500,1000];
+
+/* ------------------------------------------------------------------ *
+ * Escena
+ * ------------------------------------------------------------------ */
+let renderer, scene, camP, camO, ctrP, ctrO, mesh, mat, cross;
+
+function initScene(){
+  renderer = new THREE.WebGLRenderer({ antialias:true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setClearColor(0x11161b, 1);
+  // Un shader que no compila deja la malla invisible sin lanzar excepcion.
+  // Esto lo saca a pantalla en lugar de dejarlo enterrado en la consola.
+  renderer.debug.onShaderError = (gl, prog, vs, fs) => {
+    const log = gl.getProgramInfoLog(prog) || '';
+    const v = gl.getShaderInfoLog(vs) || '';
+    const f = gl.getShaderInfoLog(fs) || '';
+    fail('El shader del terreno no compila:\n' + [log, v, f].filter(Boolean).join('\n'));
+  };
+  $('stage').appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+
+  const diag = Math.hypot(S.W, S.H);
+  camP = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, .5, diag*12);
+  camP.position.set(0, diag*.33, diag*.62);
+
+  const half = diag*.55;
+  camO = new THREE.OrthographicCamera(-half, half, half, -half, .5, diag*12);
+  camO.position.set(0, diag*2, 0.001);
+  camO.up.set(0, 0, -1);
+
+  ctrP = new OrbitControls(camP, renderer.domElement);
+  ctrP.enableDamping = true; ctrP.dampingFactor = .09;
+  ctrP.maxPolarAngle = Math.PI*0.492;
+  ctrP.minDistance = S.W*.03; ctrP.maxDistance = diag*4;
+
+  ctrO = new OrbitControls(camO, renderer.domElement);
+  ctrO.enableRotate = false; ctrO.enableDamping = true; ctrO.dampingFactor = .09;
+  ctrO.enabled = false;
+
+  cross = new THREE.Group();
+  const cm = new THREE.LineBasicMaterial({ color:0xffffff, transparent:true, opacity:.9 });
+  const a = S.W*0.012;
+  for (const [p0,p1] of [[[-a,0,0],[a,0,0]],[[0,0,-a],[0,0,a]],[[0,-a*.6,0],[0,a*.6,0]]]){
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(...p0), new THREE.Vector3(...p1)]);
+    cross.add(new THREE.Line(g, cm));
+  }
+  cross.visible = false;
+  scene.add(cross);
+}
+
+const VERT = `
+  attribute vec3 nrm;
+  attribute float elev;
+  attribute vec2 geo;          // lat, lon reales del modelo
+  uniform float vex;
+  varying vec2 vUv; varying vec3 vN; varying float vE; varying vec2 vG;
+  void main(){
+    vUv = uv; vN = normalize(nrm); vE = elev; vG = geo;
+    vec3 p = vec3(position.x, elev*vex, position.z);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+  }`;
+
+const FRAG = `
+  uniform sampler2D field, lut;
+  uniform float shade, ci, hasField, grat;
+  varying vec2 vUv; varying vec3 vN; varying float vE; varying vec2 vG;
+  void main(){
+    vec3 base = vec3(0.62,0.66,0.69);
+    if (hasField > .5){
+      float t = texture2D(field, vUv).r;
+      base = texture2D(lut, vec2(clamp(t,0.004,0.996), 0.5)).rgb;
+    }
+    vec3 L = normalize(vec3(-0.55, 0.72, 0.42));
+    float s = clamp(dot(vN, L), 0.0, 1.0);
+    float lum = mix(1.0, 0.42 + 0.78*s, shade);
+    vec3 col = base * lum;
+    if (ci > 0.5){
+      float e = vE * 1000.0 / ci;
+      float w = abs(fract(e - 0.5) - 0.5) / max(fwidth(e), 1e-5);
+      col *= mix(0.62, 1.0, clamp(w, 0.0, 1.0));
+    }
+    if (grat > 0.0){
+      // paralelos y meridianos dibujados sobre lat/lon reales del modelo,
+      // asi que la referencia es exacta y no depende de ningun dato externo
+      vec2 g = vG / grat;
+      vec2 w = abs(fract(g - 0.5) - 0.5) / max(fwidth(g), vec2(1e-5));
+      float m = min(clamp(w.x, 0.0, 1.0), clamp(w.y, 0.0, 1.0));
+      col = mix(col*0.30 + vec3(0.10, 0.11, 0.12), col, m);
+    }
+    gl_FragColor = vec4(col, 1.0);
+  }`;
+
+function buildTerrain(){
+  const { nx, ny, dx, dy, terrain } = S;
+  const pos  = new Float32Array(nx*ny*3);
+  const uv   = new Float32Array(nx*ny*2);
+  const elev = new Float32Array(nx*ny);
+  const geo  = new Float32Array(nx*ny*2);
+  const cx = (nx-1)/2, cy = (ny-1)/2;
+  for (let j=0;j<ny;j++){
+    for (let i=0;i<nx;i++){
+      const k = j*nx+i;
+      pos[k*3]   = (i-cx)*dx/1000;
+      pos[k*3+1] = 0;                  // la altura la aplica el vertex shader
+      pos[k*3+2] = -(j-cy)*dy/1000;    // j creciente = norte = -z
+      uv[k*2]    = i/(nx-1);
+      uv[k*2+1]  = j/(ny-1);
+      elev[k]    = terrain[k]/1000;
+      geo[k*2]   = S.lat[k];
+      geo[k*2+1] = S.lon[k];
+    }
+  }
+  // Normales para el sombreado, calculadas con una exageracion de referencia
+  // fija: asi el relieve sigue viendose en modo 2D (exageracion 0).
+  const REF = 3.0, nrm = new Float32Array(nx*ny*3);
+  const sx = 2*dx/1000, sy = 2*dy/1000;
+  for (let j=0;j<ny;j++){
+    for (let i=0;i<nx;i++){
+      const k = j*nx+i;
+      const iL = Math.max(i-1,0), iR = Math.min(i+1,nx-1);
+      const jD = Math.max(j-1,0), jU = Math.min(j+1,ny-1);
+      const gx = (terrain[j*nx+iR]-terrain[j*nx+iL])/1000/sx*REF;
+      const gy = (terrain[jU*nx+i]-terrain[jD*nx+i])/1000/sy*REF;
+      const l = Math.hypot(gx, gy, 1) || 1;
+      nrm[k*3] = -gx/l; nrm[k*3+1] = 1/l; nrm[k*3+2] = gy/l;
+    }
+  }
+  const idx = new Uint32Array((nx-1)*(ny-1)*6);
+  let o = 0;
+  for (let j=0;j<ny-1;j++){
+    for (let i=0;i<nx-1;i++){
+      const a = j*nx+i, b = a+1, c = a+nx, d = c+1;
+      // j creciente va hacia -z, asi que el orden antihorario visto desde
+      // arriba es a,b,c y b,d,c. Al reves la cara frontal mira al suelo y el
+      // culling se come el terreno entero.
+      idx[o++]=a; idx[o++]=b; idx[o++]=c;
+      idx[o++]=b; idx[o++]=d; idx[o++]=c;
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('uv',       new THREE.BufferAttribute(uv, 2));
+  g.setAttribute('nrm',      new THREE.BufferAttribute(nrm, 3));
+  g.setAttribute('elev',     new THREE.BufferAttribute(elev, 1));
+  g.setAttribute('geo',      new THREE.BufferAttribute(geo, 2));
+  g.setIndex(new THREE.BufferAttribute(idx, 1));
+  g.computeBoundingSphere();
+
+  mat = new THREE.ShaderMaterial({
+    // Sin glslVersion. three.js ya compila todo ShaderMaterial como
+    // '#version 300 es' y ademas define gl_FragColor y texture2D. Pedir GLSL3
+    // explicitamente desactiva esos dos defines (WebGLProgram.js:877-878) y el
+    // shader deja de compilar.
+    side: THREE.DoubleSide,            // el terreno nunca debe poder desaparecer
+    vertexShader:VERT, fragmentShader:FRAG,
+    uniforms:{
+      field:{value:null}, lut:{value:lutTexture('wind')},
+      vex:{value:S.vex}, shade:{value:S.shade}, ci:{value:S.ci},
+      hasField:{value:0}, grat:{value:S.grat},
+    },
+  });
+  mesh = new THREE.Mesh(g, mat);
+  // La altura se aplica en el vertex shader, asi que la esfera envolvente
+  // calculada sobre position (y=0) no representa la geometria real.
+  mesh.frustumCulled = false;
+  scene.add(mesh);
+}
+
+/* ---- interpolacion bilineal sobre la malla ---- */
+function sampleGrid(arr, gi, gj){
+  const { nx, ny } = S;
+  if (gi<0 || gj<0 || gi>nx-1 || gj>ny-1) return NaN;
+  const i0 = Math.min(Math.floor(gi), nx-2), j0 = Math.min(Math.floor(gj), ny-2);
+  const fi = gi-i0, fj = gj-j0;
+  const a = arr[j0*nx+i0], b = arr[j0*nx+i0+1];
+  const c = arr[(j0+1)*nx+i0], d = arr[(j0+1)*nx+i0+1];
+  return (a*(1-fi)+b*fi)*(1-fj) + (c*(1-fi)+d*fi)*fj;
+}
+const worldToGrid = (x, z) => [
+  x*1000/S.dx + (S.nx-1)/2,
+  -z*1000/S.dy + (S.ny-1)/2,
+];
+function terrainYAt(x, z){
+  const [gi, gj] = worldToGrid(x, z);
+  const e = sampleGrid(S.terrain, gi, gj);
+  return Number.isFinite(e) ? e/1000*S.vex : NaN;
+}
+
+/* ---- picking por marcha de rayo (mucho mas barato que rayos sobre 500k triangulos) ---- */
+function pickTerrain(ray){
+  const diag = Math.hypot(S.W, S.H);
+  const step = diag/1200, maxT = diag*6;
+  const p = new THREE.Vector3();
+  let prevT = 0, prevD = null;
+  for (let t=step; t<maxT; t+=step){
+    p.copy(ray.direction).multiplyScalar(t).add(ray.origin);
+    const y = terrainYAt(p.x, p.z);
+    if (!Number.isFinite(y)){ prevD = null; prevT = t; continue; }
+    const d = p.y - y;
+    if (prevD !== null && prevD > 0 && d <= 0){
+      let lo = prevT, hi = t;
+      for (let k=0;k<24;k++){
+        const m = (lo+hi)/2;
+        p.copy(ray.direction).multiplyScalar(m).add(ray.origin);
+        const yy = terrainYAt(p.x, p.z);
+        if (!Number.isFinite(yy)) break;
+        if (p.y - yy > 0) lo = m; else hi = m;
+      }
+      p.copy(ray.direction).multiplyScalar((lo+hi)/2).add(ray.origin);
+      return p.clone();
+    }
+    prevD = d; prevT = t;
+  }
+  return null;
+}
+
+/* ------------------------------------------------------------------ *
+ * Viento: flechas o streamlines
+ * ------------------------------------------------------------------ */
+// Paso / separacion en PUNTOS DE REJILLA. Indice 0 no se usa (el deslizador
+// empieza en 1); el modo se apaga con el selector, no con la densidad.
+const DEN_STEPS = [0, 40, 32, 26, 20, 16, 12, 10, 8, 6, 4, 3, 2, 1];
+
+let windObj = null, ribbonMat = null;
+
+function clearWind(){
+  if (!windObj) return;
+  scene.remove(windObj);
+  windObj.geometry.dispose();
+  windObj = null;
+}
+
+async function updateWind(){
+  clearWind();
+  if (S.wmode === 'off') return;
+  let U, V;
+  try {
+    U = (await load('u10', S.t)).data;
+    V = (await load('v10', S.t)).data;
+  } catch { return; }          // el paquete no trae u10/v10
+  const seg = S.wmode === 'arrows' ? buildArrows(U, V) : buildStreams(U, V);
+  if (!seg || !seg.pos.length) return;
+  windObj = makeRibbons(seg);
+  windObj.frustumCulled = false;
+  scene.add(windObj);
+}
+
+/* ---- cintas expandidas en espacio de pantalla ----
+ * gl.LINES ignora el grosor en WebGL, asi que cada segmento se convierte en un
+ * quad cuya anchura se aplica en el vertex shader ya en pixeles: constante a
+ * cualquier zoom. Cada vertice lleva el extremo opuesto del segmento para
+ * poder calcular ahi la perpendicular en pantalla.
+ */
+const RIB_VERT = `
+  attribute vec3 other;
+  attribute float side;
+  attribute float arc;
+  attribute float spd;
+  uniform vec2 resolution;
+  uniform float width, phase, freq, spmax;
+  varying float vP, vS, vSide;
+  void main(){
+    vec4 cp = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vec4 co = projectionMatrix * modelViewMatrix * vec4(other, 1.0);
+    vec2 sp = cp.xy / max(cp.w, 1e-6) * resolution;
+    vec2 so = co.xy / max(co.w, 1e-6) * resolution;
+    vec2 d = so - sp;
+    float len = length(d);
+    vec2 dir = len > 1e-6 ? d/len : vec2(1.0, 0.0);
+    vec2 n = vec2(-dir.y, dir.x) * side * width * 0.5;
+    cp.xy += n / resolution * cp.w;
+    vP = fract(arc*freq - phase);
+    vS = spmax > 0.0 ? clamp(spd/spmax, 0.0, 1.0) : 1.0;
+    vSide = side;
+    gl_Position = cp;
+  }`;
+
+const RIB_FRAG = `
+  uniform float mode, useSpd;
+  uniform vec3 tint;
+  uniform sampler2D wlut;
+  varying float vP, vS, vSide;
+  void main(){
+    // borde suavizado a lo ancho de la cinta: es lo que quita la escalera
+    // en las diagonales cuando el grosor es de 1 o 2 px
+    float edge = 1.0 - smoothstep(0.55, 1.0, abs(vSide));
+    vec3 c = useSpd > 0.5
+      ? texture2D(wlut, vec2(clamp(vS, 0.004, 0.996), 0.5)).rgb
+      : tint;
+    // las flechas van con opacidad plana; las streamlines llevan el pulso
+    // que recorre la linea en el sentido del flujo
+    float a = mode < 0.5 ? 0.85 : (0.18 + 0.82*pow(vP, 3.0));
+    gl_FragColor = vec4(c, a*edge);
+  }`;
+
+function ribbonMaterial(){
+  if (ribbonMat) return ribbonMat;
+  ribbonMat = new THREE.ShaderMaterial({
+    transparent:true, depthWrite:false, side:THREE.DoubleSide,
+    vertexShader:RIB_VERT, fragmentShader:RIB_FRAG,
+    uniforms:{
+      resolution:{ value:new THREE.Vector2(innerWidth, innerHeight) },
+      width:{value:2}, phase:{value:0}, freq:{value:0.08},
+      spmax:{value:1}, mode:{value:0},
+      tint:{ value:new THREE.Color(0xf2f6f8) }, useSpd:{value:0},
+      wlut:{ value:lutTexture('wind') },
+    },
+  });
+  return ribbonMat;
+}
+
+function applyWindColor(){
+  if (!ribbonMat) return;
+  const speed = S.wcol === 'speed';
+  ribbonMat.uniforms.useSpd.value = speed ? 1 : 0;
+  if (!speed) ribbonMat.uniforms.tint.value.set(S.wcol);
+}
+
+function makeRibbons({ pos, arc, spd, spmax = 1, freq = 0.08, mode = 0 }){
+  const ns = pos.length/6;
+  const P = new Float32Array(ns*12), O = new Float32Array(ns*12);
+  const SD = new Float32Array(ns*4), AR = new Float32Array(ns*4), SP = new Float32Array(ns*4);
+  const idx = new Uint32Array(ns*6);
+  // v0=(a,other=b,-1) v1=(a,b,+1) v2=(b,other=a,+1) v3=(b,a,-1)
+  // Los signos de v2/v3 van invertidos a proposito: al mirar hacia a la
+  // perpendicular se invierte, y asi el quad no se retuerce.
+  const SIDES = [-1, 1, 1, -1];
+  for (let s=0;s<ns;s++){
+    const ax=pos[s*6], ay=pos[s*6+1], az=pos[s*6+2];
+    const bx=pos[s*6+3], by=pos[s*6+4], bz=pos[s*6+5];
+    const a0 = arc ? arc[s*2] : 0, a1 = arc ? arc[s*2+1] : 0;
+    const d0 = spd ? spd[s*2] : 1, d1 = spd ? spd[s*2+1] : 1;
+    for (let v=0;v<4;v++){
+      const o = (s*4+v)*3, atA = v < 2;
+      P[o]   = atA ? ax : bx; P[o+1] = atA ? ay : by; P[o+2] = atA ? az : bz;
+      O[o]   = atA ? bx : ax; O[o+1] = atA ? by : ay; O[o+2] = atA ? bz : az;
+      SD[s*4+v] = SIDES[v];
+      AR[s*4+v] = atA ? a0 : a1;
+      SP[s*4+v] = atA ? d0 : d1;
+    }
+    const b = s*4, o = s*6;
+    idx[o]=b; idx[o+1]=b+2; idx[o+2]=b+1;
+    idx[o+3]=b+1; idx[o+4]=b+2; idx[o+5]=b+3;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(P, 3));
+  g.setAttribute('other',    new THREE.BufferAttribute(O, 3));
+  g.setAttribute('side',     new THREE.BufferAttribute(SD, 1));
+  g.setAttribute('arc',      new THREE.BufferAttribute(AR, 1));
+  g.setAttribute('spd',      new THREE.BufferAttribute(SP, 1));
+  g.setIndex(new THREE.BufferAttribute(idx, 1));
+  g.computeBoundingSphere();
+
+  const m = ribbonMaterial();
+  m.uniforms.mode.value = mode;
+  m.uniforms.spmax.value = spmax;
+  m.uniforms.freq.value = freq;
+  m.uniforms.width.value = S.width;
+  applyWindColor();
+  m.uniforms.resolution.value.set(innerWidth, innerHeight);
+  return new THREE.Mesh(g, m);
+}
+
+const liftNow = () => 0.08 + 0.05*S.vex;
+const worldX = i => (i - (S.nx-1)/2)*S.dx/1000;
+const worldZ = j => -(j - (S.ny-1)/2)*S.dy/1000;
+
+function buildArrows(U, V){
+  const { nx, ny, dx } = S;
+  const step = DEN_STEPS[S.dens];
+  const L = step*dx/1000*0.78;
+  const lift = liftNow();
+  // Con flechas muy densas el drapeado extremo a extremo no aporta nada (miden
+  // metros) y cuadruplica el coste, asi que solo se usa a densidad baja.
+  const drape = step > 3;
+  const yAt = (x, z) => {
+    const y = terrainYAt(x, z);
+    return (Number.isFinite(y) ? y : 0) + lift;
+  };
+  let vmax = 1e-6;
+  for (let j=0;j<ny;j+=step) for (let i=0;i<nx;i+=step){
+    const k=j*nx+i; vmax = Math.max(vmax, Math.hypot(U[k],V[k]));
+  }
+  const pts = [], spd = [];
+  for (let j=Math.floor(step/2); j<ny; j+=step){
+    for (let i=Math.floor(step/2); i<nx; i+=step){
+      const k = j*nx+i;
+      const u = U[k], v = V[k], sp = Math.hypot(u,v);
+      if (sp < 1e-4) continue;
+      const f = (0.35 + 0.65*sp/vmax) * L;
+      const ux = u/sp, uz = -v/sp;                 // v hacia el norte = -z
+      const x = worldX(i), z = worldZ(j);
+      const yc = S.terrain[k]/1000*S.vex + lift;
+      const x0 = x-ux*f/2, z0 = z-uz*f/2, x1 = x+ux*f/2, z1 = z+uz*f/2;
+      const y0 = drape ? yAt(x0,z0) : yc, y1 = drape ? yAt(x1,z1) : yc;
+      pts.push(x0,y0,z0, x1,y1,z1); spd.push(sp, sp);
+      if (step <= 3) continue;                     // sin punta a esa escala
+      const hb = f*0.3, px = -uz, pz = ux;
+      const bx1 = x1-ux*hb+px*hb*0.55, bz1 = z1-uz*hb+pz*hb*0.55;
+      const bx2 = x1-ux*hb-px*hb*0.55, bz2 = z1-uz*hb-pz*hb*0.55;
+      pts.push(x1,y1,z1, bx1, drape?yAt(bx1,bz1):yc, bz1); spd.push(sp, sp);
+      pts.push(x1,y1,z1, bx2, drape?yAt(bx2,bz2):yc, bz2); spd.push(sp, sp);
+    }
+  }
+  return { pos: pts, spd, spmax: vmax, mode: 0 };
+}
+
+/* ---- streamlines uniformemente separadas (Jobard & Lefebvre 1997) ----
+ * Se integra en coordenadas de rejilla con RK4 y paso constante en celdas.
+ * Una rejilla de ocupacion con celdas de d_sep puntos corta la linea cuando
+ * entra en territorio ya cubierto por otra: eso es lo que las separa de forma
+ * homogenea en vez de dejar espagueti apelotonado donde converge el flujo.
+ * La ocupacion se marca solo al aceptar la linea, asi ninguna se corta a si
+ * misma. El coste total esta acotado por el area / d_sep, no por las semillas.
+ */
+function buildStreams(U, V){
+  const { nx, ny, dx, dy } = S;
+  const dsep = DEN_STEPS[S.dens];
+  const H = 0.5;                      // paso de integracion, en celdas
+  const MAXSTEP = 1500;               // tope por rama
+  const ox = Math.ceil(nx/dsep), oy = Math.ceil(ny/dsep);
+  const occ = new Uint8Array(ox*oy);
+  const lift = liftNow();
+
+  // velocidad normalizada en celdas/paso
+  const vel = (gi, gj) => {
+    const u = sampleGrid(U, gi, gj), v = sampleGrid(V, gi, gj);
+    if (!Number.isFinite(u) || !Number.isFinite(v)) return null;
+    const gu = u/dx, gv = v/dy;
+    const n = Math.hypot(gu, gv);
+    if (n < 1e-9) return null;
+    return [gu/n, gv/n, Math.hypot(u, v)];
+  };
+
+  function trace(si, sj, dir){
+    const path = [];
+    let gi = si, gj = sj;
+    for (let s=0; s<MAXSTEP; s++){
+      if (gi < 0 || gj < 0 || gi > nx-1 || gj > ny-1) break;
+      const ci = Math.min(ox-1, Math.floor(gi/dsep));
+      const cj = Math.min(oy-1, Math.floor(gj/dsep));
+      if (occ[cj*ox+ci]) break;
+      const k1 = vel(gi, gj);
+      if (!k1) break;
+      path.push([gi, gj, k1[2]]);
+      // RK4 sobre el campo de direcciones
+      const k2 = vel(gi + dir*H*k1[0]/2, gj + dir*H*k1[1]/2); if (!k2) break;
+      const k3 = vel(gi + dir*H*k2[0]/2, gj + dir*H*k2[1]/2); if (!k3) break;
+      const k4 = vel(gi + dir*H*k3[0],   gj + dir*H*k3[1]);   if (!k4) break;
+      gi += dir*H*(k1[0] + 2*k2[0] + 2*k3[0] + k4[0])/6;
+      gj += dir*H*(k1[1] + 2*k2[1] + 2*k3[1] + k4[1])/6;
+    }
+    return path;
+  }
+
+  const pos = [], arc = [], spd = [];
+  let spmax = 1e-6;
+
+  const emit = (path) => {
+    // marca la ocupacion y vuelca los segmentos
+    let s = 0;
+    let prev = null;
+    for (const [gi, gj, sp] of path){
+      const ci = Math.min(ox-1, Math.floor(gi/dsep));
+      const cj = Math.min(oy-1, Math.floor(gj/dsep));
+      occ[cj*ox+ci] = 1;
+      const e = sampleGrid(S.terrain, gi, gj);
+      const p = [worldX(gi), (Number.isFinite(e) ? e/1000*S.vex : 0) + lift, worldZ(gj)];
+      if (prev){
+        s += Math.hypot(p[0]-prev.p[0], p[2]-prev.p[2]);
+        pos.push(prev.p[0], prev.p[1], prev.p[2], p[0], p[1], p[2]);
+        arc.push(prev.s, s);
+        spd.push(prev.sp, sp);
+        spmax = Math.max(spmax, sp);
+      }
+      prev = { p, s, sp };
+    }
+  };
+
+  // semillas en rejilla desfasada, media celda de separacion
+  const seedStep = Math.max(1, Math.round(dsep/2));
+  for (let j=seedStep; j<ny-1; j+=seedStep){
+    for (let i=seedStep; i<nx-1; i+=seedStep){
+      const ci = Math.min(ox-1, Math.floor(i/dsep));
+      const cj = Math.min(oy-1, Math.floor(j/dsep));
+      if (occ[cj*ox+ci]) continue;
+      const fwd = trace(i, j, +1);
+      const bwd = trace(i, j, -1);
+      const line = bwd.slice(1).reverse().concat(fwd);
+      if (line.length < 4) continue;
+      emit(line);
+    }
+  }
+  if (!pos.length) return null;
+  return {
+    pos, arc, spd, spmax, mode: 1,
+    // longitud del pulso proporcional a la separacion, para que se lea igual
+    // a cualquier densidad
+    freq: 1.0/Math.max(dsep*S.dx/1000*3.0, 1.0),
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Carga de campos con cache
+ * ------------------------------------------------------------------ */
+function fmeta(key){ return S.man.fields.find(f => f.key === key); }
+
+async function load(key, t){
+  const id = `${key}|${t}`;
+  if (S.cache.has(id)) return S.cache.get(id);
+  const f = fmeta(key);
+  if (!f) throw new Error(`campo ${key} no esta en el paquete`);
+  const dec = await decodePNG16('data/'+f.files[t], f.vmin, f.vmax);
+  const entry = { ...dec, tex: fieldTexture(dec.data, dec.nx, dec.ny, f.vmin, f.vmax) };
+  if (S.cache.size > 26){
+    // Nunca liberar la textura que el material tiene enlazada ahora mismo:
+    // liberarla dejaria la malla en negro sin ningun error visible.
+    for (const k of S.cache.keys()){
+      const e = S.cache.get(k);
+      if (e.tex === mat?.uniforms?.field?.value) continue;
+      e.tex?.dispose();
+      S.cache.delete(k);
+      break;
+    }
+  }
+  S.cache.set(id, entry);
+  return entry;
+}
+
+let showing = null;
+async function show(){
+  const f = fmeta(S.field);
+  $('status').hidden = false;
+  try {
+    const e = await load(S.field, S.t);
+    showing = e;
+    mat.uniforms.field.value = e.tex;
+    mat.uniforms.hasField.value = 1;
+    mat.uniforms.lut.value.dispose();
+    mat.uniforms.lut.value = lutTexture(f.cmap);
+    drawLegend(f);
+    updateTimeUI();
+    await updateWind();
+    // prefetch del siguiente paso
+    const next = (S.t+1) % S.man.times.length;
+    if (next !== S.t) load(S.field, next).catch(()=>{});
+  } catch (err){
+    fail(err.message);
+  } finally {
+    $('status').hidden = true;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Interfaz
+ * ------------------------------------------------------------------ */
+function drawLegend(f){
+  const cv = $('bar'), ctx = cv.getContext('2d');
+  const b = lutBytes(f.cmap);
+  const img = ctx.createImageData(256, cv.height);
+  for (let y=0;y<cv.height;y++) for (let x=0;x<256;x++){
+    const o = (y*256+x)*4;
+    img.data[o]=b[x*4]; img.data[o+1]=b[x*4+1]; img.data[o+2]=b[x*4+2]; img.data[o+3]=255;
+  }
+  ctx.putImageData(img, 0, 0);
+  $('lt').textContent = `${f.label} (${f.units})`;
+  $('e0').textContent = fmtNum(f.vmin);
+  $('e1').textContent = fmtNum(f.vmax);
+}
+const fmtNum = v => Math.abs(v) >= 100 ? v.toFixed(0)
+                  : Math.abs(v) >= 10 ? v.toFixed(1) : v.toFixed(2);
+
+function hhmm(iso){ return iso.slice(11,16); }
+function dayLabel(iso){ return iso.slice(8,10)+'/'+iso.slice(5,7); }
+
+function buildTicks(){
+  const tr = $('tr');
+  tr.max = S.man.times.length - 1;
+  tr.value = S.t;
+  // Al arrastrar se refresca el rotulo en cada paso, pero la carga se
+  // encola: descodificar un PNG por cada pixel arrastrado atasca el hilo.
+  tr.oninput = () => { S.t = +tr.value; updateTimeUI(); showQueued(); };
+  updateTimeUI();
+}
+
+const LOCAL_TZ = 'Europe/Madrid';
+function updateTimeUI(){
+  const iso = S.man.times[S.t];
+  const d = new Date(iso);
+  const fecha = d.toLocaleDateString('es-ES',
+    { weekday:'short', day:'2-digit', month:'short', timeZone:'UTC' });
+  $('tmain').textContent = `${fecha} · ${iso.slice(11,16)} UTC`;
+  let sub = '';
+  try {
+    sub = d.toLocaleTimeString('es-ES',
+      { hour:'2-digit', minute:'2-digit', timeZone:LOCAL_TZ }) + ' local';
+  } catch { sub = ''; }
+  const init = new Date(S.man.grid.init);
+  if (!isNaN(init)){
+    const h = Math.round((d - init)/3600000);
+    sub += `${sub ? ' · ' : ''}H+${String(h).padStart(2,'0')}`;
+  }
+  sub += ` · paso ${S.t+1}/${S.man.times.length}`;
+  $('tsub').textContent = sub;
+  $('tr').value = S.t;
+}
+
+// Coalescencia de cargas: si ya hay una en vuelo, se guarda la ultima pedida
+// y se atiende al terminar. Evita encadenar decenas de decodificaciones.
+let inFlight = false, queued = null;
+async function showQueued(){
+  if (inFlight){ queued = S.t; return; }
+  inFlight = true;
+  try {
+    await show();
+    while (queued !== null && queued !== S.t){ S.t = queued; queued = null; await show(); }
+    queued = null;
+  } finally { inFlight = false; }
+}
+
+function setMode(m, keepVex = false){
+  S.mode = m;
+  $('b2d').setAttribute('aria-pressed', m === '2d');
+  $('b3d').setAttribute('aria-pressed', m === '3d');
+  ctrP.enabled = m === '3d';
+  ctrO.enabled = m === '2d';
+  if (keepVex) return;
+  if (m === '2d'){ setVex(0); $('vex').value = 0; }
+  else if (S.vex === 0){ setVex(8); $('vex').value = 8; }
+}
+function setVex(v){
+  S.vex = +v;
+  mat.uniforms.vex.value = S.vex;
+  $('vexL').textContent = S.vex === 0 ? 'plano' : S.vex.toFixed(1).replace('.0','')+'×';
+  updateWind();
+}
+
+function bindUI(){
+  const sel = $('field');
+  S.man.fields.forEach(f => {
+    if (f.key === 'u10' || f.key === 'v10') return;  // se usan para las flechas
+    const o = document.createElement('option');
+    o.value = f.key; o.textContent = `${f.label} — ${f.units}`;
+    sel.appendChild(o);
+  });
+  sel.value = S.field;
+  sel.onchange = () => { S.field = sel.value; show(); };
+
+  $('b2d').onclick = () => setMode('2d');
+  $('b3d').onclick = () => setMode('3d');
+  $('vex').oninput = e => {
+    const v = +e.target.value;
+    if (S.mode === '2d' && v > 0) setMode('3d', true);
+    setVex(v);
+  };
+  $('wmode').onchange = e => { S.wmode = e.target.value; updateWind(); };
+  $('den').oninput = e => {
+    S.dens = +e.target.value;
+    const st = DEN_STEPS[S.dens];
+    $('denL').textContent = st === 1 ? 'cada punto' : `cada ${st} puntos`;
+  };
+  $('den').onchange = () => updateWind();   // solo al soltar: recalcular es caro
+  $('wcol').onchange = e => { S.wcol = e.target.value; applyWindColor(); };
+  $('wid').oninput = e => {
+    S.width = +e.target.value;
+    $('wL').textContent = S.width + ' px';
+    // solo es un uniform: no hay que reconstruir la geometria
+    if (ribbonMat) ribbonMat.uniforms.width.value = S.width;
+  };
+  $('shd').oninput = e => {
+    S.shade = +e.target.value/100;
+    mat.uniforms.shade.value = S.shade;
+    $('shdL').textContent = e.target.value+'%';
+  };
+  $('ctr').oninput = e => {
+    S.ci = KEYCI[+e.target.value];
+    mat.uniforms.ci.value = S.ci;
+    $('ctrL').textContent = S.ci ? S.ci+' m' : 'sin curvas';
+  };
+  $('grat').onchange = e => {
+    S.grat = +e.target.value;
+    mat.uniforms.grat.value = S.grat;
+  };
+  $('play').onclick = togglePlay;
+
+  addEventListener('keydown', e => {
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+    if (e.code === 'Space'){ e.preventDefault(); togglePlay(); }
+    if (e.key === 'ArrowRight'){ S.t = (S.t+1)%S.man.times.length; showQueued(); }
+    if (e.key === 'ArrowLeft'){ S.t = (S.t-1+S.man.times.length)%S.man.times.length; showQueued(); }
+    if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
+    if (e.key.toLowerCase() === 'p' && S.pins.length){
+      const json = JSON.stringify(S.pins.map(({name,lat,lon}) =>
+        ({ name, lat:+lat.toFixed(5), lon:+lon.toFixed(5) })), null, 1);
+      navigator.clipboard?.writeText(json).then(
+        () => { $('phint').textContent = `${S.pins.length} puntos copiados`; },
+        () => { $('phint').textContent = 'no se pudo copiar'; });
+    }
+  });
+}
+function togglePlay(){
+  S.playing = !S.playing;
+  $('play').textContent = S.playing ? '❚❚' : '▶';
+  clearInterval(S.timer);
+  if (S.playing) S.timer = setInterval(() => {
+    S.t = (S.t+1) % S.man.times.length; showQueued();
+  }, 700);
+}
+
+/* ---- sonda ---- */
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+function onMove(ev){
+  ndc.x = (ev.clientX/innerWidth)*2 - 1;
+  ndc.y = -(ev.clientY/innerHeight)*2 + 1;
+  ray.setFromCamera(ndc, S.mode === '3d' ? camP : camO);
+  const hit = pickTerrain(ray.ray);
+  if (!hit){ cross.visible = false; $('pv').textContent = '—'; $('pc').textContent = 'fuera del dominio'; return; }
+  const [gi, gj] = worldToGrid(hit.x, hit.z);
+  cross.visible = true;
+  cross.position.set(hit.x, hit.y, hit.z);
+  const f = fmeta(S.field);
+  const v = showing ? sampleGrid(showing.data, gi, gj) : NaN;
+  $('pv').textContent = Number.isFinite(v) ? fmtNum(v) : '—';
+  $('pu').textContent = f ? f.units : '';
+  const la = sampleGrid(S.lat, gi, gj), lo = sampleGrid(S.lon, gi, gj);
+  const z = sampleGrid(S.terrain, gi, gj);
+  $('pc').textContent =
+    `${la.toFixed(4)}\u00b0N  ${lo.toFixed(4)}\u00b0E   ${z.toFixed(0)} m snm`;
+  const u = utm(la, lo);
+  $('pu2').textContent =
+    `UTM ${u.zone}${u.band}  ${u.x.toFixed(0)} E  ${u.y.toFixed(0)} N`;
+  S.hover = { lat:la, lon:lo, z, x:hit.x, wz:hit.z };
+}
+
+/* ---- puntos marcados por el usuario ---- */
+function addPin(){
+  if (!S.hover) return;
+  const u = utm(S.hover.lat, S.hover.lon);
+  const def = `${u.x.toFixed(0)}E ${u.y.toFixed(0)}N`;
+  const name = prompt('Nombre del punto:', def);
+  if (name === null) return;
+  S.pins.push({ name: name || def, lat:S.hover.lat, lon:S.hover.lon,
+                x:S.hover.x, z:S.hover.wz });
+  renderPins();
+}
+
+// Rotulos en HTML proyectado cada fotograma: nada de texto en texturas y se
+// leen igual a cualquier zoom y en cualquier orientacion de camara.
+const pinEls = [];
+function renderPins(){
+  const box = $('pins');
+  while (pinEls.length > S.pins.length) box.removeChild(pinEls.pop());
+  while (pinEls.length < S.pins.length){
+    const el = document.createElement('div');
+    el.className = 'pin';
+    box.appendChild(el); pinEls.push(el);
+  }
+  S.pins.forEach((p, i) => { pinEls[i].textContent = p.name; });
+}
+const _pv = new THREE.Vector3();
+function projectPins(){
+  if (!S.pins.length) return;
+  const cam = S.mode === '3d' ? camP : camO;
+  for (let i=0;i<S.pins.length;i++){
+    const p = S.pins[i], el = pinEls[i];
+    const y = terrainYAt(p.x, p.z);
+    _pv.set(p.x, Number.isFinite(y) ? y : 0, p.z).project(cam);
+    if (_pv.z > 1 || Math.abs(_pv.x) > 1.15 || Math.abs(_pv.y) > 1.15){
+      el.style.display = 'none'; continue;
+    }
+    el.style.display = '';
+    el.style.left = ((_pv.x + 1)/2*innerWidth).toFixed(1) + 'px';
+    el.style.top  = ((1 - _pv.y)/2*innerHeight).toFixed(1) + 'px';
+  }
+}
+
+/* ---- barra de escala y norte de rejilla ---- */
+function updateRuler(){
+  const on = S.mode === '2d';
+  $('sbar').style.visibility = on ? 'visible' : 'hidden';
+  if (!on) return;
+  const kmPerPx = (camO.top - camO.bottom)/camO.zoom/innerHeight;
+  const target = kmPerPx*110;
+  const pow = 10**Math.floor(Math.log10(Math.max(target, 1e-6)));
+  let km = pow;
+  for (const m of [1,2,5,10]) if (pow*m <= target*1.6) km = pow*m;
+  $('sbar').style.width = (km/kmPerPx).toFixed(0) + 'px';
+  $('sbarL').textContent = km >= 1 ? `${km} km` : `${Math.round(km*1000)} m`;
+}
+
+// El norte de la rejilla Lambert no coincide con el geografico salvo en el
+// meridiano central, asi que la flecha se gira segun la convergencia real,
+// medida sobre los propios XLAT/XLONG del modelo.
+function computeGridNorth(){
+  const { nx, ny } = S;
+  const i = (nx-1) >> 1, j = (ny-1) >> 1, d = Math.max(2, Math.round(ny*0.1));
+  const k0 = j*nx + i, k1 = (j+d)*nx + i;
+  const dlat = S.lat[k1] - S.lat[k0];
+  const dlon = (S.lon[k1] - S.lon[k0])*Math.cos(S.lat[k0]*Math.PI/180);
+  S.gridNorth = Math.atan2(dlon, dlat)*180/Math.PI;   // rumbo de +j
+  $('north').style.transform = `rotate(${(-S.gridNorth).toFixed(2)}deg)`;
+  $('northwrap').title =
+    `Norte geografico. Convergencia de la rejilla en el centro: ` +
+    `${S.gridNorth.toFixed(2)}\u00b0`;
+}
+
+/* ---- toponimos opcionales: data/places.json = [{name, lat, lon}, ...] ----
+ * Si el fichero no existe simplemente no hay rotulos. Los puntos marcados a
+ * mano con doble clic se guardan en el mismo formato, asi que la tecla P
+ * copia al portapapeles algo que puedes pegar tal cual en places.json.
+ */
+async function loadPlaces(){
+  let list;
+  try {
+    const r = await fetch('data/places.json');
+    if (!r.ok) return;
+    list = await r.json();
+  } catch { return; }
+  if (!Array.isArray(list)) return;
+  // lat/lon -> indices de rejilla por busqueda gruesa y refinado local, que
+  // invertir una Lambert a mano no merece la pena para un punado de puntos
+  const { nx, ny } = S;
+  for (const p of list.slice(0, 200)){
+    if (!Number.isFinite(p?.lat) || !Number.isFinite(p?.lon)) continue;
+    let best = -1, bi = 0, bj = 0;
+    for (let j=0;j<ny;j+=4) for (let i=0;i<nx;i+=4){
+      const k = j*nx+i;
+      const d = (S.lat[k]-p.lat)**2 + ((S.lon[k]-p.lon)*0.76)**2;
+      if (best < 0 || d < best){ best = d; bi = i; bj = j; }
+    }
+    for (let j=Math.max(0,bj-4);j<Math.min(ny,bj+5);j++)
+      for (let i=Math.max(0,bi-4);i<Math.min(nx,bi+5);i++){
+        const k = j*nx+i;
+        const d = (S.lat[k]-p.lat)**2 + ((S.lon[k]-p.lon)*0.76)**2;
+        if (d < best){ best = d; bi = i; bj = j; }
+      }
+    if (Math.sqrt(best) > 0.05) continue;        // fuera del dominio
+    S.pins.push({ name:String(p.name ?? '?'), lat:p.lat, lon:p.lon,
+                  x:worldX(bi), z:worldZ(bj) });
+  }
+  renderPins();
+}
+
+/* ------------------------------------------------------------------ *
+ * Arranque
+ * ------------------------------------------------------------------ */
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let tPrev = performance.now();
+function loop(){
+  requestAnimationFrame(loop);
+  const now = performance.now();
+  const dt = Math.min((now - tPrev)/1000, 0.1);
+  tPrev = now;
+  if (ribbonMat && !REDUCED && S.wmode === 'streams'){
+    ribbonMat.uniforms.phase.value = (ribbonMat.uniforms.phase.value + dt*0.35) % 1;
+  }
+  (S.mode === '3d' ? ctrP : ctrO).update();
+  renderer.render(scene, S.mode === '3d' ? camP : camO);
+  projectPins();
+  updateRuler();
+}
+
+function fitCameras(){
+  renderer.setSize(innerWidth, innerHeight);
+  camP.aspect = innerWidth/innerHeight; camP.updateProjectionMatrix();
+  const half = Math.hypot(S.W, S.H)*.55, a = innerWidth/innerHeight;
+  camO.left = -half*a; camO.right = half*a; camO.top = half; camO.bottom = -half;
+  camO.updateProjectionMatrix();
+  ribbonMat?.uniforms.resolution.value.set(innerWidth, innerHeight);
+}
+addEventListener('resize', fitCameras);
+
+(async function start(){
+  try {
+    boot('leyendo data/manifest.json');
+    const man = await (await fetch('data/manifest.json')).json();
+    S.man = man;
+    S.nx = man.grid.nx; S.ny = man.grid.ny;
+    S.dx = man.grid.dx; S.dy = man.grid.dy;
+    S.W = S.nx*S.dx/1000; S.H = S.ny*S.dy/1000;
+
+    boot(`manifest ok: ${man.fields.length} campos, ${man.times.length} pasos`);
+    for (const [k, target] of [['terrain','terrain'],['lat','lat'],['lon','lon']]){
+      const st = man.static[k];
+      if (!st) throw new Error(`falta el estatico ${k} en el manifest`);
+      S[target] = (await decodePNG16('data/'+st.file, st.vmin, st.vmax)).data;
+    }
+
+    S.field = (man.fields.find(f => f.key === 'wspd10') || man.fields[0]).key;
+
+    $('meta').textContent =
+      `d0${man.grid.grid_id} · ${S.nx}×${S.ny} · dx ${man.grid.dx.toFixed(0)} m · ` +
+      `init ${man.grid.init} · ${man.title}` + (man.note ? ` · ${man.note}` : '');
+
+    boot('estaticos descodificados');
+    initScene();
+    fitCameras();
+    boot('WebGL iniciado');
+    buildTerrain();
+    boot(`terreno construido: ${S.nx}x${S.ny}`);
+    buildTicks();
+    bindUI();
+    setVex(S.vex);
+    renderer.domElement.addEventListener('pointermove', onMove);
+  renderer.domElement.addEventListener('dblclick', addPin);
+  await loadPlaces();
+  computeGridNorth();
+    await show();
+    boot('listo');
+    loop();
+  } catch (err){
+    fail(err.message + ' — ¿estás sirviendo la carpeta por HTTP? '
+       + 'file:// bloquea la carga de data/.');
+  }
+})();
+</script>
+</body>
+</html>

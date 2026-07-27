@@ -1,0 +1,184 @@
+{
+ "format": "wrf-surface-pack/1",
+ "generated": "2026-07-27T00:00:29Z",
+ "title": "d03 500 m \u2014 Sierra Oeste",
+ "note": "Simulaci\u00f3n experimental, no producto operativo",
+ "grid": {
+  "nx": 501,
+  "ny": 501,
+  "dx": 500.0,
+  "dy": 500.0,
+  "grid_id": 3,
+  "cen_lat": 40.406978607177734,
+  "cen_lon": -4.058349609375,
+  "map_proj": "Lambert Conformal",
+  "init": "2026-07-26T12:00:00Z",
+  "model": "OUTPUT FROM WRF V4.5 MODEL"
+ },
+ "times": [
+  "2026-07-26T18:00:00Z",
+  "2026-07-26T19:00:00Z",
+  "2026-07-26T20:00:00Z",
+  "2026-07-26T21:00:00Z",
+  "2026-07-26T22:00:00Z"
+ ],
+ "static": {
+  "terrain": {
+   "file": "static/terrain.png",
+   "vmin": 257.89068603515625,
+   "vmax": 2372.0517578125
+  },
+  "lat": {
+   "file": "static/lat.png",
+   "vmin": 39.2692985534668,
+   "vmax": 41.53170394897461
+  },
+  "lon": {
+   "file": "static/lon.png",
+   "vmin": -5.554168701171875,
+   "vmax": -2.55133056640625
+  },
+  "landmask": {
+   "file": "static/landmask.png",
+   "vmin": 0.0,
+   "vmax": 1.0
+  }
+ },
+ "fields": [
+  {
+   "key": "wspd10",
+   "label": "Viento 10 m",
+   "units": "m/s",
+   "cmap": "wind",
+   "vmin": -2.5,
+   "vmax": 15.0,
+   "files": [
+    "wspd10/t000.png",
+    "wspd10/t001.png",
+    "wspd10/t002.png",
+    "wspd10/t003.png",
+    "wspd10/t004.png"
+   ]
+  },
+  {
+   "key": "gust10",
+   "label": "Racha max. 10 m",
+   "units": "m/s",
+   "cmap": "wind",
+   "vmin": -2.5,
+   "vmax": 15.0,
+   "files": [
+    "gust10/t000.png",
+    "gust10/t001.png",
+    "gust10/t002.png",
+    "gust10/t003.png",
+    "gust10/t004.png"
+   ]
+  },
+  {
+   "key": "t2",
+   "label": "Temperatura 2 m",
+   "units": "C",
+   "cmap": "thermal",
+   "vmin": 10.0,
+   "vmax": 40.0,
+   "files": [
+    "t2/t000.png",
+    "t2/t001.png",
+    "t2/t002.png",
+    "t2/t003.png",
+    "t2/t004.png"
+   ]
+  },
+  {
+   "key": "rh2",
+   "label": "Humedad relativa 2 m",
+   "units": "%",
+   "cmap": "moist",
+   "vmin": 0.0,
+   "vmax": 100.0,
+   "files": [
+    "rh2/t000.png",
+    "rh2/t001.png",
+    "rh2/t002.png",
+    "rh2/t003.png",
+    "rh2/t004.png"
+   ]
+  },
+  {
+   "key": "vpd2",
+   "label": "Deficit de vapor 2 m",
+   "units": "hPa",
+   "cmap": "dry",
+   "vmin": 0.0,
+   "vmax": 60.0,
+   "files": [
+    "vpd2/t000.png",
+    "vpd2/t001.png",
+    "vpd2/t002.png",
+    "vpd2/t003.png",
+    "vpd2/t004.png"
+   ]
+  },
+  {
+   "key": "hdw_sfc",
+   "label": "HDW superficie (proxy)",
+   "units": "-",
+   "cmap": "dry",
+   "vmin": -10.0,
+   "vmax": 40.0,
+   "files": [
+    "hdw_sfc/t000.png",
+    "hdw_sfc/t001.png",
+    "hdw_sfc/t002.png",
+    "hdw_sfc/t003.png",
+    "hdw_sfc/t004.png"
+   ]
+  },
+  {
+   "key": "pblh",
+   "label": "Altura capa limite",
+   "units": "m",
+   "cmap": "depth",
+   "vmin": 0.0,
+   "vmax": 4000.0,
+   "files": [
+    "pblh/t000.png",
+    "pblh/t001.png",
+    "pblh/t002.png",
+    "pblh/t003.png",
+    "pblh/t004.png"
+   ]
+  },
+  {
+   "key": "u10",
+   "label": "Componente u 10 m",
+   "units": "m/s",
+   "cmap": "diverge",
+   "vmin": -15.0,
+   "vmax": 15.0,
+   "files": [
+    "u10/t000.png",
+    "u10/t001.png",
+    "u10/t002.png",
+    "u10/t003.png",
+    "u10/t004.png"
+   ]
+  },
+  {
+   "key": "v10",
+   "label": "Componente v 10 m",
+   "units": "m/s",
+   "cmap": "diverge",
+   "vmin": -15.0,
+   "vmax": 15.0,
+   "files": [
+    "v10/t000.png",
+    "v10/t001.png",
+    "v10/t002.png",
+    "v10/t003.png",
+    "v10/t004.png"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,7332 @@
+[
+ {
+  "name": "Abades",
+  "lat": 40.91791,
+  "lon": -4.28541
+ },
+ {
+  "name": "Adanero",
+  "lat": 40.94581,
+  "lon": -4.60348
+ },
+ {
+  "name": "Adrada de Haza",
+  "lat": 41.58328,
+  "lon": -3.83353
+ },
+ {
+  "name": "Adrada de Pirón",
+  "lat": 41.06451,
+  "lon": -4.0579
+ },
+ {
+  "name": "Adradas",
+  "lat": 41.36113,
+  "lon": -2.54478
+ },
+ {
+  "name": "Adrados",
+  "lat": 41.36611,
+  "lon": -4.11289
+ },
+ {
+  "name": "Aguasal",
+  "lat": 41.29338,
+  "lon": -4.63635
+ },
+ {
+  "name": "Aguilafuente",
+  "lat": 41.23727,
+  "lon": -4.11504
+ },
+ {
+  "name": "Ajalvir",
+  "lat": 40.52736,
+  "lon": -3.47914
+ },
+ {
+  "name": "Ajofrín",
+  "lat": 39.72771,
+  "lon": -3.99137
+ },
+ {
+  "name": "Alaejos",
+  "lat": 41.30367,
+  "lon": -5.22273
+ },
+ {
+  "name": "Alameda de la Sagra",
+  "lat": 40.00508,
+  "lon": -3.80804
+ },
+ {
+  "name": "Alameda del Valle",
+  "lat": 40.92787,
+  "lon": -3.86172
+ },
+ {
+  "name": "Alaminos",
+  "lat": 40.87698,
+  "lon": -2.73153
+ },
+ {
+  "name": "Alaraz",
+  "lat": 40.72176,
+  "lon": -5.32753
+ },
+ {
+  "name": "Alarilla",
+  "lat": 40.84001,
+  "lon": -3.10712
+ },
+ {
+  "name": "Alba de Tormes",
+  "lat": 40.82343,
+  "lon": -5.51715
+ },
+ {
+  "name": "Albalate de Zorita",
+  "lat": 40.29264,
+  "lon": -2.86491
+ },
+ {
+  "name": "Albares",
+  "lat": 40.30945,
+  "lon": -3.04883
+ },
+ {
+  "name": "Albarreal de Tajo",
+  "lat": 39.88927,
+  "lon": -4.22009
+ },
+ {
+  "name": "Albendiego",
+  "lat": 41.2199,
+  "lon": -3.06058
+ },
+ {
+  "name": "Albornos",
+  "lat": 40.83509,
+  "lon": -4.8859
+ },
+ {
+  "name": "Alcabón",
+  "lat": 40.00212,
+  "lon": -4.37317
+ },
+ {
+  "name": "Alcalá de Henares",
+  "lat": 40.49456,
+  "lon": -3.37276
+ },
+ {
+  "name": "Alcaudete de la Jara",
+  "lat": 39.77189,
+  "lon": -4.84505
+ },
+ {
+  "name": "Alcazarén",
+  "lat": 41.38493,
+  "lon": -4.67972
+ },
+ {
+  "name": "Alcañizo",
+  "lat": 39.90805,
+  "lon": -5.11528
+ },
+ {
+  "name": "Alcoba",
+  "lat": 39.31639,
+  "lon": -4.43323
+ },
+ {
+  "name": "Alcobendas",
+  "lat": 40.5416,
+  "lon": -3.63036
+ },
+ {
+  "name": "Alcocer",
+  "lat": 40.46526,
+  "lon": -2.60832
+ },
+ {
+  "name": "Alcohujate",
+  "lat": 40.42772,
+  "lon": -2.59758
+ },
+ {
+  "name": "Alcolea de Tajo",
+  "lat": 39.80976,
+  "lon": -5.13744
+ },
+ {
+  "name": "Alcolea de las Peñas",
+  "lat": 41.2205,
+  "lon": -2.78534
+ },
+ {
+  "name": "Alcolea del Pinar",
+  "lat": 40.97742,
+  "lon": -2.56352
+ },
+ {
+  "name": "Alconada",
+  "lat": 40.90777,
+  "lon": -5.38267
+ },
+ {
+  "name": "Alconada de Maderuelo",
+  "lat": 41.4502,
+  "lon": -3.49286
+ },
+ {
+  "name": "Alconchel de la Estrella",
+  "lat": 39.71486,
+  "lon": -2.58197
+ },
+ {
+  "name": "Alcorcón",
+  "lat": 40.36273,
+  "lon": -3.84192
+ },
+ {
+  "name": "Alcubilla de las Peñas",
+  "lat": 41.27477,
+  "lon": -2.56288
+ },
+ {
+  "name": "Alcázar de San Juan",
+  "lat": 39.35679,
+  "lon": -3.2622
+ },
+ {
+  "name": "Alcázar del Rey",
+  "lat": 40.05113,
+  "lon": -2.81393
+ },
+ {
+  "name": "Aldea Real",
+  "lat": 41.18538,
+  "lon": -4.18549
+ },
+ {
+  "name": "Aldea de San Miguel",
+  "lat": 41.44891,
+  "lon": -4.62428
+ },
+ {
+  "name": "Aldea del Fresno",
+  "lat": 40.30801,
+  "lon": -4.22502
+ },
+ {
+  "name": "Aldea en Cabo",
+  "lat": 40.1962,
+  "lon": -4.48512
+ },
+ {
+  "name": "Aldeacentenera",
+  "lat": 39.5251,
+  "lon": -5.57566
+ },
+ {
+  "name": "Aldealcorvo",
+  "lat": 41.24938,
+  "lon": -3.79379
+ },
+ {
+  "name": "Aldealengua",
+  "lat": 40.98636,
+  "lon": -5.55216
+ },
+ {
+  "name": "Aldealengua de Pedraza",
+  "lat": 41.05089,
+  "lon": -3.80488
+ },
+ {
+  "name": "Aldealengua de Santa María",
+  "lat": 41.46772,
+  "lon": -3.46928
+ },
+ {
+  "name": "Aldeamayor de San Martín",
+  "lat": 41.53435,
+  "lon": -4.64534
+ },
+ {
+  "name": "Aldeanueva de Barbarroya",
+  "lat": 39.73566,
+  "lon": -5.02679
+ },
+ {
+  "name": "Aldeanueva de Figueroa",
+  "lat": 41.16248,
+  "lon": -5.52722
+ },
+ {
+  "name": "Aldeanueva de Guadalajara",
+  "lat": 40.6853,
+  "lon": -3.05319
+ },
+ {
+  "name": "Aldeanueva de San Bartolomé",
+  "lat": 39.6386,
+  "lon": -5.11503
+ },
+ {
+  "name": "Aldeanueva de Santa Cruz",
+  "lat": 40.37487,
+  "lon": -5.43115
+ },
+ {
+  "name": "Aldeanueva de la Serrezuela",
+  "lat": 41.46329,
+  "lon": -3.783
+ },
+ {
+  "name": "Aldeanueva del Codonal",
+  "lat": 41.088,
+  "lon": -4.53725
+ },
+ {
+  "name": "Aldearrubia",
+  "lat": 40.99747,
+  "lon": -5.5014
+ },
+ {
+  "name": "Aldeaseca",
+  "lat": 41.04581,
+  "lon": -4.8064
+ },
+ {
+  "name": "Aldeaseca de Alba",
+  "lat": 40.81586,
+  "lon": -5.45789
+ },
+ {
+  "name": "Aldeaseca de la Frontera",
+  "lat": 40.93797,
+  "lon": -5.22199
+ },
+ {
+  "name": "Aldeasoña",
+  "lat": 41.47557,
+  "lon": -4.06571
+ },
+ {
+  "name": "Aldehorno",
+  "lat": 41.51111,
+  "lon": -3.78705
+ },
+ {
+  "name": "Aldehuela del Codonal",
+  "lat": 41.05066,
+  "lon": -4.54275
+ },
+ {
+  "name": "Aldeonte",
+  "lat": 41.33778,
+  "lon": -3.6913
+ },
+ {
+  "name": "Aldovera",
+  "lat": 40.24058,
+  "lon": -2.90472
+ },
+ {
+  "name": "Algete",
+  "lat": 40.61878,
+  "lon": -3.54049
+ },
+ {
+  "name": "Algora",
+  "lat": 40.94315,
+  "lon": -2.67353
+ },
+ {
+  "name": "Alhóndiga",
+  "lat": 40.52417,
+  "lon": -2.83539
+ },
+ {
+  "name": "Alique",
+  "lat": 40.59251,
+  "lon": -2.65092
+ },
+ {
+  "name": "Almadrones",
+  "lat": 40.8994,
+  "lon": -2.76341
+ },
+ {
+  "name": "Almazán",
+  "lat": 41.44362,
+  "lon": -2.58428
+ },
+ {
+  "name": "Almenara de Adaja",
+  "lat": 41.20945,
+  "lon": -4.68316
+ },
+ {
+  "name": "Almendral de la Cañada",
+  "lat": 40.19669,
+  "lon": -4.77843
+ },
+ {
+  "name": "Almendros",
+  "lat": 39.86608,
+  "lon": -2.8718
+ },
+ {
+  "name": "Almoguera",
+  "lat": 40.26976,
+  "lon": -3.06376
+ },
+ {
+  "name": "Almonacid de Toledo",
+  "lat": 39.80424,
+  "lon": -3.85002
+ },
+ {
+  "name": "Almonacid de Zorita",
+  "lat": 40.29717,
+  "lon": -2.84916
+ },
+ {
+  "name": "Almonacid del Marquesado",
+  "lat": 39.82103,
+  "lon": -2.78131
+ },
+ {
+  "name": "Almorox",
+  "lat": 40.24446,
+  "lon": -4.38563
+ },
+ {
+  "name": "Alocén",
+  "lat": 40.57042,
+  "lon": -2.74064
+ },
+ {
+  "name": "Alovera",
+  "lat": 40.59136,
+  "lon": -3.254
+ },
+ {
+  "name": "Alpanseque",
+  "lat": 41.27561,
+  "lon": -2.69437
+ },
+ {
+  "name": "Alpedrete",
+  "lat": 40.6642,
+  "lon": -4.02545
+ },
+ {
+  "name": "Alía",
+  "lat": 39.42649,
+  "lon": -5.18091
+ },
+ {
+  "name": "Amavida",
+  "lat": 40.58011,
+  "lon": -5.06511
+ },
+ {
+  "name": "Ambite",
+  "lat": 40.33714,
+  "lon": -3.18203
+ },
+ {
+  "name": "Anaya",
+  "lat": 40.98878,
+  "lon": -4.31469
+ },
+ {
+  "name": "Anaya de Alba",
+  "lat": 40.72739,
+  "lon": -5.49576
+ },
+ {
+  "name": "Anchuelo",
+  "lat": 40.47065,
+  "lon": -3.28453
+ },
+ {
+  "name": "Anchuras",
+  "lat": 39.4521,
+  "lon": -4.82586
+ },
+ {
+  "name": "Angón",
+  "lat": 41.0722,
+  "lon": -2.8679
+ },
+ {
+  "name": "Arabayona de Mógica",
+  "lat": 41.0433,
+  "lon": -5.39817
+ },
+ {
+  "name": "Arahuetes",
+  "lat": 41.14792,
+  "lon": -3.86531
+ },
+ {
+  "name": "Aranjuez",
+  "lat": 39.99646,
+  "lon": -3.6796
+ },
+ {
+  "name": "Aranzueque",
+  "lat": 40.49094,
+  "lon": -3.08382
+ },
+ {
+  "name": "Arbancón",
+  "lat": 40.98616,
+  "lon": -3.15539
+ },
+ {
+  "name": "Arcediano",
+  "lat": 41.10121,
+  "lon": -5.56032
+ },
+ {
+  "name": "Arcicóllar",
+  "lat": 40.05974,
+  "lon": -4.09911
+ },
+ {
+  "name": "Arcones",
+  "lat": 41.10846,
+  "lon": -3.72657
+ },
+ {
+  "name": "Arenales de San Gregorio",
+  "lat": 39.29717,
+  "lon": -3.03509
+ },
+ {
+  "name": "Arenas de San Juan",
+  "lat": 39.24277,
+  "lon": -3.49803
+ },
+ {
+  "name": "Arenas de San Pedro",
+  "lat": 40.17627,
+  "lon": -5.0984
+ },
+ {
+  "name": "Arenillas",
+  "lat": 41.33788,
+  "lon": -2.85866
+ },
+ {
+  "name": "Arevalillo",
+  "lat": 40.59162,
+  "lon": -5.37942
+ },
+ {
+  "name": "Arevalillo de Cega",
+  "lat": 41.16981,
+  "lon": -3.88882
+ },
+ {
+  "name": "Arganda del Rey",
+  "lat": 40.29907,
+  "lon": -3.44953
+ },
+ {
+  "name": "Argecilla",
+  "lat": 40.89321,
+  "lon": -2.82401
+ },
+ {
+  "name": "Argujillo",
+  "lat": 41.29785,
+  "lon": -5.54361
+ },
+ {
+  "name": "Argés",
+  "lat": 39.83388,
+  "lon": -4.11647
+ },
+ {
+  "name": "Armenteros",
+  "lat": 40.61121,
+  "lon": -5.49515
+ },
+ {
+  "name": "Armuña",
+  "lat": 41.05728,
+  "lon": -4.27488
+ },
+ {
+  "name": "Armuña de Tajuña",
+  "lat": 40.52841,
+  "lon": -3.0304
+ },
+ {
+  "name": "Arroyo de las Fraguas",
+  "lat": 41.0698,
+  "lon": -3.12926
+ },
+ {
+  "name": "Arroyomolinos",
+  "lat": 40.28243,
+  "lon": -3.9248
+ },
+ {
+  "name": "Arévalo",
+  "lat": 41.03966,
+  "lon": -4.71668
+ },
+ {
+  "name": "Atanzón",
+  "lat": 40.65981,
+  "lon": -3.0171
+ },
+ {
+  "name": "Ataquines",
+  "lat": 41.18624,
+  "lon": -4.7746
+ },
+ {
+  "name": "Atienza",
+  "lat": 41.18765,
+  "lon": -2.88554
+ },
+ {
+  "name": "Auñón",
+  "lat": 40.50585,
+  "lon": -2.78603
+ },
+ {
+  "name": "Aveinte",
+  "lat": 40.78108,
+  "lon": -4.83674
+ },
+ {
+  "name": "Avellaneda",
+  "lat": 40.38852,
+  "lon": -5.38842
+ },
+ {
+  "name": "Ayllón",
+  "lat": 41.3701,
+  "lon": -3.34812
+ },
+ {
+  "name": "Azuqueca de Henares",
+  "lat": 40.55251,
+  "lon": -3.26525
+ },
+ {
+  "name": "Azután",
+  "lat": 39.77391,
+  "lon": -5.13764
+ },
+ {
+  "name": "Añe",
+  "lat": 41.0354,
+  "lon": -4.29185
+ },
+ {
+  "name": "Añover de Tajo",
+  "lat": 39.97018,
+  "lon": -3.7822
+ },
+ {
+  "name": "Babilafuente",
+  "lat": 40.98824,
+  "lon": -5.43074
+ },
+ {
+  "name": "Bahabón",
+  "lat": 41.47611,
+  "lon": -4.2791
+ },
+ {
+  "name": "Baides",
+  "lat": 40.99944,
+  "lon": -2.77786
+ },
+ {
+  "name": "Barajas de Melo",
+  "lat": 40.12257,
+  "lon": -2.9665
+ },
+ {
+  "name": "Baraona",
+  "lat": 41.30606,
+  "lon": -2.62706
+ },
+ {
+  "name": "Barbolla",
+  "lat": 41.31724,
+  "lon": -3.66739
+ },
+ {
+  "name": "Barca",
+  "lat": 41.43245,
+  "lon": -2.64778
+ },
+ {
+  "name": "Barcience",
+  "lat": 39.97996,
+  "lon": -4.23591
+ },
+ {
+  "name": "Barcones",
+  "lat": 41.28639,
+  "lon": -2.81583
+ },
+ {
+  "name": "Bargas",
+  "lat": 39.96132,
+  "lon": -4.07896
+ },
+ {
+  "name": "Barriopedro",
+  "lat": 40.78704,
+  "lon": -2.76632
+ },
+ {
+  "name": "Barromán",
+  "lat": 41.05419,
+  "lon": -4.93471
+ },
+ {
+  "name": "Basardilla",
+  "lat": 40.99821,
+  "lon": -3.98287
+ },
+ {
+  "name": "Batres",
+  "lat": 40.21471,
+  "lon": -3.93436
+ },
+ {
+  "name": "Bayubas de Abajo",
+  "lat": 41.50638,
+  "lon": -2.91005
+ },
+ {
+  "name": "Bayubas de Arriba",
+  "lat": 41.56489,
+  "lon": -2.89575
+ },
+ {
+  "name": "Bañuelos",
+  "lat": 41.29817,
+  "lon": -2.91978
+ },
+ {
+  "name": "Becedillas",
+  "lat": 40.55922,
+  "lon": -5.31706
+ },
+ {
+  "name": "Becerril de la Sierra",
+  "lat": 40.69066,
+  "lon": -3.91776
+ },
+ {
+  "name": "Belinchón",
+  "lat": 40.05173,
+  "lon": -3.03465
+ },
+ {
+  "name": "Belmonte",
+  "lat": 39.58582,
+  "lon": -2.70672
+ },
+ {
+  "name": "Belmonte de Tajo",
+  "lat": 40.13319,
+  "lon": -3.33919
+ },
+ {
+  "name": "Belvís de Monroy",
+  "lat": 39.81309,
+  "lon": -5.56835
+ },
+ {
+  "name": "Belvís de la Jara",
+  "lat": 39.75062,
+  "lon": -4.94534
+ },
+ {
+  "name": "Bercero",
+  "lat": 41.54146,
+  "lon": -5.08993
+ },
+ {
+  "name": "Bercial",
+  "lat": 40.90077,
+  "lon": -4.43504
+ },
+ {
+  "name": "Bercial de Zapardiel",
+  "lat": 41.04327,
+  "lon": -4.97426
+ },
+ {
+  "name": "Bercimuel",
+  "lat": 41.40035,
+  "lon": -3.57063
+ },
+ {
+  "name": "Berlanga de Duero",
+  "lat": 41.45439,
+  "lon": -2.86339
+ },
+ {
+  "name": "Bernardos",
+  "lat": 41.14033,
+  "lon": -4.3467
+ },
+ {
+  "name": "Berninches",
+  "lat": 40.56803,
+  "lon": -2.81563
+ },
+ {
+  "name": "Bernuy de Porreros",
+  "lat": 40.9985,
+  "lon": -4.11413
+ },
+ {
+  "name": "Bernuy-Zapardiel",
+  "lat": 40.97149,
+  "lon": -4.94391
+ },
+ {
+  "name": "Berrocalejo",
+  "lat": 39.82117,
+  "lon": -5.35768
+ },
+ {
+  "name": "Berrocalejo de Aragona",
+  "lat": 40.69942,
+  "lon": -4.59898
+ },
+ {
+  "name": "Berzocana",
+  "lat": 39.45785,
+  "lon": -5.52102
+ },
+ {
+  "name": "Berzosa del Lozoya",
+  "lat": 40.96919,
+  "lon": -3.53129
+ },
+ {
+  "name": "Blascomillán",
+  "lat": 40.82205,
+  "lon": -5.1174
+ },
+ {
+  "name": "Blasconuño de Matacabras",
+  "lat": 41.14706,
+  "lon": -4.99182
+ },
+ {
+  "name": "Blascosancho",
+  "lat": 40.87395,
+  "lon": -4.64284
+ },
+ {
+  "name": "Boadilla del Monte",
+  "lat": 40.42186,
+  "lon": -3.90647
+ },
+ {
+  "name": "Bobadilla del Campo",
+  "lat": 41.1789,
+  "lon": -5.0339
+ },
+ {
+  "name": "Boceguillas",
+  "lat": 41.32814,
+  "lon": -3.60824
+ },
+ {
+  "name": "Bocigas",
+  "lat": 41.24184,
+  "lon": -4.68519
+ },
+ {
+  "name": "Boecillo",
+  "lat": 41.5402,
+  "lon": -4.72785
+ },
+ {
+  "name": "Bohonal de Ibor",
+  "lat": 39.79057,
+  "lon": -5.46925
+ },
+ {
+  "name": "Bohoyo",
+  "lat": 40.29838,
+  "lon": -5.42483
+ },
+ {
+  "name": "Bonilla de la Sierra",
+  "lat": 40.55951,
+  "lon": -5.25797
+ },
+ {
+  "name": "Borox",
+  "lat": 40.05243,
+  "lon": -3.72407
+ },
+ {
+  "name": "Brabos",
+  "lat": 40.75941,
+  "lon": -4.93123
+ },
+ {
+  "name": "Brahojos de Medina",
+  "lat": 41.22425,
+  "lon": -5.0503
+ },
+ {
+  "name": "Braojos",
+  "lat": 41.06439,
+  "lon": -3.667
+ },
+ {
+  "name": "Brea de Tajo",
+  "lat": 40.23848,
+  "lon": -3.12333
+ },
+ {
+  "name": "Brieva",
+  "lat": 41.04053,
+  "lon": -4.04181
+ },
+ {
+  "name": "Brihuega",
+  "lat": 40.74977,
+  "lon": -2.83181
+ },
+ {
+  "name": "Brunete",
+  "lat": 40.39809,
+  "lon": -3.99969
+ },
+ {
+  "name": "Budia",
+  "lat": 40.66883,
+  "lon": -2.76504
+ },
+ {
+  "name": "Buenaventura",
+  "lat": 40.16804,
+  "lon": -4.87922
+ },
+ {
+  "name": "Buendía",
+  "lat": 40.38254,
+  "lon": -2.76577
+ },
+ {
+  "name": "Buitrago del Lozoya",
+  "lat": 40.99185,
+  "lon": -3.6386
+ },
+ {
+  "name": "Bujalaro",
+  "lat": 40.93959,
+  "lon": -2.88009
+ },
+ {
+  "name": "Bularros",
+  "lat": 40.7327,
+  "lon": -4.83229
+ },
+ {
+  "name": "Burgo de Osma-Ciudad de Osma",
+  "lat": 41.54181,
+  "lon": -3.05998
+ },
+ {
+  "name": "Burgohondo",
+  "lat": 40.38479,
+  "lon": -4.78598
+ },
+ {
+  "name": "Burguillos de Toledo",
+  "lat": 39.77787,
+  "lon": -4.00251
+ },
+ {
+  "name": "Burujón",
+  "lat": 39.88552,
+  "lon": -4.29216
+ },
+ {
+  "name": "Bustares",
+  "lat": 41.12639,
+  "lon": -3.07857
+ },
+ {
+  "name": "Bustarviejo",
+  "lat": 40.84771,
+  "lon": -3.72736
+ },
+ {
+  "name": "Bóveda del Río Almar",
+  "lat": 40.86567,
+  "lon": -5.2158
+ },
+ {
+  "name": "Caballar",
+  "lat": 41.12619,
+  "lon": -3.96669
+ },
+ {
+  "name": "Cabanillas de la Sierra",
+  "lat": 40.81983,
+  "lon": -3.64085
+ },
+ {
+  "name": "Cabanillas del Campo",
+  "lat": 40.63329,
+  "lon": -3.24594
+ },
+ {
+  "name": "Cabañas de Polendos",
+  "lat": 41.0489,
+  "lon": -4.1099
+ },
+ {
+  "name": "Cabañas de Yepes",
+  "lat": 39.89333,
+  "lon": -3.54414
+ },
+ {
+  "name": "Cabañas de la Sagra",
+  "lat": 40.00337,
+  "lon": -3.95598
+ },
+ {
+  "name": "Cabañas del Castillo",
+  "lat": 39.5355,
+  "lon": -5.49539
+ },
+ {
+  "name": "Cabezabellosa de la Calzada",
+  "lat": 41.04484,
+  "lon": -5.48693
+ },
+ {
+  "name": "Cabezamesada",
+  "lat": 39.82278,
+  "lon": -3.08738
+ },
+ {
+  "name": "Cabezas de Alambre",
+  "lat": 40.93703,
+  "lon": -4.83701
+ },
+ {
+  "name": "Cabezas del Pozo",
+  "lat": 41.00025,
+  "lon": -4.96806
+ },
+ {
+  "name": "Cabezas del Villar",
+  "lat": 40.69174,
+  "lon": -5.20079
+ },
+ {
+  "name": "Cabezuela",
+  "lat": 41.22784,
+  "lon": -3.9756
+ },
+ {
+  "name": "Cabizuela",
+  "lat": 40.9031,
+  "lon": -4.81165
+ },
+ {
+  "name": "Cabrerizos",
+  "lat": 40.98087,
+  "lon": -5.5715
+ },
+ {
+  "name": "Cadalso de los Vidrios",
+  "lat": 40.29815,
+  "lon": -4.45261
+ },
+ {
+  "name": "Calabazas de Fuentidueña",
+  "lat": 41.45053,
+  "lon": -4.01721
+ },
+ {
+  "name": "Calera y Chozas",
+  "lat": 39.87747,
+  "lon": -5.01792
+ },
+ {
+  "name": "Caleruela",
+  "lat": 39.86701,
+  "lon": -5.26106
+ },
+ {
+  "name": "Caltojar",
+  "lat": 41.39408,
+  "lon": -2.74992
+ },
+ {
+  "name": "Calvarrasa de Abajo",
+  "lat": 40.95782,
+  "lon": -5.53375
+ },
+ {
+  "name": "Calvarrasa de Arriba",
+  "lat": 40.89879,
+  "lon": -5.55261
+ },
+ {
+  "name": "Calzada de Oropesa",
+  "lat": 39.9926,
+  "lon": -5.3032
+ },
+ {
+  "name": "Camarena",
+  "lat": 40.10248,
+  "lon": -4.1096
+ },
+ {
+  "name": "Camarenilla",
+  "lat": 40.01431,
+  "lon": -4.08516
+ },
+ {
+  "name": "Camarma de Esteruelas",
+  "lat": 40.56153,
+  "lon": -3.38277
+ },
+ {
+  "name": "Campaspero",
+  "lat": 41.50398,
+  "lon": -4.22956
+ },
+ {
+  "name": "Campillo de Deleitosa",
+  "lat": 39.70888,
+  "lon": -5.5631
+ },
+ {
+  "name": "Campillo de Ranas",
+  "lat": 41.05882,
+  "lon": -3.32969
+ },
+ {
+  "name": "Campisábalos",
+  "lat": 41.25961,
+  "lon": -3.13855
+ },
+ {
+  "name": "Campo Real",
+  "lat": 40.31863,
+  "lon": -3.37648
+ },
+ {
+  "name": "Campo de Criptana",
+  "lat": 39.38648,
+  "lon": -3.07857
+ },
+ {
+  "name": "Campo de San Pedro",
+  "lat": 41.46234,
+  "lon": -3.56171
+ },
+ {
+  "name": "Camporredondo",
+  "lat": 41.47169,
+  "lon": -4.51644
+ },
+ {
+  "name": "Campos del Paraíso",
+  "lat": 40.02698,
+  "lon": -2.70348
+ },
+ {
+  "name": "Camuñas",
+  "lat": 39.3773,
+  "lon": -3.49586
+ },
+ {
+  "name": "Canalejas de Peñafiel",
+  "lat": 41.51111,
+  "lon": -4.11574
+ },
+ {
+  "name": "Canales",
+  "lat": 40.99342,
+  "lon": -4.91257
+ },
+ {
+  "name": "Candeleda",
+  "lat": 40.17871,
+  "lon": -5.28462
+ },
+ {
+  "name": "Canencia",
+  "lat": 40.88326,
+  "lon": -3.76386
+ },
+ {
+  "name": "Canredondo",
+  "lat": 40.81357,
+  "lon": -2.57027
+ },
+ {
+  "name": "Cantalapiedra",
+  "lat": 41.12871,
+  "lon": -5.22181
+ },
+ {
+  "name": "Cantalejo",
+  "lat": 41.26192,
+  "lon": -3.93859
+ },
+ {
+  "name": "Cantalojas",
+  "lat": 41.23813,
+  "lon": -3.31031
+ },
+ {
+  "name": "Cantalpino",
+  "lat": 41.07938,
+  "lon": -5.33956
+ },
+ {
+  "name": "Cantaracillo",
+  "lat": 40.9097,
+  "lon": -5.15807
+ },
+ {
+  "name": "Cantimpalos",
+  "lat": 41.06453,
+  "lon": -4.17558
+ },
+ {
+  "name": "Cantiveros",
+  "lat": 40.95211,
+  "lon": -4.95584
+ },
+ {
+  "name": "Carabaña",
+  "lat": 40.25505,
+  "lon": -3.24526
+ },
+ {
+  "name": "Carabias",
+  "lat": 41.45183,
+  "lon": -3.69673
+ },
+ {
+  "name": "Caracena",
+  "lat": 41.39277,
+  "lon": -3.09881
+ },
+ {
+  "name": "Carbonero el Mayor",
+  "lat": 41.15457,
+  "lon": -4.2924
+ },
+ {
+  "name": "Cardeñosa",
+  "lat": 40.73723,
+  "lon": -4.74361
+ },
+ {
+  "name": "Cardiel de los Montes",
+  "lat": 40.07087,
+  "lon": -4.64396
+ },
+ {
+  "name": "Carmena",
+  "lat": 39.93253,
+  "lon": -4.39334
+ },
+ {
+  "name": "Carpio",
+  "lat": 41.19901,
+  "lon": -5.10305
+ },
+ {
+  "name": "Carranque",
+  "lat": 40.18011,
+  "lon": -3.93361
+ },
+ {
+  "name": "Carrascal del Río",
+  "lat": 41.34661,
+  "lon": -3.88723
+ },
+ {
+  "name": "Carrascalejo",
+  "lat": 39.63262,
+  "lon": -5.21749
+ },
+ {
+  "name": "Carrascosa de Abajo",
+  "lat": 41.42405,
+  "lon": -3.08607
+ },
+ {
+  "name": "Carrascosa de Haro",
+  "lat": 39.59563,
+  "lon": -2.57567
+ },
+ {
+  "name": "Carriches",
+  "lat": 39.96478,
+  "lon": -4.46128
+ },
+ {
+  "name": "Casa de Uceda",
+  "lat": 40.85275,
+  "lon": -3.36674
+ },
+ {
+  "name": "Casarrubios del Monte",
+  "lat": 40.19492,
+  "lon": -4.06556
+ },
+ {
+  "name": "Casarrubuelos",
+  "lat": 40.17459,
+  "lon": -3.83934
+ },
+ {
+  "name": "Casas de Don Pedro",
+  "lat": 39.27086,
+  "lon": -5.29724
+ },
+ {
+  "name": "Casas de San Galindo",
+  "lat": 40.87262,
+  "lon": -2.96904
+ },
+ {
+  "name": "Casas del Puerto",
+  "lat": 40.51925,
+  "lon": -5.174
+ },
+ {
+  "name": "Casasbuenas",
+  "lat": 39.7657,
+  "lon": -4.10511
+ },
+ {
+  "name": "Casasola",
+  "lat": 40.66488,
+  "lon": -4.82764
+ },
+ {
+  "name": "Casasola de Arión",
+  "lat": 41.56416,
+  "lon": -5.25685
+ },
+ {
+  "name": "Casavieja",
+  "lat": 40.30052,
+  "lon": -4.77194
+ },
+ {
+  "name": "Casillas",
+  "lat": 40.33332,
+  "lon": -4.57349
+ },
+ {
+  "name": "Casla",
+  "lat": 41.17022,
+  "lon": -3.65856
+ },
+ {
+  "name": "Caspueñas",
+  "lat": 40.69866,
+  "lon": -2.97539
+ },
+ {
+  "name": "Castañar de Ibor",
+  "lat": 39.69014,
+  "lon": -5.44892
+ },
+ {
+  "name": "Castejón",
+  "lat": 40.38871,
+  "lon": -2.56706
+ },
+ {
+  "name": "Castejón de Henares",
+  "lat": 40.92976,
+  "lon": -2.79518
+ },
+ {
+  "name": "Castellanos de Moriscos",
+  "lat": 41.04097,
+  "lon": -5.56985
+ },
+ {
+  "name": "Castellanos de Zapardiel",
+  "lat": 41.07833,
+  "lon": -4.91133
+ },
+ {
+  "name": "Castilblanco",
+  "lat": 39.32305,
+  "lon": -5.0973
+ },
+ {
+  "name": "Castillejo de Mesleón",
+  "lat": 41.27577,
+  "lon": -3.59687
+ },
+ {
+  "name": "Castillejo de Robledo",
+  "lat": 41.56079,
+  "lon": -3.49072
+ },
+ {
+  "name": "Castillo de Bayuela",
+  "lat": 40.08556,
+  "lon": -4.69066
+ },
+ {
+  "name": "Castrejón de Trabancos",
+  "lat": 41.25441,
+  "lon": -5.17825
+ },
+ {
+  "name": "Castrillo de Duero",
+  "lat": 41.55926,
+  "lon": -4.00026
+ },
+ {
+  "name": "Castrillo de la Guareña",
+  "lat": 41.22515,
+  "lon": -5.33316
+ },
+ {
+  "name": "Castro de Fuentidueña",
+  "lat": 41.42315,
+  "lon": -3.87826
+ },
+ {
+  "name": "Castrojimeno",
+  "lat": 41.40367,
+  "lon": -3.84552
+ },
+ {
+  "name": "Castronuño",
+  "lat": 41.40226,
+  "lon": -5.26373
+ },
+ {
+  "name": "Castroserna de Abajo",
+  "lat": 41.20441,
+  "lon": -3.73981
+ },
+ {
+  "name": "Castroserracín",
+  "lat": 41.40161,
+  "lon": -3.79954
+ },
+ {
+  "name": "Cazalegas",
+  "lat": 39.99687,
+  "lon": -4.7075
+ },
+ {
+  "name": "Cañamero",
+  "lat": 39.37713,
+  "lon": -5.3928
+ },
+ {
+  "name": "Cañaveruelas",
+  "lat": 40.41262,
+  "lon": -2.64412
+ },
+ {
+  "name": "Cañizal",
+  "lat": 41.1752,
+  "lon": -5.37249
+ },
+ {
+  "name": "Cañizar",
+  "lat": 40.78247,
+  "lon": -3.07767
+ },
+ {
+  "name": "Cebolla",
+  "lat": 39.93561,
+  "lon": -4.56787
+ },
+ {
+  "name": "Cebreros",
+  "lat": 40.45049,
+  "lon": -4.43115
+ },
+ {
+  "name": "Cedillo de la Torre",
+  "lat": 41.4267,
+  "lon": -3.62314
+ },
+ {
+  "name": "Cedillo del Condado",
+  "lat": 40.08116,
+  "lon": -3.93549
+ },
+ {
+  "name": "Cendejas de Enmedio",
+  "lat": 40.98883,
+  "lon": -2.87963
+ },
+ {
+  "name": "Cendejas de la Torre",
+  "lat": 40.97814,
+  "lon": -2.84491
+ },
+ {
+  "name": "Cenicientos",
+  "lat": 40.23827,
+  "lon": -4.51951
+ },
+ {
+  "name": "Centenera",
+  "lat": 40.65079,
+  "lon": -3.06452
+ },
+ {
+  "name": "Centenera de Andaluz",
+  "lat": 41.5073,
+  "lon": -2.73384
+ },
+ {
+  "name": "Cepeda la Mora",
+  "lat": 40.45405,
+  "lon": -5.05371
+ },
+ {
+  "name": "Cercedilla",
+  "lat": 40.74951,
+  "lon": -4.05986
+ },
+ {
+  "name": "Cerezo de Abajo",
+  "lat": 41.21869,
+  "lon": -3.58828
+ },
+ {
+  "name": "Cerezo de Arriba",
+  "lat": 41.22116,
+  "lon": -3.52735
+ },
+ {
+  "name": "Cervera de Buitrago",
+  "lat": 40.91749,
+  "lon": -3.52775
+ },
+ {
+  "name": "Cervera de los Montes",
+  "lat": 40.06013,
+  "lon": -4.84761
+ },
+ {
+  "name": "Cervillego de la Cruz",
+  "lat": 41.18233,
+  "lon": -4.97824
+ },
+ {
+  "name": "Cespedosa de Tormes",
+  "lat": 40.55103,
+  "lon": -5.53855
+ },
+ {
+  "name": "Chagarcía Medianero",
+  "lat": 40.66889,
+  "lon": -5.39022
+ },
+ {
+  "name": "Chamartín",
+  "lat": 40.72067,
+  "lon": -4.95518
+ },
+ {
+  "name": "Chapinería",
+  "lat": 40.37309,
+  "lon": -4.20919
+ },
+ {
+  "name": "Chañe",
+  "lat": 41.34662,
+  "lon": -4.42903
+ },
+ {
+  "name": "Chillarón del Rey",
+  "lat": 40.59146,
+  "lon": -2.70272
+ },
+ {
+  "name": "Chiloeches",
+  "lat": 40.5582,
+  "lon": -3.20494
+ },
+ {
+  "name": "Chinchón",
+  "lat": 40.15668,
+  "lon": -3.5043
+ },
+ {
+  "name": "Chozas de Canales",
+  "lat": 40.10969,
+  "lon": -4.04982
+ },
+ {
+  "name": "Chueca",
+  "lat": 39.73029,
+  "lon": -3.94195
+ },
+ {
+  "name": "Ciempozuelos",
+  "lat": 40.15697,
+  "lon": -3.60642
+ },
+ {
+  "name": "Cifuentes",
+  "lat": 40.74917,
+  "lon": -2.63052
+ },
+ {
+  "name": "Cilleruelo de San Mamés",
+  "lat": 41.43841,
+  "lon": -3.59081
+ },
+ {
+  "name": "Cillán",
+  "lat": 40.69213,
+  "lon": -4.99576
+ },
+ {
+  "name": "Cincovillas",
+  "lat": 41.18822,
+  "lon": -2.81832
+ },
+ {
+  "name": "Ciruelas",
+  "lat": 40.75159,
+  "lon": -3.10656
+ },
+ {
+  "name": "Ciruelos",
+  "lat": 39.94844,
+  "lon": -3.63036
+ },
+ {
+  "name": "Cisla",
+  "lat": 40.96759,
+  "lon": -5.01432
+ },
+ {
+  "name": "Cistérniga",
+  "lat": 41.56847,
+  "lon": -4.63328
+ },
+ {
+  "name": "Cobeja",
+  "lat": 40.0055,
+  "lon": -3.85554
+ },
+ {
+  "name": "Cobeña",
+  "lat": 40.56884,
+  "lon": -3.5144
+ },
+ {
+  "name": "Cobisa",
+  "lat": 39.79976,
+  "lon": -4.0263
+ },
+ {
+  "name": "Cobos de Fuentidueña",
+  "lat": 41.37738,
+  "lon": -3.92699
+ },
+ {
+  "name": "Coca",
+  "lat": 41.22176,
+  "lon": -4.53343
+ },
+ {
+  "name": "Coca de Alba",
+  "lat": 40.87686,
+  "lon": -5.36207
+ },
+ {
+  "name": "Codorniz",
+  "lat": 41.055,
+  "lon": -4.60691
+ },
+ {
+  "name": "Cogeces de Íscar",
+  "lat": 41.41377,
+  "lon": -4.54416
+ },
+ {
+  "name": "Cogeces del Monte",
+  "lat": 41.53832,
+  "lon": -4.33275
+ },
+ {
+  "name": "Cogollor",
+  "lat": 40.84224,
+  "lon": -2.73858
+ },
+ {
+  "name": "Cogolludo",
+  "lat": 40.94178,
+  "lon": -3.12147
+ },
+ {
+  "name": "Collado Hermoso",
+  "lat": 41.01907,
+  "lon": -3.906
+ },
+ {
+  "name": "Collado Mediano",
+  "lat": 40.69558,
+  "lon": -4.03045
+ },
+ {
+  "name": "Collado Villalba",
+  "lat": 40.64083,
+  "lon": -3.99646
+ },
+ {
+  "name": "Collado de Contreras",
+  "lat": 40.88425,
+  "lon": -4.93217
+ },
+ {
+  "name": "Collado del Mirón",
+  "lat": 40.55089,
+  "lon": -5.36181
+ },
+ {
+  "name": "Colmenar Viejo",
+  "lat": 40.65768,
+  "lon": -3.73002
+ },
+ {
+  "name": "Colmenar de Oreja",
+  "lat": 40.07766,
+  "lon": -3.46308
+ },
+ {
+  "name": "Colmenar del Arroyo",
+  "lat": 40.39947,
+  "lon": -4.19639
+ },
+ {
+  "name": "Colmenarejo",
+  "lat": 40.54319,
+  "lon": -4.02613
+ },
+ {
+  "name": "Comunidad de Sepúlveda y Riaza",
+  "lat": 41.28964,
+  "lon": -3.49151
+ },
+ {
+  "name": "Condado de Castilnovo",
+  "lat": 41.23807,
+  "lon": -3.76146
+ },
+ {
+  "name": "Condemios de Abajo",
+  "lat": 41.2161,
+  "lon": -3.10286
+ },
+ {
+  "name": "Condemios de Arriba",
+  "lat": 41.18664,
+  "lon": -3.1155
+ },
+ {
+  "name": "Congostrina",
+  "lat": 41.05131,
+  "lon": -2.97691
+ },
+ {
+  "name": "Constanzana",
+  "lat": 40.92655,
+  "lon": -4.88441
+ },
+ {
+  "name": "Consuegra",
+  "lat": 39.47339,
+  "lon": -3.70591
+ },
+ {
+  "name": "Copernal",
+  "lat": 40.8668,
+  "lon": -3.05653
+ },
+ {
+  "name": "Cordovilla",
+  "lat": 40.94181,
+  "lon": -5.41682
+ },
+ {
+  "name": "Coreses",
+  "lat": 41.55054,
+  "lon": -5.567
+ },
+ {
+  "name": "Corpa",
+  "lat": 40.41855,
+  "lon": -3.25569
+ },
+ {
+  "name": "Corral de Almaguer",
+  "lat": 39.76028,
+  "lon": -3.18304
+ },
+ {
+  "name": "Corral de Ayllón",
+  "lat": 41.38694,
+  "lon": -3.45064
+ },
+ {
+  "name": "Coslada",
+  "lat": 40.42487,
+  "lon": -3.54864
+ },
+ {
+  "name": "Coto Mancomunado",
+  "lat": 41.05793,
+  "lon": -5.5363
+ },
+ {
+  "name": "Cozuelos de Fuentidueña",
+  "lat": 41.39548,
+  "lon": -4.0926
+ },
+ {
+  "name": "Crespos",
+  "lat": 40.85665,
+  "lon": -4.97514
+ },
+ {
+  "name": "Cubas de la Sagra",
+  "lat": 40.18884,
+  "lon": -3.84456
+ },
+ {
+  "name": "Cubillo",
+  "lat": 41.10781,
+  "lon": -3.92143
+ },
+ {
+  "name": "Cuerva",
+  "lat": 39.65893,
+  "lon": -4.22206
+ },
+ {
+  "name": "Cuevas de Provanco",
+  "lat": 41.54815,
+  "lon": -3.95227
+ },
+ {
+  "name": "Cuevas del Valle",
+  "lat": 40.29201,
+  "lon": -5.03691
+ },
+ {
+  "name": "Cuéllar",
+  "lat": 41.33886,
+  "lon": -4.29147
+ },
+ {
+  "name": "Daganzo de Arriba",
+  "lat": 40.55768,
+  "lon": -3.44533
+ },
+ {
+  "name": "Deleitosa",
+  "lat": 39.63618,
+  "lon": -5.57791
+ },
+ {
+  "name": "Diego del Carpio",
+  "lat": 40.67072,
+  "lon": -5.33613
+ },
+ {
+  "name": "Domingo García",
+  "lat": 41.12606,
+  "lon": -4.4033
+ },
+ {
+  "name": "Domingo Pérez",
+  "lat": 39.98091,
+  "lon": -4.51239
+ },
+ {
+  "name": "Donhierro",
+  "lat": 41.11625,
+  "lon": -4.69816
+ },
+ {
+  "name": "Donjimeno",
+  "lat": 40.96261,
+  "lon": -4.86288
+ },
+ {
+  "name": "Donvidas",
+  "lat": 41.08836,
+  "lon": -4.80777
+ },
+ {
+  "name": "Dosbarrios",
+  "lat": 39.84551,
+  "lon": -3.50141
+ },
+ {
+  "name": "Driebes",
+  "lat": 40.24197,
+  "lon": -3.04954
+ },
+ {
+  "name": "Duruelo",
+  "lat": 41.22636,
+  "lon": -3.64985
+ },
+ {
+  "name": "Durón",
+  "lat": 40.63237,
+  "lon": -2.71376
+ },
+ {
+  "name": "El Acebrón",
+  "lat": 39.90128,
+  "lon": -2.98317
+ },
+ {
+  "name": "El Arenal",
+  "lat": 40.27952,
+  "lon": -5.08141
+ },
+ {
+  "name": "El Atazar",
+  "lat": 40.9338,
+  "lon": -3.47704
+ },
+ {
+  "name": "El Barco de Ávila",
+  "lat": 40.35756,
+  "lon": -5.52562
+ },
+ {
+  "name": "El Barraco",
+  "lat": 40.45172,
+  "lon": -4.60937
+ },
+ {
+  "name": "El Berrueco",
+  "lat": 40.88716,
+  "lon": -3.55786
+ },
+ {
+  "name": "El Boalo",
+  "lat": 40.6926,
+  "lon": -3.91245
+ },
+ {
+  "name": "El Bohodón",
+  "lat": 40.9189,
+  "lon": -4.73992
+ },
+ {
+  "name": "El Campillo",
+  "lat": 41.258,
+  "lon": -4.99382
+ },
+ {
+  "name": "El Campillo de la Jara",
+  "lat": 39.58442,
+  "lon": -5.05088
+ },
+ {
+  "name": "El Campo de Peñaranda",
+  "lat": 40.99884,
+  "lon": -5.27404
+ },
+ {
+  "name": "El Cardoso de la Sierra",
+  "lat": 41.12202,
+  "lon": -3.44209
+ },
+ {
+  "name": "El Carpio de Tajo",
+  "lat": 39.85654,
+  "lon": -4.49658
+ },
+ {
+  "name": "El Casar",
+  "lat": 40.7239,
+  "lon": -3.42705
+ },
+ {
+  "name": "El Casar de Escalona",
+  "lat": 40.05867,
+  "lon": -4.52611
+ },
+ {
+  "name": "El Cubillo de Uceda",
+  "lat": 40.80832,
+  "lon": -3.41032
+ },
+ {
+  "name": "El Escorial",
+  "lat": 40.57662,
+  "lon": -4.1002
+ },
+ {
+  "name": "El Espinar",
+  "lat": 40.72176,
+  "lon": -4.22691
+ },
+ {
+  "name": "El Fresno",
+  "lat": 40.61929,
+  "lon": -4.75967
+ },
+ {
+  "name": "El Gordo",
+  "lat": 39.83803,
+  "lon": -5.36593
+ },
+ {
+  "name": "El Hito",
+  "lat": 39.84716,
+  "lon": -2.72648
+ },
+ {
+  "name": "El Hornillo",
+  "lat": 40.25755,
+  "lon": -5.13
+ },
+ {
+  "name": "El Hoyo de Pinares",
+  "lat": 40.50277,
+  "lon": -4.40119
+ },
+ {
+  "name": "El Losar del Barco",
+  "lat": 40.39568,
+  "lon": -5.53686
+ },
+ {
+  "name": "El Mirón",
+  "lat": 40.55014,
+  "lon": -5.40034
+ },
+ {
+  "name": "El Molar",
+  "lat": 40.70099,
+  "lon": -3.57338
+ },
+ {
+  "name": "El Olivar",
+  "lat": 40.60198,
+  "lon": -2.76659
+ },
+ {
+  "name": "El Ordial",
+  "lat": 41.11395,
+  "lon": -3.13692
+ },
+ {
+  "name": "El Oso",
+  "lat": 40.85517,
+  "lon": -4.77801
+ },
+ {
+  "name": "El Parral",
+  "lat": 40.78852,
+  "lon": -4.99623
+ },
+ {
+  "name": "El Pedernoso",
+  "lat": 39.48458,
+  "lon": -2.75995
+ },
+ {
+  "name": "El Pedroso de la Armuña",
+  "lat": 41.08459,
+  "lon": -5.40449
+ },
+ {
+  "name": "El Pego",
+  "lat": 41.35204,
+  "lon": -5.47579
+ },
+ {
+  "name": "El Piñero",
+  "lat": 41.38402,
+  "lon": -5.57735
+ },
+ {
+  "name": "El Provencio",
+  "lat": 39.39397,
+  "lon": -2.58583
+ },
+ {
+  "name": "El Puente del Arzobispo",
+  "lat": 39.79909,
+  "lon": -5.177
+ },
+ {
+  "name": "El Real de San Vicente",
+  "lat": 40.16742,
+  "lon": -4.68051
+ },
+ {
+  "name": "El Redegüelo",
+  "lat": 40.68149,
+  "lon": -3.91749
+ },
+ {
+  "name": "El Robledo",
+  "lat": 39.24295,
+  "lon": -4.31184
+ },
+ {
+  "name": "El Romeral",
+  "lat": 39.73285,
+  "lon": -3.45268
+ },
+ {
+  "name": "El Sotillo",
+  "lat": 40.87384,
+  "lon": -2.6335
+ },
+ {
+  "name": "El Tejado",
+  "lat": 40.44965,
+  "lon": -5.53742
+ },
+ {
+  "name": "El Tiemblo",
+  "lat": 40.38224,
+  "lon": -4.49464
+ },
+ {
+  "name": "El Toboso",
+  "lat": 39.51353,
+  "lon": -2.99522
+ },
+ {
+  "name": "El Valle de Altomira",
+  "lat": 40.23391,
+  "lon": -2.7622
+ },
+ {
+  "name": "El Vellón",
+  "lat": 40.77374,
+  "lon": -3.57293
+ },
+ {
+  "name": "El Viso de San Juan",
+  "lat": 40.14964,
+  "lon": -3.9867
+ },
+ {
+  "name": "El Álamo",
+  "lat": 40.2362,
+  "lon": -3.99022
+ },
+ {
+  "name": "Encinas",
+  "lat": 41.39964,
+  "lon": -3.68159
+ },
+ {
+  "name": "Encinas de Abajo",
+  "lat": 40.91656,
+  "lon": -5.45876
+ },
+ {
+  "name": "Encinas de Arriba",
+  "lat": 40.77035,
+  "lon": -5.56835
+ },
+ {
+  "name": "Encinillas",
+  "lat": 41.02535,
+  "lon": -4.15515
+ },
+ {
+  "name": "Erustes",
+  "lat": 39.95457,
+  "lon": -4.49809
+ },
+ {
+  "name": "Escalona",
+  "lat": 40.15686,
+  "lon": -4.39506
+ },
+ {
+  "name": "Escalona del Prado",
+  "lat": 41.16497,
+  "lon": -4.11823
+ },
+ {
+  "name": "Escalonilla",
+  "lat": 39.92336,
+  "lon": -4.34244
+ },
+ {
+  "name": "Escamilla",
+  "lat": 40.55125,
+  "lon": -2.57877
+ },
+ {
+  "name": "Escarabajosa de Cabezas",
+  "lat": 41.1064,
+  "lon": -4.18064
+ },
+ {
+  "name": "Escariche",
+  "lat": 40.40279,
+  "lon": -3.06864
+ },
+ {
+  "name": "Escobar de Polendos",
+  "lat": 41.09972,
+  "lon": -4.11603
+ },
+ {
+  "name": "Escopete",
+  "lat": 40.41471,
+  "lon": -3.00857
+ },
+ {
+  "name": "Espino de la Orbada",
+  "lat": 41.12082,
+  "lon": -5.41927
+ },
+ {
+  "name": "Espinosa de Henares",
+  "lat": 40.8925,
+  "lon": -3.05513
+ },
+ {
+  "name": "Espinosa de los Caballeros",
+  "lat": 41.01689,
+  "lon": -4.67005
+ },
+ {
+  "name": "Espinoso del Rey",
+  "lat": 39.63625,
+  "lon": -4.79261
+ },
+ {
+  "name": "Espirdo",
+  "lat": 41.00284,
+  "lon": -4.07403
+ },
+ {
+  "name": "Esquivias",
+  "lat": 40.1109,
+  "lon": -3.7505
+ },
+ {
+  "name": "Estremera",
+  "lat": 40.15399,
+  "lon": -3.11006
+ },
+ {
+  "name": "Estriégana",
+  "lat": 41.0757,
+  "lon": -2.56015
+ },
+ {
+  "name": "Flores de Ávila",
+  "lat": 40.94211,
+  "lon": -5.0869
+ },
+ {
+  "name": "Fompedraza",
+  "lat": 41.51556,
+  "lon": -4.15646
+ },
+ {
+  "name": "Fontanar",
+  "lat": 40.73036,
+  "lon": -3.19075
+ },
+ {
+  "name": "Fontanarejo",
+  "lat": 39.24277,
+  "lon": -4.50339
+ },
+ {
+  "name": "Fontiveros",
+  "lat": 40.9242,
+  "lon": -4.96824
+ },
+ {
+  "name": "Frechilla de Almazán",
+  "lat": 41.41115,
+  "lon": -2.53597
+ },
+ {
+  "name": "Fresneda de Cuéllar",
+  "lat": 41.30162,
+  "lon": -4.4601
+ },
+ {
+  "name": "Fresnedilla",
+  "lat": 40.23477,
+  "lon": -4.6673
+ },
+ {
+  "name": "Fresnedillas de la Oliva",
+  "lat": 40.46855,
+  "lon": -4.18806
+ },
+ {
+  "name": "Fresnedoso de Ibor",
+  "lat": 39.68341,
+  "lon": -5.51932
+ },
+ {
+  "name": "Fresno de Cantespino",
+  "lat": 41.3679,
+  "lon": -3.49643
+ },
+ {
+  "name": "Fresno de Caracena",
+  "lat": 41.46449,
+  "lon": -3.11263
+ },
+ {
+  "name": "Fresno de Torote",
+  "lat": 40.61103,
+  "lon": -3.40694
+ },
+ {
+  "name": "Fresno de la Fuente",
+  "lat": 41.40748,
+  "lon": -3.65178
+ },
+ {
+  "name": "Fresno de la Ribera",
+  "lat": 41.54112,
+  "lon": -5.56514
+ },
+ {
+  "name": "Fresno el Viejo",
+  "lat": 41.1814,
+  "lon": -5.16074
+ },
+ {
+  "name": "Frumales",
+  "lat": 41.37964,
+  "lon": -4.19273
+ },
+ {
+  "name": "Fuencemillán",
+  "lat": 40.92006,
+  "lon": -3.09507
+ },
+ {
+  "name": "Fuenlabrada",
+  "lat": 40.28889,
+  "lon": -3.80073
+ },
+ {
+  "name": "Fuenlabrada de los Montes",
+  "lat": 39.23416,
+  "lon": -4.86587
+ },
+ {
+  "name": "Fuensalida",
+  "lat": 40.07141,
+  "lon": -4.18889
+ },
+ {
+  "name": "Fuente de Pedro Naharro",
+  "lat": 39.92182,
+  "lon": -3.04798
+ },
+ {
+  "name": "Fuente de Santa Cruz",
+  "lat": 41.21142,
+  "lon": -4.62625
+ },
+ {
+  "name": "Fuente el Fresno",
+  "lat": 39.26881,
+  "lon": -3.87608
+ },
+ {
+  "name": "Fuente el Olmo de Fuentidueña",
+  "lat": 41.39263,
+  "lon": -3.99265
+ },
+ {
+  "name": "Fuente el Olmo de Íscar",
+  "lat": 41.28385,
+  "lon": -4.49702
+ },
+ {
+  "name": "Fuente el Saz de Jarama",
+  "lat": 40.64393,
+  "lon": -3.53318
+ },
+ {
+  "name": "Fuente el Saúz",
+  "lat": 40.97533,
+  "lon": -4.89839
+ },
+ {
+  "name": "Fuente el Sol",
+  "lat": 41.16408,
+  "lon": -4.94692
+ },
+ {
+  "name": "Fuente-Olmedo",
+  "lat": 41.24707,
+  "lon": -4.64268
+ },
+ {
+  "name": "Fuentecambrón",
+  "lat": 41.48999,
+  "lon": -3.35158
+ },
+ {
+  "name": "Fuentelahiguera de Albatages",
+  "lat": 40.7857,
+  "lon": -3.31955
+ },
+ {
+  "name": "Fuentelapeña",
+  "lat": 41.24557,
+  "lon": -5.39983
+ },
+ {
+  "name": "Fuentelencina",
+  "lat": 40.50964,
+  "lon": -2.87465
+ },
+ {
+  "name": "Fuentelespino de Haro",
+  "lat": 39.67859,
+  "lon": -2.64534
+ },
+ {
+  "name": "Fuentelviejo",
+  "lat": 40.5173,
+  "lon": -2.99086
+ },
+ {
+  "name": "Fuentenebro",
+  "lat": 41.50577,
+  "lon": -3.74846
+ },
+ {
+  "name": "Fuentenovilla",
+  "lat": 40.37371,
+  "lon": -3.09612
+ },
+ {
+  "name": "Fuentepelayo",
+  "lat": 41.22697,
+  "lon": -4.18795
+ },
+ {
+  "name": "Fuentepinilla",
+  "lat": 41.54442,
+  "lon": -2.7393
+ },
+ {
+  "name": "Fuentepiñel",
+  "lat": 41.40071,
+  "lon": -4.04457
+ },
+ {
+  "name": "Fuenterrebollo",
+  "lat": 41.30931,
+  "lon": -3.95777
+ },
+ {
+  "name": "Fuentes de Año",
+  "lat": 41.02412,
+  "lon": -4.91707
+ },
+ {
+  "name": "Fuentesaúco",
+  "lat": 41.24909,
+  "lon": -5.50108
+ },
+ {
+  "name": "Fuentesaúco de Fuentidueña",
+  "lat": 41.42997,
+  "lon": -4.06369
+ },
+ {
+  "name": "Fuentesoto",
+  "lat": 41.44395,
+  "lon": -3.90737
+ },
+ {
+  "name": "Fuentidueña",
+  "lat": 41.38847,
+  "lon": -3.98614
+ },
+ {
+  "name": "Fuentidueña de Tajo",
+  "lat": 40.10552,
+  "lon": -3.16498
+ },
+ {
+  "name": "Gajanejos",
+  "lat": 40.83287,
+  "lon": -2.89369
+ },
+ {
+  "name": "Gajates",
+  "lat": 40.79431,
+  "lon": -5.36693
+ },
+ {
+  "name": "Galapagar",
+  "lat": 40.58365,
+  "lon": -3.9974
+ },
+ {
+  "name": "Galinduste",
+  "lat": 40.66404,
+  "lon": -5.52787
+ },
+ {
+  "name": "Galisancho",
+  "lat": 40.72366,
+  "lon": -5.55058
+ },
+ {
+  "name": "Gallegos",
+  "lat": 41.0643,
+  "lon": -3.7758
+ },
+ {
+  "name": "Gallegos de Altamiros",
+  "lat": 40.70532,
+  "lon": -4.91386
+ },
+ {
+  "name": "Gallegos de Sobrinos",
+  "lat": 40.70177,
+  "lon": -5.13564
+ },
+ {
+  "name": "Gallegos de Solmirón",
+  "lat": 40.53107,
+  "lon": -5.46422
+ },
+ {
+  "name": "Galve de Sorbe",
+  "lat": 41.20591,
+  "lon": -3.20411
+ },
+ {
+  "name": "Galápagos",
+  "lat": 40.70168,
+  "lon": -3.34847
+ },
+ {
+  "name": "Garciaz",
+  "lat": 39.46573,
+  "lon": -5.5591
+ },
+ {
+  "name": "Garcihernández",
+  "lat": 40.86845,
+  "lon": -5.44177
+ },
+ {
+  "name": "Garcillán",
+  "lat": 40.99411,
+  "lon": -4.27145
+ },
+ {
+  "name": "Garciotum",
+  "lat": 40.1144,
+  "lon": -4.6299
+ },
+ {
+  "name": "Garganta de los Montes",
+  "lat": 40.9282,
+  "lon": -3.68853
+ },
+ {
+  "name": "Garganta del Villar",
+  "lat": 40.45126,
+  "lon": -5.1211
+ },
+ {
+  "name": "Gargantilla del Lozoya y Pinilla de Buitrago",
+  "lat": 40.96934,
+  "lon": -3.69908
+ },
+ {
+  "name": "Garvín",
+  "lat": 39.71131,
+  "lon": -5.35693
+ },
+ {
+  "name": "Gascones",
+  "lat": 41.03919,
+  "lon": -3.67639
+ },
+ {
+  "name": "Gascueña",
+  "lat": 40.2777,
+  "lon": -2.57509
+ },
+ {
+  "name": "Gascueña de Bornova",
+  "lat": 41.14538,
+  "lon": -3.01082
+ },
+ {
+  "name": "Gavilanes",
+  "lat": 40.26914,
+  "lon": -4.86867
+ },
+ {
+  "name": "Gemuño",
+  "lat": 40.58556,
+  "lon": -4.78284
+ },
+ {
+  "name": "Geria",
+  "lat": 41.56039,
+  "lon": -4.88949
+ },
+ {
+  "name": "Gerindote",
+  "lat": 39.94375,
+  "lon": -4.28312
+ },
+ {
+  "name": "Getafe",
+  "lat": 40.29676,
+  "lon": -3.66796
+ },
+ {
+  "name": "Gil García",
+  "lat": 40.2687,
+  "lon": -5.5796
+ },
+ {
+  "name": "Gimialcón",
+  "lat": 40.87375,
+  "lon": -5.12977
+ },
+ {
+  "name": "Gomecello",
+  "lat": 41.03806,
+  "lon": -5.54159
+ },
+ {
+  "name": "Gomezserracín",
+  "lat": 41.28137,
+  "lon": -4.30412
+ },
+ {
+  "name": "Gormaz",
+  "lat": 41.50591,
+  "lon": -3.01035
+ },
+ {
+  "name": "Gotarrendura",
+  "lat": 40.8277,
+  "lon": -4.732
+ },
+ {
+  "name": "Grajera",
+  "lat": 41.3691,
+  "lon": -3.61656
+ },
+ {
+  "name": "Grandes y San Martín",
+  "lat": 40.76449,
+  "lon": -4.97346
+ },
+ {
+  "name": "Griñón",
+  "lat": 40.22346,
+  "lon": -3.84752
+ },
+ {
+  "name": "Guadalajara",
+  "lat": 40.63597,
+  "lon": -3.16112
+ },
+ {
+  "name": "Guadalix de la Sierra",
+  "lat": 40.77938,
+  "lon": -3.67541
+ },
+ {
+  "name": "Guadalupe",
+  "lat": 39.44703,
+  "lon": -5.32496
+ },
+ {
+  "name": "Guadamur",
+  "lat": 39.83542,
+  "lon": -4.14241
+ },
+ {
+  "name": "Guadarrama",
+  "lat": 40.66564,
+  "lon": -4.09771
+ },
+ {
+  "name": "Guarrate",
+  "lat": 41.30088,
+  "lon": -5.48316
+ },
+ {
+  "name": "Guisando",
+  "lat": 40.22199,
+  "lon": -5.14838
+ },
+ {
+  "name": "Gutierre-Muñoz",
+  "lat": 40.96593,
+  "lon": -4.65321
+ },
+ {
+  "name": "Gálvez",
+  "lat": 39.72756,
+  "lon": -4.29324
+ },
+ {
+  "name": "Haza",
+  "lat": 41.53359,
+  "lon": -3.84494
+ },
+ {
+  "name": "Helechosa de los Montes",
+  "lat": 39.34502,
+  "lon": -4.85112
+ },
+ {
+  "name": "Henche",
+  "lat": 40.72127,
+  "lon": -2.71056
+ },
+ {
+  "name": "Heras de Ayuso",
+  "lat": 40.78477,
+  "lon": -3.11327
+ },
+ {
+  "name": "Herencia",
+  "lat": 39.31709,
+  "lon": -3.44313
+ },
+ {
+  "name": "Hernansancho",
+  "lat": 40.85452,
+  "lon": -4.71998
+ },
+ {
+  "name": "Herradón de Pinares",
+  "lat": 40.59256,
+  "lon": -4.54602
+ },
+ {
+  "name": "Herrera del Duque",
+  "lat": 39.29494,
+  "lon": -4.98245
+ },
+ {
+  "name": "Herreros de Suso",
+  "lat": 40.80149,
+  "lon": -5.0478
+ },
+ {
+  "name": "Herreruela de Oropesa",
+  "lat": 39.89315,
+  "lon": -5.24048
+ },
+ {
+  "name": "Hiendelaencina",
+  "lat": 41.07732,
+  "lon": -3.00266
+ },
+ {
+  "name": "Higuera de las Dueñas",
+  "lat": 40.22698,
+  "lon": -4.61309
+ },
+ {
+  "name": "Hijes",
+  "lat": 41.26213,
+  "lon": -3.01735
+ },
+ {
+  "name": "Hinojosa de San Vicente",
+  "lat": 40.11288,
+  "lon": -4.74092
+ },
+ {
+  "name": "Hita",
+  "lat": 40.83586,
+  "lon": -3.04085
+ },
+ {
+  "name": "Honrubia de la Cuesta",
+  "lat": 41.50102,
+  "lon": -3.70523
+ },
+ {
+  "name": "Hontalbilla",
+  "lat": 41.33883,
+  "lon": -4.12278
+ },
+ {
+  "name": "Hontanar",
+  "lat": 39.54969,
+  "lon": -4.53085
+ },
+ {
+  "name": "Hontanares de Eresma",
+  "lat": 40.98361,
+  "lon": -4.20576
+ },
+ {
+  "name": "Hontanaya",
+  "lat": 39.70447,
+  "lon": -2.82165
+ },
+ {
+  "name": "Hontangas",
+  "lat": 41.57412,
+  "lon": -3.8056
+ },
+ {
+  "name": "Hontoba",
+  "lat": 40.44771,
+  "lon": -3.05181
+ },
+ {
+  "name": "Horcajo Medianero",
+  "lat": 40.65074,
+  "lon": -5.44225
+ },
+ {
+  "name": "Horcajo de Santiago",
+  "lat": 39.85671,
+  "lon": -3.05074
+ },
+ {
+  "name": "Horcajo de la Sierra-Aoslos",
+  "lat": 41.07845,
+  "lon": -3.58485
+ },
+ {
+  "name": "Horcajo de las Torres",
+  "lat": 41.06951,
+  "lon": -5.11628
+ },
+ {
+  "name": "Horcajo de los Montes",
+  "lat": 39.35306,
+  "lon": -4.62822
+ },
+ {
+  "name": "Horcajuelo de la Sierra",
+  "lat": 41.09177,
+  "lon": -3.54939
+ },
+ {
+  "name": "Horche",
+  "lat": 40.56808,
+  "lon": -3.06681
+ },
+ {
+  "name": "Hormigos",
+  "lat": 40.09033,
+  "lon": -4.46516
+ },
+ {
+  "name": "Hornillos de Eresma",
+  "lat": 41.35714,
+  "lon": -4.7337
+ },
+ {
+  "name": "Hoyo de Manzanares",
+  "lat": 40.61552,
+  "lon": -3.89825
+ },
+ {
+  "name": "Hoyocasero",
+  "lat": 40.40854,
+  "lon": -4.99357
+ },
+ {
+  "name": "Hoyorredondo",
+  "lat": 40.46197,
+  "lon": -5.41175
+ },
+ {
+  "name": "Hoyos de Miguel Muñoz",
+  "lat": 40.39518,
+  "lon": -5.07868
+ },
+ {
+  "name": "Hoyos del Collado",
+  "lat": 40.37556,
+  "lon": -5.20463
+ },
+ {
+  "name": "Hoyos del Espino",
+  "lat": 40.33991,
+  "lon": -5.18167
+ },
+ {
+  "name": "Huecas",
+  "lat": 40.01302,
+  "lon": -4.20285
+ },
+ {
+  "name": "Huelves",
+  "lat": 40.05188,
+  "lon": -2.91461
+ },
+ {
+  "name": "Huerta",
+  "lat": 40.96226,
+  "lon": -5.46746
+ },
+ {
+  "name": "Huerta de Valdecarábanos",
+  "lat": 39.83005,
+  "lon": -3.61659
+ },
+ {
+  "name": "Huete",
+  "lat": 40.12818,
+  "lon": -2.66877
+ },
+ {
+  "name": "Hueva",
+  "lat": 40.45995,
+  "lon": -2.96612
+ },
+ {
+  "name": "Humanes",
+  "lat": 40.85339,
+  "lon": -3.16156
+ },
+ {
+  "name": "Humanes de Madrid",
+  "lat": 40.2481,
+  "lon": -3.83231
+ },
+ {
+  "name": "Hurtumpascual",
+  "lat": 40.67393,
+  "lon": -5.11157
+ },
+ {
+  "name": "Huérmeces del Cerro",
+  "lat": 41.05643,
+  "lon": -2.79679
+ },
+ {
+  "name": "Illana",
+  "lat": 40.19961,
+  "lon": -2.97393
+ },
+ {
+  "name": "Illescas",
+  "lat": 40.13999,
+  "lon": -3.85077
+ },
+ {
+  "name": "Illán de Vacas",
+  "lat": 39.96981,
+  "lon": -4.56299
+ },
+ {
+  "name": "Irueste",
+  "lat": 40.60382,
+  "lon": -2.91214
+ },
+ {
+  "name": "Ituero y Lama",
+  "lat": 40.80132,
+  "lon": -4.38081
+ },
+ {
+  "name": "Jadraque",
+  "lat": 40.92363,
+  "lon": -2.93463
+ },
+ {
+  "name": "Jarandilla de la Vera",
+  "lat": 40.05479,
+  "lon": -5.567
+ },
+ {
+  "name": "Jirueque",
+  "lat": 40.97096,
+  "lon": -2.91251
+ },
+ {
+  "name": "Juarros de Riomoros",
+  "lat": 40.93137,
+  "lon": -4.32252
+ },
+ {
+  "name": "Juarros de Voltoya",
+  "lat": 41.04214,
+  "lon": -4.51944
+ },
+ {
+  "name": "Junciana",
+  "lat": 40.40441,
+  "lon": -5.57088
+ },
+ {
+  "name": "La Acebeda",
+  "lat": 41.09249,
+  "lon": -3.63735
+ },
+ {
+  "name": "La Adrada",
+  "lat": 40.30456,
+  "lon": -4.6642
+ },
+ {
+  "name": "La Alberca de Záncara",
+  "lat": 39.48766,
+  "lon": -2.54617
+ },
+ {
+  "name": "La Aldehuela",
+  "lat": 40.41511,
+  "lon": -5.4081
+ },
+ {
+  "name": "La Bodera",
+  "lat": 41.12518,
+  "lon": -2.89105
+ },
+ {
+  "name": "La Bóveda de Toro",
+  "lat": 41.32718,
+  "lon": -5.39517
+ },
+ {
+  "name": "La Cabrera",
+  "lat": 40.86186,
+  "lon": -3.61933
+ },
+ {
+  "name": "La Carrera",
+  "lat": 40.35963,
+  "lon": -5.56353
+ },
+ {
+  "name": "La Colilla",
+  "lat": 40.64675,
+  "lon": -4.76063
+ },
+ {
+  "name": "La Estrella",
+  "lat": 39.68751,
+  "lon": -5.08765
+ },
+ {
+  "name": "La Guardia",
+  "lat": 39.79584,
+  "lon": -3.59115
+ },
+ {
+  "name": "La Hija de Dios",
+  "lat": 40.51589,
+  "lon": -4.97289
+ },
+ {
+  "name": "La Hiruela",
+  "lat": 41.06783,
+  "lon": -3.45671
+ },
+ {
+  "name": "La Horcajada",
+  "lat": 40.42763,
+  "lon": -5.47712
+ },
+ {
+  "name": "La Huerce",
+  "lat": 41.13815,
+  "lon": -3.17061
+ },
+ {
+  "name": "La Iglesuela del Tiétar",
+  "lat": 40.23917,
+  "lon": -4.74979
+ },
+ {
+  "name": "La Lastrilla",
+  "lat": 40.97089,
+  "lon": -4.09293
+ },
+ {
+  "name": "La Losa",
+  "lat": 40.83417,
+  "lon": -4.14466
+ },
+ {
+  "name": "La Mata",
+  "lat": 39.92505,
+  "lon": -4.45548
+ },
+ {
+  "name": "La Matilla",
+  "lat": 41.178,
+  "lon": -3.81444
+ },
+ {
+  "name": "La Mierla",
+  "lat": 40.9371,
+  "lon": -3.24918
+ },
+ {
+  "name": "La Miñosa",
+  "lat": 41.18352,
+  "lon": -2.94627
+ },
+ {
+  "name": "La Nava de Ricomalillo",
+  "lat": 39.6487,
+  "lon": -4.99126
+ },
+ {
+  "name": "La Olmeda de Jadraque",
+  "lat": 41.12267,
+  "lon": -2.74088
+ },
+ {
+  "name": "La Orbada",
+  "lat": 41.10769,
+  "lon": -5.46984
+ },
+ {
+  "name": "La Parrilla",
+  "lat": 41.53481,
+  "lon": -4.53425
+ },
+ {
+  "name": "La Pedraja de Portillo",
+  "lat": 41.47665,
+  "lon": -4.69674
+ },
+ {
+  "name": "La Peraleja",
+  "lat": 40.23269,
+  "lon": -2.56995
+ },
+ {
+  "name": "La Puebla de Almoradiel",
+  "lat": 39.59104,
+  "lon": -3.14323
+ },
+ {
+  "name": "La Puebla de Montalbán",
+  "lat": 39.80226,
+  "lon": -4.36849
+ },
+ {
+  "name": "La Pueblanueva",
+  "lat": 39.91403,
+  "lon": -4.71398
+ },
+ {
+  "name": "La Riba de Escalote",
+  "lat": 41.35904,
+  "lon": -2.8053
+ },
+ {
+  "name": "La Seca",
+  "lat": 41.44626,
+  "lon": -4.91884
+ },
+ {
+  "name": "La Sequera de Haza",
+  "lat": 41.5682,
+  "lon": -3.81816
+ },
+ {
+  "name": "La Serna del Monte",
+  "lat": 41.03989,
+  "lon": -3.62511
+ },
+ {
+  "name": "La Serrada",
+  "lat": 40.6306,
+  "lon": -4.78951
+ },
+ {
+  "name": "La Tala",
+  "lat": 40.59044,
+  "lon": -5.5253
+ },
+ {
+  "name": "La Toba",
+  "lat": 41.00789,
+  "lon": -3.01322
+ },
+ {
+  "name": "La Torre",
+  "lat": 40.60188,
+  "lon": -4.96865
+ },
+ {
+  "name": "La Torre de Esteban Hambrán",
+  "lat": 40.17411,
+  "lon": -4.22051
+ },
+ {
+  "name": "La Vellés",
+  "lat": 41.08818,
+  "lon": -5.54861
+ },
+ {
+  "name": "La Villa de Don Fadrique",
+  "lat": 39.61857,
+  "lon": -3.2034
+ },
+ {
+  "name": "La Zarza",
+  "lat": 41.26372,
+  "lon": -4.7716
+ },
+ {
+  "name": "Labajos",
+  "lat": 40.85696,
+  "lon": -4.52026
+ },
+ {
+  "name": "Lagartera",
+  "lat": 39.98126,
+  "lon": -5.23957
+ },
+ {
+  "name": "Laguna de Contreras",
+  "lat": 41.49119,
+  "lon": -4.03351
+ },
+ {
+  "name": "Laguna de Duero",
+  "lat": 41.56039,
+  "lon": -4.73018
+ },
+ {
+  "name": "Langa",
+  "lat": 41.00129,
+  "lon": -4.85963
+ },
+ {
+  "name": "Langa de Duero",
+  "lat": 41.5425,
+  "lon": -3.41514
+ },
+ {
+  "name": "Langayo",
+  "lat": 41.55843,
+  "lon": -4.24555
+ },
+ {
+  "name": "Languilla",
+  "lat": 41.44935,
+  "lon": -3.42269
+ },
+ {
+  "name": "Lanzahíta",
+  "lat": 40.18985,
+  "lon": -4.94084
+ },
+ {
+  "name": "Larrodrigo",
+  "lat": 40.71184,
+  "lon": -5.43308
+ },
+ {
+  "name": "Las Berlanas",
+  "lat": 40.80307,
+  "lon": -4.77244
+ },
+ {
+  "name": "Las Herencias",
+  "lat": 39.8783,
+  "lon": -4.84332
+ },
+ {
+  "name": "Las Inviernas",
+  "lat": 40.87193,
+  "lon": -2.6771
+ },
+ {
+  "name": "Las Labores",
+  "lat": 39.27001,
+  "lon": -3.53032
+ },
+ {
+  "name": "Las Mesas",
+  "lat": 39.39029,
+  "lon": -2.76629
+ },
+ {
+  "name": "Las Navas de Jadraque",
+  "lat": 41.10467,
+  "lon": -3.09078
+ },
+ {
+  "name": "Las Navas del Marqués",
+  "lat": 40.59527,
+  "lon": -4.35292
+ },
+ {
+  "name": "Las Pedroñeras",
+  "lat": 39.45727,
+  "lon": -2.62661
+ },
+ {
+  "name": "Las Rozas de Madrid",
+  "lat": 40.5202,
+  "lon": -3.89463
+ },
+ {
+  "name": "Las Ventas con Peña Aguilera",
+  "lat": 39.57908,
+  "lon": -4.23817
+ },
+ {
+  "name": "Las Ventas de Retamosa",
+  "lat": 40.14801,
+  "lon": -4.14376
+ },
+ {
+  "name": "Las Ventas de San Julián",
+  "lat": 39.98794,
+  "lon": -5.27696
+ },
+ {
+  "name": "Lastras de Cuéllar",
+  "lat": 41.28433,
+  "lon": -4.09506
+ },
+ {
+  "name": "Lastras del Pozo",
+  "lat": 40.86583,
+  "lon": -4.32489
+ },
+ {
+  "name": "Layos",
+  "lat": 39.76917,
+  "lon": -4.0596
+ },
+ {
+  "name": "Ledanca",
+  "lat": 40.86232,
+  "lon": -2.85976
+ },
+ {
+  "name": "Leganiel",
+  "lat": 40.16126,
+  "lon": -2.97849
+ },
+ {
+  "name": "Leganés",
+  "lat": 40.33314,
+  "lon": -3.77155
+ },
+ {
+  "name": "Liceras",
+  "lat": 41.3912,
+  "lon": -3.24426
+ },
+ {
+  "name": "Lillo",
+  "lat": 39.7001,
+  "lon": -3.34487
+ },
+ {
+  "name": "Llano de Olmedo",
+  "lat": 41.27408,
+  "lon": -4.60797
+ },
+ {
+  "name": "Loeches",
+  "lat": 40.38004,
+  "lon": -3.41669
+ },
+ {
+  "name": "Logrosán",
+  "lat": 39.31296,
+  "lon": -5.49663
+ },
+ {
+  "name": "Lominchar",
+  "lat": 40.08452,
+  "lon": -3.98992
+ },
+ {
+  "name": "Lomoviejo",
+  "lat": 41.15662,
+  "lon": -4.89493
+ },
+ {
+  "name": "Loranca de Tajuña",
+  "lat": 40.44098,
+  "lon": -3.11783
+ },
+ {
+  "name": "Los Baldios",
+  "lat": 40.76671,
+  "lon": -4.01674
+ },
+ {
+  "name": "Los Cerralbos",
+  "lat": 40.02283,
+  "lon": -4.58262
+ },
+ {
+  "name": "Los Cortijos",
+  "lat": 39.31582,
+  "lon": -4.03477
+ },
+ {
+  "name": "Los Hinojosos",
+  "lat": 39.59634,
+  "lon": -2.85721
+ },
+ {
+  "name": "Los Huertos",
+  "lat": 41.00542,
+  "lon": -4.22241
+ },
+ {
+  "name": "Los Llanos de Tormes",
+  "lat": 40.33552,
+  "lon": -5.48023
+ },
+ {
+  "name": "Los Molinos",
+  "lat": 40.72188,
+  "lon": -4.09264
+ },
+ {
+  "name": "Los Navalmorales",
+  "lat": 39.71019,
+  "lon": -4.62456
+ },
+ {
+  "name": "Los Navalucillos",
+  "lat": 39.58695,
+  "lon": -4.68131
+ },
+ {
+  "name": "Los Santos de la Humosa",
+  "lat": 40.51252,
+  "lon": -3.25607
+ },
+ {
+  "name": "Los Yébenes",
+  "lat": 39.43933,
+  "lon": -3.92951
+ },
+ {
+  "name": "Losar de la Vera",
+  "lat": 40.09558,
+  "lon": -5.54569
+ },
+ {
+  "name": "Lozoya",
+  "lat": 40.97327,
+  "lon": -3.79739
+ },
+ {
+  "name": "Lozoyuela-Navas-Sieteiglesias",
+  "lat": 40.91724,
+  "lon": -3.61574
+ },
+ {
+  "name": "Lucillos",
+  "lat": 39.99727,
+  "lon": -4.62787
+ },
+ {
+  "name": "Lupiana",
+  "lat": 40.61593,
+  "lon": -3.04639
+ },
+ {
+  "name": "Machacón",
+  "lat": 40.91795,
+  "lon": -5.51566
+ },
+ {
+  "name": "Macotera",
+  "lat": 40.83226,
+  "lon": -5.29784
+ },
+ {
+  "name": "Madarcos",
+  "lat": 41.04397,
+  "lon": -3.5737
+ },
+ {
+  "name": "Maderuelo",
+  "lat": 41.50972,
+  "lon": -3.52737
+ },
+ {
+  "name": "Madrid",
+  "lat": 40.48619,
+  "lon": -3.69296
+ },
+ {
+  "name": "Madridanos",
+  "lat": 41.46426,
+  "lon": -5.5601
+ },
+ {
+  "name": "Madridejos",
+  "lat": 39.44374,
+  "lon": -3.54414
+ },
+ {
+  "name": "Madrigal de la Vera",
+  "lat": 40.19182,
+  "lon": -5.37211
+ },
+ {
+  "name": "Madrigal de las Altas Torres",
+  "lat": 41.10344,
+  "lon": -5.0307
+ },
+ {
+  "name": "Maello",
+  "lat": 40.81487,
+  "lon": -4.56449
+ },
+ {
+  "name": "Magán",
+  "lat": 39.96884,
+  "lon": -3.93954
+ },
+ {
+  "name": "Majadahonda",
+  "lat": 40.46715,
+  "lon": -3.89613
+ },
+ {
+  "name": "Majaelrayo",
+  "lat": 41.14469,
+  "lon": -3.32343
+ },
+ {
+  "name": "Malaguilla",
+  "lat": 40.83488,
+  "lon": -3.2635
+ },
+ {
+  "name": "Malagón",
+  "lat": 39.27347,
+  "lon": -4.04596
+ },
+ {
+  "name": "Malpartida",
+  "lat": 40.76331,
+  "lon": -5.23934
+ },
+ {
+  "name": "Malpartida de Corneja",
+  "lat": 40.51445,
+  "lon": -5.35893
+ },
+ {
+  "name": "Malpica de Tajo",
+  "lat": 39.8817,
+  "lon": -4.57634
+ },
+ {
+  "name": "Mamblas",
+  "lat": 41.00291,
+  "lon": -5.02556
+ },
+ {
+  "name": "Mancera de Abajo",
+  "lat": 40.84195,
+  "lon": -5.19356
+ },
+ {
+  "name": "Mancera de Arriba",
+  "lat": 40.79342,
+  "lon": -5.15201
+ },
+ {
+  "name": "Mandayona",
+  "lat": 40.95671,
+  "lon": -2.73601
+ },
+ {
+  "name": "Manjabálago y Ortigosa de Rioalmar",
+  "lat": 40.67422,
+  "lon": -5.07518
+ },
+ {
+  "name": "Mantiel",
+  "lat": 40.62399,
+  "lon": -2.67107
+ },
+ {
+  "name": "Manzanares el Real",
+  "lat": 40.73102,
+  "lon": -3.90049
+ },
+ {
+  "name": "Manzaneque",
+  "lat": 39.64372,
+  "lon": -3.80166
+ },
+ {
+  "name": "Manzanillo",
+  "lat": 41.57671,
+  "lon": -4.20898
+ },
+ {
+  "name": "Maqueda",
+  "lat": 40.07689,
+  "lon": -4.36682
+ },
+ {
+  "name": "Marazoleja",
+  "lat": 40.94153,
+  "lon": -4.34708
+ },
+ {
+  "name": "Marazuela",
+  "lat": 40.97773,
+  "lon": -4.36507
+ },
+ {
+  "name": "Marchamalo",
+  "lat": 40.6859,
+  "lon": -3.213
+ },
+ {
+  "name": "Marjaliza",
+  "lat": 39.55151,
+  "lon": -3.97413
+ },
+ {
+  "name": "Marlín",
+  "lat": 40.71184,
+  "lon": -4.8271
+ },
+ {
+  "name": "Marrupe",
+  "lat": 40.08452,
+  "lon": -4.8163
+ },
+ {
+  "name": "Martiherrero",
+  "lat": 40.68811,
+  "lon": -4.7996
+ },
+ {
+  "name": "Martinamor",
+  "lat": 40.79297,
+  "lon": -5.5676
+ },
+ {
+  "name": "Martín Miguel",
+  "lat": 40.95349,
+  "lon": -4.28378
+ },
+ {
+  "name": "Martín Muñoz de la Dehesa",
+  "lat": 41.07166,
+  "lon": -4.6881
+ },
+ {
+  "name": "Martín Muñoz de las Posadas",
+  "lat": 40.98662,
+  "lon": -4.56913
+ },
+ {
+  "name": "Martínez",
+  "lat": 40.62611,
+  "lon": -5.36218
+ },
+ {
+  "name": "Marugán",
+  "lat": 40.89221,
+  "lon": -4.39045
+ },
+ {
+  "name": "Marzales",
+  "lat": 41.57283,
+  "lon": -5.13562
+ },
+ {
+  "name": "Mascaraque",
+  "lat": 39.74124,
+  "lon": -3.80421
+ },
+ {
+  "name": "Masegoso de Tajuña",
+  "lat": 40.82586,
+  "lon": -2.7049
+ },
+ {
+  "name": "Mata de Cuéllar",
+  "lat": 41.39335,
+  "lon": -4.48352
+ },
+ {
+  "name": "Matabuena",
+  "lat": 41.08762,
+  "lon": -3.75106
+ },
+ {
+  "name": "Matamala de Almazán",
+  "lat": 41.49968,
+  "lon": -2.6412
+ },
+ {
+  "name": "Matapozuelos",
+  "lat": 41.41315,
+  "lon": -4.77564
+ },
+ {
+  "name": "Matarrubia",
+  "lat": 40.8742,
+  "lon": -3.31048
+ },
+ {
+  "name": "Matilla de los Caños",
+  "lat": 41.54403,
+  "lon": -4.9535
+ },
+ {
+  "name": "Matilla la Seca",
+  "lat": 41.57768,
+  "lon": -5.50717
+ },
+ {
+  "name": "Matillas",
+  "lat": 40.94268,
+  "lon": -2.83717
+ },
+ {
+  "name": "Mazarambroz",
+  "lat": 39.65569,
+  "lon": -4.06983
+ },
+ {
+  "name": "Mazuecos",
+  "lat": 40.27013,
+  "lon": -3.03384
+ },
+ {
+  "name": "Meco",
+  "lat": 40.56024,
+  "lon": -3.32536
+ },
+ {
+  "name": "Mediana de Voltoya",
+  "lat": 40.70209,
+  "lon": -4.5599
+ },
+ {
+  "name": "Medina del Campo",
+  "lat": 41.32501,
+  "lon": -4.89327
+ },
+ {
+  "name": "Medinilla",
+  "lat": 40.4616,
+  "lon": -5.5715
+ },
+ {
+  "name": "Medranda",
+  "lat": 40.98465,
+  "lon": -2.93784
+ },
+ {
+  "name": "Megeces",
+  "lat": 41.40358,
+  "lon": -4.58848
+ },
+ {
+  "name": "Mejorada",
+  "lat": 40.01522,
+  "lon": -4.9281
+ },
+ {
+  "name": "Mejorada del Campo",
+  "lat": 40.40279,
+  "lon": -3.47742
+ },
+ {
+  "name": "Melque de Cercos",
+  "lat": 41.04766,
+  "lon": -4.4756
+ },
+ {
+  "name": "Membibre de la Hoz",
+  "lat": 41.46265,
+  "lon": -4.10473
+ },
+ {
+  "name": "Membrillera",
+  "lat": 40.94807,
+  "lon": -3.00255
+ },
+ {
+  "name": "Menasalbas",
+  "lat": 39.6232,
+  "lon": -4.36146
+ },
+ {
+  "name": "Mengamuñoz",
+  "lat": 40.50204,
+  "lon": -5.01282
+ },
+ {
+  "name": "Mesas de Ibor",
+  "lat": 39.76301,
+  "lon": -5.54024
+ },
+ {
+  "name": "Mesegar de Corneja",
+  "lat": 40.54882,
+  "lon": -5.29551
+ },
+ {
+  "name": "Mesegar de Tajo",
+  "lat": 39.92134,
+  "lon": -4.49902
+ },
+ {
+  "name": "Miedes de Atienza",
+  "lat": 41.24726,
+  "lon": -2.96345
+ },
+ {
+  "name": "Miguel Esteban",
+  "lat": 39.51258,
+  "lon": -3.12873
+ },
+ {
+  "name": "Migueláñez",
+  "lat": 41.13898,
+  "lon": -4.37669
+ },
+ {
+  "name": "Mijares",
+  "lat": 40.28384,
+  "lon": -4.83443
+ },
+ {
+  "name": "Milagros",
+  "lat": 41.57116,
+  "lon": -3.69671
+ },
+ {
+  "name": "Millana",
+  "lat": 40.50458,
+  "lon": -2.58354
+ },
+ {
+  "name": "Millanes",
+  "lat": 39.86102,
+  "lon": -5.55823
+ },
+ {
+  "name": "Mingorría",
+  "lat": 40.76969,
+  "lon": -4.68036
+ },
+ {
+  "name": "Mirabueno",
+  "lat": 40.92015,
+  "lon": -2.71272
+ },
+ {
+  "name": "Miraflores de la Sierra",
+  "lat": 40.79129,
+  "lon": -3.77442
+ },
+ {
+  "name": "Miralrío",
+  "lat": 40.88564,
+  "lon": -2.93752
+ },
+ {
+  "name": "Mironcillo",
+  "lat": 40.55466,
+  "lon": -4.82434
+ },
+ {
+  "name": "Mirueña de los Infanzones",
+  "lat": 40.73467,
+  "lon": -5.09435
+ },
+ {
+  "name": "Miño de Medinaceli",
+  "lat": 41.17897,
+  "lon": -2.58526
+ },
+ {
+  "name": "Miño de San Esteban",
+  "lat": 41.54733,
+  "lon": -3.34809
+ },
+ {
+  "name": "Mocejón",
+  "lat": 39.92161,
+  "lon": -3.9145
+ },
+ {
+  "name": "Mohedas de la Jara",
+  "lat": 39.60541,
+  "lon": -5.1586
+ },
+ {
+  "name": "Mohernando",
+  "lat": 40.79848,
+  "lon": -3.17263
+ },
+ {
+  "name": "Mojados",
+  "lat": 41.43666,
+  "lon": -4.68445
+ },
+ {
+  "name": "Mombeltrán",
+  "lat": 40.20788,
+  "lon": -4.98989
+ },
+ {
+  "name": "Monasterio",
+  "lat": 40.99492,
+  "lon": -3.11371
+ },
+ {
+  "name": "Mondéjar",
+  "lat": 40.31049,
+  "lon": -3.12505
+ },
+ {
+  "name": "Monreal del Llano",
+  "lat": 39.56208,
+  "lon": -2.7731
+ },
+ {
+  "name": "Monsalupe",
+  "lat": 40.76954,
+  "lon": -4.7954
+ },
+ {
+  "name": "Montalbanejo",
+  "lat": 39.73683,
+  "lon": -2.55138
+ },
+ {
+  "name": "Montalbo",
+  "lat": 39.86358,
+  "lon": -2.66755
+ },
+ {
+  "name": "Montarrón",
+  "lat": 40.89758,
+  "lon": -3.11793
+ },
+ {
+  "name": "Monte de la Mata",
+  "lat": 41.50654,
+  "lon": -3.82528
+ },
+ {
+  "name": "Montearagón",
+  "lat": 39.95526,
+  "lon": -4.63778
+ },
+ {
+  "name": "Montejo de Arévalo",
+  "lat": 41.1517,
+  "lon": -4.67891
+ },
+ {
+  "name": "Montejo de Tiermes",
+  "lat": 41.37323,
+  "lon": -3.21135
+ },
+ {
+  "name": "Montejo de la Sierra",
+  "lat": 41.10309,
+  "lon": -3.51899
+ },
+ {
+  "name": "Montejo de la Vega de la Serrezuela",
+  "lat": 41.55121,
+  "lon": -3.63063
+ },
+ {
+  "name": "Montemayor de Pililla",
+  "lat": 41.51381,
+  "lon": -4.45473
+ },
+ {
+  "name": "Monterrubio",
+  "lat": 40.84257,
+  "lon": -4.36889
+ },
+ {
+  "name": "Montesclaros",
+  "lat": 40.09776,
+  "lon": -4.93342
+ },
+ {
+  "name": "Mora",
+  "lat": 39.68869,
+  "lon": -3.74284
+ },
+ {
+  "name": "Moradillo de Roa",
+  "lat": 41.54969,
+  "lon": -3.79211
+ },
+ {
+  "name": "Moral de Hornuez",
+  "lat": 41.47259,
+  "lon": -3.62303
+ },
+ {
+  "name": "Moraleja de Enmedio",
+  "lat": 40.2551,
+  "lon": -3.88751
+ },
+ {
+  "name": "Moraleja de Matacabras",
+  "lat": 41.12067,
+  "lon": -4.94934
+ },
+ {
+  "name": "Moraleja de las Panaderas",
+  "lat": 41.27869,
+  "lon": -4.82935
+ },
+ {
+  "name": "Morales de Toro",
+  "lat": 41.53373,
+  "lon": -5.30231
+ },
+ {
+  "name": "Moralzarzal",
+  "lat": 40.67104,
+  "lon": -3.93293
+ },
+ {
+  "name": "Morata de Tajuña",
+  "lat": 40.22572,
+  "lon": -3.4544
+ },
+ {
+  "name": "Moratilla de los Meleros",
+  "lat": 40.50781,
+  "lon": -2.94383
+ },
+ {
+  "name": "Moriscos",
+  "lat": 41.00461,
+  "lon": -5.5586
+ },
+ {
+  "name": "Moríñigo",
+  "lat": 40.96388,
+  "lon": -5.39774
+ },
+ {
+  "name": "Mota del Cuervo",
+  "lat": 39.44901,
+  "lon": -2.86558
+ },
+ {
+  "name": "Mota del Marqués",
+  "lat": 41.58274,
+  "lon": -5.174
+ },
+ {
+  "name": "Mozoncillo",
+  "lat": 41.14399,
+  "lon": -4.18566
+ },
+ {
+  "name": "Muduex",
+  "lat": 40.82851,
+  "lon": -2.95465
+ },
+ {
+  "name": "Muriel",
+  "lat": 41.12516,
+  "lon": -4.85263
+ },
+ {
+  "name": "Muñana",
+  "lat": 40.5977,
+  "lon": -5.03224
+ },
+ {
+  "name": "Muñico",
+  "lat": 40.7051,
+  "lon": -5.0463
+ },
+ {
+  "name": "Muñogalindo",
+  "lat": 40.59647,
+  "lon": -4.90823
+ },
+ {
+  "name": "Muñogrande",
+  "lat": 40.81254,
+  "lon": -4.94188
+ },
+ {
+  "name": "Muñomer del Peco",
+  "lat": 40.86675,
+  "lon": -4.89436
+ },
+ {
+  "name": "Muñopedro",
+  "lat": 40.88351,
+  "lon": -4.49589
+ },
+ {
+  "name": "Muñopepe",
+  "lat": 40.63891,
+  "lon": -4.82228
+ },
+ {
+  "name": "Muñosancho",
+  "lat": 40.92363,
+  "lon": -5.03699
+ },
+ {
+  "name": "Muñotello",
+  "lat": 40.53976,
+  "lon": -5.02956
+ },
+ {
+  "name": "Muñoveros",
+  "lat": 41.1747,
+  "lon": -3.95223
+ },
+ {
+  "name": "Málaga del Fresno",
+  "lat": 40.78634,
+  "lon": -3.23961
+ },
+ {
+  "name": "Méntrida",
+  "lat": 40.23924,
+  "lon": -4.19162
+ },
+ {
+  "name": "Móstoles",
+  "lat": 40.31036,
+  "lon": -3.91059
+ },
+ {
+  "name": "Nambroca",
+  "lat": 39.80031,
+  "lon": -3.91923
+ },
+ {
+  "name": "Narrillos del Rebollar",
+  "lat": 40.67886,
+  "lon": -4.96165
+ },
+ {
+  "name": "Narrillos del Álamo",
+  "lat": 40.57472,
+  "lon": -5.47614
+ },
+ {
+  "name": "Narros de Saldueña",
+  "lat": 40.88199,
+  "lon": -4.87877
+ },
+ {
+  "name": "Narros del Castillo",
+  "lat": 40.84822,
+  "lon": -5.06522
+ },
+ {
+  "name": "Narros del Puerto",
+  "lat": 40.53966,
+  "lon": -4.99643
+ },
+ {
+  "name": "Nava de Arévalo",
+  "lat": 40.99834,
+  "lon": -4.76784
+ },
+ {
+  "name": "Nava de Sotrobal",
+  "lat": 40.89852,
+  "lon": -5.29133
+ },
+ {
+  "name": "Nava de la Asunción",
+  "lat": 41.13817,
+  "lon": -4.50564
+ },
+ {
+  "name": "Nava del Barco",
+  "lat": 40.26995,
+  "lon": -5.5551
+ },
+ {
+  "name": "Nava del Rey",
+  "lat": 41.36578,
+  "lon": -5.10514
+ },
+ {
+  "name": "Navacepedilla de Corneja",
+  "lat": 40.48551,
+  "lon": -5.17115
+ },
+ {
+  "name": "Navacerrada",
+  "lat": 40.76015,
+  "lon": -4.00887
+ },
+ {
+  "name": "Navadijos",
+  "lat": 40.41814,
+  "lon": -5.09423
+ },
+ {
+  "name": "Navaescurial",
+  "lat": 40.46613,
+  "lon": -5.26247
+ },
+ {
+  "name": "Navafría",
+  "lat": 41.02986,
+  "lon": -3.83512
+ },
+ {
+  "name": "Navahermosa",
+  "lat": 39.66607,
+  "lon": -4.48415
+ },
+ {
+  "name": "Navahondilla",
+  "lat": 40.34043,
+  "lon": -4.48337
+ },
+ {
+  "name": "Navalacruz",
+  "lat": 40.45391,
+  "lon": -4.95495
+ },
+ {
+  "name": "Navalafuente",
+  "lat": 40.81639,
+  "lon": -3.68096
+ },
+ {
+  "name": "Navalagamella",
+  "lat": 40.43834,
+  "lon": -4.13354
+ },
+ {
+  "name": "Navalcarnero",
+  "lat": 40.2766,
+  "lon": -3.99586
+ },
+ {
+  "name": "Navalcán",
+  "lat": 40.09272,
+  "lon": -5.11299
+ },
+ {
+  "name": "Navales",
+  "lat": 40.77993,
+  "lon": -5.47999
+ },
+ {
+  "name": "Navalilla",
+  "lat": 41.33598,
+  "lon": -3.95258
+ },
+ {
+  "name": "Navalmanzano",
+  "lat": 41.21028,
+  "lon": -4.26251
+ },
+ {
+  "name": "Navalmoral",
+  "lat": 40.46239,
+  "lon": -4.75392
+ },
+ {
+  "name": "Navalmoral de la Mata",
+  "lat": 39.92918,
+  "lon": -5.52594
+ },
+ {
+  "name": "Navalmoralejo",
+  "lat": 39.75315,
+  "lon": -5.12797
+ },
+ {
+  "name": "Navalonguilla",
+  "lat": 40.23869,
+  "lon": -5.49638
+ },
+ {
+  "name": "Navalosa",
+  "lat": 40.37829,
+  "lon": -4.91629
+ },
+ {
+  "name": "Navalperal de Pinares",
+  "lat": 40.59441,
+  "lon": -4.45706
+ },
+ {
+  "name": "Navalperal de Tormes",
+  "lat": 40.33847,
+  "lon": -5.2889
+ },
+ {
+  "name": "Navalpino",
+  "lat": 39.27751,
+  "lon": -4.62102
+ },
+ {
+  "name": "Navaluenga",
+  "lat": 40.39857,
+  "lon": -4.68669
+ },
+ {
+  "name": "Navalvillar de Ibor",
+  "lat": 39.59671,
+  "lon": -5.38007
+ },
+ {
+  "name": "Navamorales",
+  "lat": 40.47927,
+  "lon": -5.48663
+ },
+ {
+  "name": "Navamorcuende",
+  "lat": 40.14455,
+  "lon": -4.84053
+ },
+ {
+  "name": "Navaquesera",
+  "lat": 40.42444,
+  "lon": -4.92645
+ },
+ {
+  "name": "Navares de Ayuso",
+  "lat": 41.36813,
+  "lon": -3.70242
+ },
+ {
+  "name": "Navares de Enmedio",
+  "lat": 41.4215,
+  "lon": -3.73487
+ },
+ {
+  "name": "Navares de las Cuevas",
+  "lat": 41.41952,
+  "lon": -3.76179
+ },
+ {
+  "name": "Navarredonda de Gredos",
+  "lat": 40.34948,
+  "lon": -5.11662
+ },
+ {
+  "name": "Navarredonda y San Mamés",
+  "lat": 41.01269,
+  "lon": -3.74291
+ },
+ {
+  "name": "Navarredondilla",
+  "lat": 40.43915,
+  "lon": -4.84104
+ },
+ {
+  "name": "Navarrevisca",
+  "lat": 40.35626,
+  "lon": -4.86977
+ },
+ {
+  "name": "Navas de Estena",
+  "lat": 39.46933,
+  "lon": -4.53805
+ },
+ {
+  "name": "Navas de Oro",
+  "lat": 41.20401,
+  "lon": -4.42467
+ },
+ {
+  "name": "Navas de Riofrío",
+  "lat": 40.83982,
+  "lon": -4.11739
+ },
+ {
+  "name": "Navas de San Antonio",
+  "lat": 40.71299,
+  "lon": -4.35061
+ },
+ {
+  "name": "Navas del Rey",
+  "lat": 40.38812,
+  "lon": -4.27267
+ },
+ {
+  "name": "Navatalgordo",
+  "lat": 40.40944,
+  "lon": -4.85913
+ },
+ {
+  "name": "Navatejares",
+  "lat": 40.32132,
+  "lon": -5.53911
+ },
+ {
+  "name": "Navezuelas",
+  "lat": 39.49057,
+  "lon": -5.41513
+ },
+ {
+  "name": "Negredo",
+  "lat": 41.02966,
+  "lon": -2.86298
+ },
+ {
+  "name": "Nieva",
+  "lat": 41.09384,
+  "lon": -4.45483
+ },
+ {
+  "name": "Niharra",
+  "lat": 40.59182,
+  "lon": -4.84413
+ },
+ {
+  "name": "Noblejas",
+  "lat": 39.9898,
+  "lon": -3.43689
+ },
+ {
+  "name": "Noez",
+  "lat": 39.74281,
+  "lon": -4.16265
+ },
+ {
+  "name": "Nombela",
+  "lat": 40.12082,
+  "lon": -4.53896
+ },
+ {
+  "name": "Novés",
+  "lat": 40.03459,
+  "lon": -4.27466
+ },
+ {
+  "name": "Nueva Villa de las Torres",
+  "lat": 41.27057,
+  "lon": -5.08929
+ },
+ {
+  "name": "Nuevo Baztán",
+  "lat": 40.37946,
+  "lon": -3.2575
+ },
+ {
+  "name": "Numancia de la Sagra",
+  "lat": 40.07321,
+  "lon": -3.82692
+ },
+ {
+  "name": "Nuño Gómez",
+  "lat": 40.13275,
+  "lon": -4.60926
+ },
+ {
+  "name": "Ocaña",
+  "lat": 39.96616,
+  "lon": -3.51882
+ },
+ {
+  "name": "Ojos-Albos",
+  "lat": 40.72915,
+  "lon": -4.51269
+ },
+ {
+  "name": "Olmeda de las Fuentes",
+  "lat": 40.36725,
+  "lon": -3.20806
+ },
+ {
+  "name": "Olmedo",
+  "lat": 41.29677,
+  "lon": -4.71226
+ },
+ {
+  "name": "Olmos de Peñafiel",
+  "lat": 41.54897,
+  "lon": -4.0216
+ },
+ {
+  "name": "Olombrada",
+  "lat": 41.43486,
+  "lon": -4.15305
+ },
+ {
+  "name": "Olías del Rey",
+  "lat": 39.95349,
+  "lon": -3.98204
+ },
+ {
+  "name": "Ontígola",
+  "lat": 40.01453,
+  "lon": -3.53124
+ },
+ {
+  "name": "Orbita",
+  "lat": 40.99605,
+  "lon": -4.65611
+ },
+ {
+  "name": "Orejana",
+  "lat": 41.15616,
+  "lon": -3.78322
+ },
+ {
+  "name": "Orgaz",
+  "lat": 39.64098,
+  "lon": -3.89749
+ },
+ {
+  "name": "Oropesa",
+  "lat": 39.98211,
+  "lon": -5.22048
+ },
+ {
+  "name": "Ortigosa de Pestaño",
+  "lat": 41.09364,
+  "lon": -4.39926
+ },
+ {
+  "name": "Ortigosa del Monte",
+  "lat": 40.82548,
+  "lon": -4.16912
+ },
+ {
+  "name": "Orusco de Tajuña",
+  "lat": 40.29339,
+  "lon": -3.20902
+ },
+ {
+  "name": "Osa de la Vega",
+  "lat": 39.64022,
+  "lon": -2.76969
+ },
+ {
+  "name": "Otero",
+  "lat": 40.01716,
+  "lon": -4.50849
+ },
+ {
+  "name": "Otero de Herreros",
+  "lat": 40.82043,
+  "lon": -4.21933
+ },
+ {
+  "name": "Padiernos",
+  "lat": 40.62275,
+  "lon": -4.86486
+ },
+ {
+  "name": "Pajarejos",
+  "lat": 41.38974,
+  "lon": -3.59446
+ },
+ {
+  "name": "Pajares de Adaja",
+  "lat": 40.92383,
+  "lon": -4.65498
+ },
+ {
+  "name": "Pajares de la Laguna",
+  "lat": 41.0989,
+  "lon": -5.50955
+ },
+ {
+  "name": "Palacios de Goda",
+  "lat": 41.10708,
+  "lon": -4.76334
+ },
+ {
+  "name": "Palaciosrubios",
+  "lat": 41.05732,
+  "lon": -5.19809
+ },
+ {
+  "name": "Palazuelos de Eresma",
+  "lat": 40.92588,
+  "lon": -4.01819
+ },
+ {
+  "name": "Palomares del Campo",
+  "lat": 39.9425,
+  "lon": -2.64449
+ },
+ {
+  "name": "Palomeque",
+  "lat": 40.11244,
+  "lon": -3.98561
+ },
+ {
+  "name": "Pantoja",
+  "lat": 40.04466,
+  "lon": -3.82865
+ },
+ {
+  "name": "Papatrigo",
+  "lat": 40.87571,
+  "lon": -4.84542
+ },
+ {
+  "name": "Paracuellos de Jarama",
+  "lat": 40.5237,
+  "lon": -3.53121
+ },
+ {
+  "name": "Parada de Rubiales",
+  "lat": 41.15945,
+  "lon": -5.4439
+ },
+ {
+  "name": "Paradinas de San Juan",
+  "lat": 40.96552,
+  "lon": -5.16958
+ },
+ {
+  "name": "Pardilla",
+  "lat": 41.54486,
+  "lon": -3.70908
+ },
+ {
+  "name": "Paredes",
+  "lat": 40.07825,
+  "lon": -2.85366
+ },
+ {
+  "name": "Paredes de Escalona",
+  "lat": 40.21323,
+  "lon": -4.44504
+ },
+ {
+  "name": "Paredes de Sigüenza",
+  "lat": 41.2371,
+  "lon": -2.73648
+ },
+ {
+  "name": "Pareja",
+  "lat": 40.57026,
+  "lon": -2.65519
+ },
+ {
+  "name": "Parla",
+  "lat": 40.22568,
+  "lon": -3.77721
+ },
+ {
+  "name": "Parrillas",
+  "lat": 40.08734,
+  "lon": -5.04974
+ },
+ {
+  "name": "Pascualcobo",
+  "lat": 40.64132,
+  "lon": -5.26819
+ },
+ {
+  "name": "Pastrana",
+  "lat": 40.39424,
+  "lon": -2.91036
+ },
+ {
+  "name": "Patones",
+  "lat": 40.88337,
+  "lon": -3.48873
+ },
+ {
+  "name": "Pedrajas de San Esteban",
+  "lat": 41.35181,
+  "lon": -4.5983
+ },
+ {
+  "name": "Pedraza",
+  "lat": 41.13318,
+  "lon": -3.81057
+ },
+ {
+  "name": "Pedraza de Alba",
+  "lat": 40.74066,
+  "lon": -5.36677
+ },
+ {
+  "name": "Pedrezuela",
+  "lat": 40.7344,
+  "lon": -3.63635
+ },
+ {
+  "name": "Pedro Bernardo",
+  "lat": 40.24005,
+  "lon": -4.91775
+ },
+ {
+  "name": "Pedro Muñoz",
+  "lat": 39.39176,
+  "lon": -2.94218
+ },
+ {
+  "name": "Pedro-Rodríguez",
+  "lat": 40.93664,
+  "lon": -4.78823
+ },
+ {
+  "name": "Pedrosa del Rey",
+  "lat": 41.53126,
+  "lon": -5.20669
+ },
+ {
+  "name": "Pedrosillo de Alba",
+  "lat": 40.80993,
+  "lon": -5.40841
+ },
+ {
+  "name": "Pedrosillo el Ralo",
+  "lat": 41.05753,
+  "lon": -5.55626
+ },
+ {
+  "name": "Peguerinos",
+  "lat": 40.64896,
+  "lon": -4.24622
+ },
+ {
+  "name": "Pelabravo",
+  "lat": 40.95308,
+  "lon": -5.5688
+ },
+ {
+  "name": "Pelahustán",
+  "lat": 40.15817,
+  "lon": -4.5962
+ },
+ {
+  "name": "Pelayos",
+  "lat": 40.64877,
+  "lon": -5.55785
+ },
+ {
+  "name": "Pelayos de la Presa",
+  "lat": 40.36176,
+  "lon": -4.32234
+ },
+ {
+  "name": "Pelayos del Arroyo",
+  "lat": 41.0592,
+  "lon": -3.9591
+ },
+ {
+  "name": "Peleagonzalo",
+  "lat": 41.48419,
+  "lon": -5.47664
+ },
+ {
+  "name": "Pepino",
+  "lat": 40.01424,
+  "lon": -4.7978
+ },
+ {
+  "name": "Peraleda de San Román",
+  "lat": 39.75915,
+  "lon": -5.39257
+ },
+ {
+  "name": "Peraleda de la Mata",
+  "lat": 39.86303,
+  "lon": -5.46295
+ },
+ {
+  "name": "Perales de Tajuña",
+  "lat": 40.23142,
+  "lon": -3.36244
+ },
+ {
+  "name": "Peralveche",
+  "lat": 40.59925,
+  "lon": -2.56667
+ },
+ {
+  "name": "Perosillo",
+  "lat": 41.38954,
+  "lon": -4.14353
+ },
+ {
+  "name": "Pezuela de las Torres",
+  "lat": 40.40412,
+  "lon": -3.18551
+ },
+ {
+  "name": "Peñafiel",
+  "lat": 41.5612,
+  "lon": -4.12024
+ },
+ {
+  "name": "Peñalba de Ávila",
+  "lat": 40.79793,
+  "lon": -4.72011
+ },
+ {
+  "name": "Peñalver",
+  "lat": 40.57376,
+  "lon": -2.89414
+ },
+ {
+  "name": "Peñaranda de Bracamonte",
+  "lat": 40.90243,
+  "lon": -5.21749
+ },
+ {
+  "name": "Peñarandilla",
+  "lat": 40.87976,
+  "lon": -5.39367
+ },
+ {
+  "name": "Piedrahíta",
+  "lat": 40.46742,
+  "lon": -5.34037
+ },
+ {
+  "name": "Piedralaves",
+  "lat": 40.32134,
+  "lon": -4.71518
+ },
+ {
+  "name": "Pinarejos",
+  "lat": 41.25674,
+  "lon": -4.2976
+ },
+ {
+  "name": "Pinarnegrillo",
+  "lat": 41.19149,
+  "lon": -4.25674
+ },
+ {
+  "name": "Pineda de Gigüela",
+  "lat": 40.09138,
+  "lon": -2.57477
+ },
+ {
+  "name": "Pinilla de Jadraque",
+  "lat": 41.01996,
+  "lon": -2.9485
+ },
+ {
+  "name": "Pinilla del Valle",
+  "lat": 40.95282,
+  "lon": -3.84877
+ },
+ {
+  "name": "Pinto",
+  "lat": 40.25329,
+  "lon": -3.68497
+ },
+ {
+  "name": "Pioz",
+  "lat": 40.45773,
+  "lon": -3.17014
+ },
+ {
+  "name": "Pitiegua",
+  "lat": 41.05086,
+  "lon": -5.45449
+ },
+ {
+  "name": "Piñuécar-Gandullas",
+  "lat": 41.0366,
+  "lon": -3.60464
+ },
+ {
+  "name": "Pollos",
+  "lat": 41.43943,
+  "lon": -5.1332
+ },
+ {
+  "name": "Polán",
+  "lat": 39.80829,
+  "lon": -4.25016
+ },
+ {
+  "name": "Portalrubio de Guadamejud",
+  "lat": 40.28445,
+  "lon": -2.62116
+ },
+ {
+  "name": "Portillo",
+  "lat": 41.48006,
+  "lon": -4.56062
+ },
+ {
+  "name": "Portillo de Toledo",
+  "lat": 40.08059,
+  "lon": -4.24715
+ },
+ {
+  "name": "Porzuna",
+  "lat": 39.25731,
+  "lon": -4.22158
+ },
+ {
+  "name": "Poveda",
+  "lat": 40.57631,
+  "lon": -5.09199
+ },
+ {
+  "name": "Poveda de las Cintas",
+  "lat": 41.04339,
+  "lon": -5.26641
+ },
+ {
+  "name": "Poyales del Hoyo",
+  "lat": 40.16732,
+  "lon": -5.16351
+ },
+ {
+  "name": "Pozal de Gallinas",
+  "lat": 41.32716,
+  "lon": -4.83931
+ },
+ {
+  "name": "Pozaldez",
+  "lat": 41.37163,
+  "lon": -4.83589
+ },
+ {
+  "name": "Pozanco",
+  "lat": 40.80307,
+  "lon": -4.67207
+ },
+ {
+  "name": "Pozo de Almoguera",
+  "lat": 40.34786,
+  "lon": -3.03359
+ },
+ {
+  "name": "Pozo de Guadalajara",
+  "lat": 40.49858,
+  "lon": -3.18846
+ },
+ {
+  "name": "Pozoantiguo",
+  "lat": 41.56411,
+  "lon": -5.45679
+ },
+ {
+  "name": "Pozorrubio de Santiago",
+  "lat": 39.8042,
+  "lon": -2.95015
+ },
+ {
+  "name": "Pozuelo de Alarcón",
+  "lat": 40.43261,
+  "lon": -3.81915
+ },
+ {
+  "name": "Pozuelo del Rey",
+  "lat": 40.36475,
+  "lon": -3.31125
+ },
+ {
+  "name": "Pradosegar",
+  "lat": 40.54551,
+  "lon": -5.07429
+ },
+ {
+  "name": "Prádena",
+  "lat": 41.14891,
+  "lon": -3.69371
+ },
+ {
+  "name": "Prádena de Atienza",
+  "lat": 41.18583,
+  "lon": -3.01035
+ },
+ {
+  "name": "Prádena del Rincón",
+  "lat": 41.04145,
+  "lon": -3.51805
+ },
+ {
+  "name": "Puebla de Alcocer",
+  "lat": 39.23146,
+  "lon": -5.29958
+ },
+ {
+  "name": "Puebla de Almenara",
+  "lat": 39.78742,
+  "lon": -2.81043
+ },
+ {
+  "name": "Puebla de Beleña",
+  "lat": 40.89718,
+  "lon": -3.23646
+ },
+ {
+  "name": "Puebla de Pedraza",
+  "lat": 41.20047,
+  "lon": -3.91831
+ },
+ {
+  "name": "Puebla de Valles",
+  "lat": 40.91947,
+  "lon": -3.30528
+ },
+ {
+  "name": "Puebla de la Sierra",
+  "lat": 41.00145,
+  "lon": -3.45435
+ },
+ {
+  "name": "Pueblonuevo de Miramontes",
+  "lat": 40.06997,
+  "lon": -5.39228
+ },
+ {
+  "name": "Puente del Congosto",
+  "lat": 40.50619,
+  "lon": -5.525
+ },
+ {
+  "name": "Puentes Viejas",
+  "lat": 40.96484,
+  "lon": -3.56425
+ },
+ {
+  "name": "Puerto Lápice",
+  "lat": 39.29193,
+  "lon": -3.4847
+ },
+ {
+  "name": "Puerto de San Vicente",
+  "lat": 39.51517,
+  "lon": -5.08231
+ },
+ {
+  "name": "Pulgar",
+  "lat": 39.67429,
+  "lon": -4.16306
+ },
+ {
+  "name": "Puras",
+  "lat": 41.18173,
+  "lon": -4.66786
+ },
+ {
+  "name": "Pálmaces de Jadraque",
+  "lat": 41.05847,
+  "lon": -2.91476
+ },
+ {
+  "name": "Quer",
+  "lat": 40.6125,
+  "lon": -3.29044
+ },
+ {
+  "name": "Quero",
+  "lat": 39.51178,
+  "lon": -3.2612
+ },
+ {
+  "name": "Quijorna",
+  "lat": 40.41662,
+  "lon": -4.07343
+ },
+ {
+  "name": "Quintana Redonda",
+  "lat": 41.56988,
+  "lon": -2.65771
+ },
+ {
+  "name": "Quintanar de la Orden",
+  "lat": 39.60306,
+  "lon": -3.01427
+ },
+ {
+  "name": "Quintanas de Gormaz",
+  "lat": 41.51855,
+  "lon": -2.97331
+ },
+ {
+  "name": "Quintanilla de Arriba",
+  "lat": 41.5822,
+  "lon": -4.2886
+ },
+ {
+  "name": "Quintanilla de Onésimo",
+  "lat": 41.57412,
+  "lon": -4.36451
+ },
+ {
+  "name": "Quismondo",
+  "lat": 40.10532,
+  "lon": -4.32459
+ },
+ {
+  "name": "Rada de Haro",
+  "lat": 39.57196,
+  "lon": -2.61272
+ },
+ {
+  "name": "Ramiro",
+  "lat": 41.23448,
+  "lon": -4.79315
+ },
+ {
+  "name": "Rapariegos",
+  "lat": 41.10165,
+  "lon": -4.6278
+ },
+ {
+  "name": "Rascafría",
+  "lat": 40.86406,
+  "lon": -3.89781
+ },
+ {
+  "name": "Rasueros",
+  "lat": 41.01382,
+  "lon": -5.06927
+ },
+ {
+  "name": "Real Sitio de San Ildefonso",
+  "lat": 40.84983,
+  "lon": -4.04215
+ },
+ {
+  "name": "Rebollo",
+  "lat": 41.1914,
+  "lon": -3.86027
+ },
+ {
+  "name": "Rebollosa de Jadraque",
+  "lat": 41.08828,
+  "lon": -2.84756
+ },
+ {
+  "name": "Recas",
+  "lat": 40.04684,
+  "lon": -4.02821
+ },
+ {
+  "name": "Recuerda",
+  "lat": 41.43241,
+  "lon": -3.01383
+ },
+ {
+  "name": "Redueña",
+  "lat": 40.8172,
+  "lon": -3.5984
+ },
+ {
+  "name": "Rello",
+  "lat": 41.33709,
+  "lon": -2.75341
+ },
+ {
+  "name": "Remondo",
+  "lat": 41.34329,
+  "lon": -4.48484
+ },
+ {
+  "name": "Renera",
+  "lat": 40.48788,
+  "lon": -3.02484
+ },
+ {
+  "name": "Retamoso de la Jara",
+  "lat": 39.73985,
+  "lon": -4.77497
+ },
+ {
+  "name": "Retiendas",
+  "lat": 40.97844,
+  "lon": -3.28594
+ },
+ {
+  "name": "Retortillo de Soria",
+  "lat": 41.32831,
+  "lon": -3.04146
+ },
+ {
+  "name": "Retuerta del Bullaque",
+  "lat": 39.436,
+  "lon": -4.27173
+ },
+ {
+  "name": "Riaguas de San Bartolomé",
+  "lat": 41.42687,
+  "lon": -3.48984
+ },
+ {
+  "name": "Riaza",
+  "lat": 41.30938,
+  "lon": -3.44858
+ },
+ {
+  "name": "Ribatejada",
+  "lat": 40.66584,
+  "lon": -3.42283
+ },
+ {
+  "name": "Ribota",
+  "lat": 41.34999,
+  "lon": -3.43025
+ },
+ {
+  "name": "Rielves",
+  "lat": 39.94645,
+  "lon": -4.19434
+ },
+ {
+  "name": "Riocabado",
+  "lat": 40.84332,
+  "lon": -4.80415
+ },
+ {
+  "name": "Riofrío",
+  "lat": 40.53851,
+  "lon": -4.75258
+ },
+ {
+  "name": "Riofrío de Riaza",
+  "lat": 41.23403,
+  "lon": -3.43191
+ },
+ {
+  "name": "Riofrío del Llano",
+  "lat": 41.12385,
+  "lon": -2.8206
+ },
+ {
+  "name": "Rivas-Vaciamadrid",
+  "lat": 40.34328,
+  "lon": -3.5259
+ },
+ {
+  "name": "Rivilla de Barajas",
+  "lat": 40.87911,
+  "lon": -5.01445
+ },
+ {
+  "name": "Robledillo de Mohernando",
+  "lat": 40.84596,
+  "lon": -3.21509
+ },
+ {
+  "name": "Robledillo de la Jara",
+  "lat": 40.95067,
+  "lon": -3.5269
+ },
+ {
+  "name": "Robledillo de la Vera",
+  "lat": 40.08398,
+  "lon": -5.56385
+ },
+ {
+  "name": "Robledo de Chavela",
+  "lat": 40.48666,
+  "lon": -4.2338
+ },
+ {
+  "name": "Robledo de Corpes",
+  "lat": 41.11621,
+  "lon": -2.94732
+ },
+ {
+  "name": "Robledo del Mazo",
+  "lat": 39.59198,
+  "lon": -4.83824
+ },
+ {
+  "name": "Robledollano",
+  "lat": 39.62279,
+  "lon": -5.51839
+ },
+ {
+  "name": "Robregordo",
+  "lat": 41.12627,
+  "lon": -3.61431
+ },
+ {
+  "name": "Roda de Eresma",
+  "lat": 41.03427,
+  "lon": -4.18867
+ },
+ {
+  "name": "Romanillos de Atienza",
+  "lat": 41.2762,
+  "lon": -2.88965
+ },
+ {
+  "name": "Romanones",
+  "lat": 40.57126,
+  "lon": -2.9884
+ },
+ {
+  "name": "Rosalejo",
+  "lat": 39.97851,
+  "lon": -5.46247
+ },
+ {
+  "name": "Rozalén del Monte",
+  "lat": 39.9921,
+  "lon": -2.79811
+ },
+ {
+  "name": "Rozas de Puerto Real",
+  "lat": 40.29952,
+  "lon": -4.52147
+ },
+ {
+  "name": "Rubí de Bracamonte",
+  "lat": 41.22471,
+  "lon": -4.92428
+ },
+ {
+  "name": "Rueda",
+  "lat": 41.40918,
+  "lon": -4.9983
+ },
+ {
+  "name": "Rábano",
+  "lat": 41.53481,
+  "lon": -4.05744
+ },
+ {
+  "name": "Rágama",
+  "lat": 40.99465,
+  "lon": -5.12702
+ },
+ {
+  "name": "Saceda-Trasierra",
+  "lat": 40.16348,
+  "lon": -2.85675
+ },
+ {
+  "name": "Sacedón",
+  "lat": 40.45883,
+  "lon": -2.71687
+ },
+ {
+  "name": "Sacramenia",
+  "lat": 41.51035,
+  "lon": -3.94938
+ },
+ {
+  "name": "Saelices",
+  "lat": 39.90001,
+  "lon": -2.80643
+ },
+ {
+  "name": "Salmeroncillos",
+  "lat": 40.51104,
+  "lon": -2.53878
+ },
+ {
+  "name": "Salmoral",
+  "lat": 40.80814,
+  "lon": -5.22024
+ },
+ {
+  "name": "Salobral",
+  "lat": 40.60959,
+  "lon": -4.80843
+ },
+ {
+  "name": "Salvadiós",
+  "lat": 40.88892,
+  "lon": -5.08479
+ },
+ {
+  "name": "Salvador de Zapardiel",
+  "lat": 41.14087,
+  "lon": -4.86475
+ },
+ {
+  "name": "Salvatierra de Tormes",
+  "lat": 40.59739,
+  "lon": -5.55411
+ },
+ {
+  "name": "Samboal",
+  "lat": 41.27569,
+  "lon": -4.42435
+ },
+ {
+  "name": "San Agustín del Guadalix",
+  "lat": 40.68267,
+  "lon": -3.63653
+ },
+ {
+  "name": "San Andrés del Congosto",
+  "lat": 40.99088,
+  "lon": -3.03391
+ },
+ {
+  "name": "San Andrés del Rey",
+  "lat": 40.62232,
+  "lon": -2.8188
+ },
+ {
+  "name": "San Bartolomé de Corneja",
+  "lat": 40.49111,
+  "lon": -5.37942
+ },
+ {
+  "name": "San Bartolomé de Pinares",
+  "lat": 40.53563,
+  "lon": -4.45041
+ },
+ {
+  "name": "San Bartolomé de las Abiertas",
+  "lat": 39.83558,
+  "lon": -4.75244
+ },
+ {
+  "name": "San Clemente",
+  "lat": 39.44117,
+  "lon": -2.5669
+ },
+ {
+  "name": "San Cristóbal de Cuéllar",
+  "lat": 41.42272,
+  "lon": -4.4062
+ },
+ {
+  "name": "San Cristóbal de Segovia",
+  "lat": 40.95488,
+  "lon": -4.082
+ },
+ {
+  "name": "San Cristóbal de la Vega",
+  "lat": 41.1173,
+  "lon": -4.62972
+ },
+ {
+  "name": "San Esteban de Gormaz",
+  "lat": 41.49263,
+  "lon": -3.22935
+ },
+ {
+  "name": "San Esteban de Zapardiel",
+  "lat": 41.10236,
+  "lon": -4.90298
+ },
+ {
+  "name": "San Esteban de los Patos",
+  "lat": 40.73949,
+  "lon": -4.63586
+ },
+ {
+  "name": "San Esteban del Valle",
+  "lat": 40.27617,
+  "lon": -4.96713
+ },
+ {
+  "name": "San Fernando de Henares",
+  "lat": 40.43326,
+  "lon": -3.481
+ },
+ {
+  "name": "San García de Ingelmos",
+  "lat": 40.76086,
+  "lon": -5.11571
+ },
+ {
+  "name": "San Juan de Gredos",
+  "lat": 40.35495,
+  "lon": -5.24897
+ },
+ {
+  "name": "San Juan de la Encinilla",
+  "lat": 40.81623,
+  "lon": -4.83154
+ },
+ {
+  "name": "San Juan de la Nava",
+  "lat": 40.47065,
+  "lon": -4.68025
+ },
+ {
+  "name": "San Juan del Molinillo",
+  "lat": 40.46211,
+  "lon": -4.84012
+ },
+ {
+  "name": "San Juan del Olmo",
+  "lat": 40.64366,
+  "lon": -5.07298
+ },
+ {
+  "name": "San Lorenzo de El Escorial",
+  "lat": 40.61803,
+  "lon": -4.12929
+ },
+ {
+  "name": "San Lorenzo de Tormes",
+  "lat": 40.37755,
+  "lon": -5.50172
+ },
+ {
+  "name": "San Martín de Montalbán",
+  "lat": 39.71896,
+  "lon": -4.43574
+ },
+ {
+  "name": "San Martín de Pusa",
+  "lat": 39.8036,
+  "lon": -4.66603
+ },
+ {
+  "name": "San Martín de Valdeiglesias",
+  "lat": 40.35682,
+  "lon": -4.35188
+ },
+ {
+  "name": "San Martín de la Vega",
+  "lat": 40.24802,
+  "lon": -3.56918
+ },
+ {
+  "name": "San Martín de la Vega del Alberche",
+  "lat": 40.42641,
+  "lon": -5.18635
+ },
+ {
+  "name": "San Martín del Pimpollar",
+  "lat": 40.36725,
+  "lon": -5.05085
+ },
+ {
+  "name": "San Martín y Mudrián",
+  "lat": 41.22177,
+  "lon": -4.34892
+ },
+ {
+  "name": "San Miguel de Bernuy",
+  "lat": 41.3935,
+  "lon": -3.94943
+ },
+ {
+  "name": "San Miguel de Corneja",
+  "lat": 40.49408,
+  "lon": -5.28084
+ },
+ {
+  "name": "San Miguel de Serrezuela",
+  "lat": 40.68815,
+  "lon": -5.2754
+ },
+ {
+  "name": "San Miguel de la Ribera",
+  "lat": 41.33622,
+  "lon": -5.53574
+ },
+ {
+  "name": "San Miguel del Arroyo",
+  "lat": 41.44516,
+  "lon": -4.47911
+ },
+ {
+  "name": "San Miguel del Pino",
+  "lat": 41.51327,
+  "lon": -4.90973
+ },
+ {
+  "name": "San Morales",
+  "lat": 40.98248,
+  "lon": -5.50492
+ },
+ {
+  "name": "San Pablo de la Moraleja",
+  "lat": 41.15143,
+  "lon": -4.78594
+ },
+ {
+  "name": "San Pablo de los Montes",
+  "lat": 39.53429,
+  "lon": -4.34511
+ },
+ {
+  "name": "San Pascual",
+  "lat": 40.89432,
+  "lon": -4.73721
+ },
+ {
+  "name": "San Pedro de Gaíllos",
+  "lat": 41.22628,
+  "lon": -3.81876
+ },
+ {
+  "name": "San Pedro del Arroyo",
+  "lat": 40.79036,
+  "lon": -4.87912
+ },
+ {
+  "name": "San Román de Hornija",
+  "lat": 41.46984,
+  "lon": -5.29784
+ },
+ {
+  "name": "San Román de los Montes",
+  "lat": 40.05611,
+  "lon": -4.76073
+ },
+ {
+  "name": "San Sebastián de los Reyes",
+  "lat": 40.58249,
+  "lon": -3.60437
+ },
+ {
+  "name": "San Vicente de Arévalo",
+  "lat": 40.96519,
+  "lon": -4.7996
+ },
+ {
+  "name": "San Vicente del Palacio",
+  "lat": 41.22503,
+  "lon": -4.87498
+ },
+ {
+  "name": "Sanchidrián",
+  "lat": 40.89249,
+  "lon": -4.59201
+ },
+ {
+  "name": "Sanchonuño",
+  "lat": 41.32244,
+  "lon": -4.2901
+ },
+ {
+  "name": "Sanchorreja",
+  "lat": 40.67732,
+  "lon": -4.88593
+ },
+ {
+  "name": "Sangarcía",
+  "lat": 40.94214,
+  "lon": -4.42692
+ },
+ {
+  "name": "Santa Ana de Pusa",
+  "lat": 39.76903,
+  "lon": -4.71716
+ },
+ {
+  "name": "Santa Cruz de Pinares",
+  "lat": 40.53528,
+  "lon": -4.61055
+ },
+ {
+  "name": "Santa Cruz de la Salceda",
+  "lat": 41.57574,
+  "lon": -3.58283
+ },
+ {
+  "name": "Santa Cruz de la Zarza",
+  "lat": 39.97519,
+  "lon": -3.19678
+ },
+ {
+  "name": "Santa Cruz del Retamar",
+  "lat": 40.17973,
+  "lon": -4.27032
+ },
+ {
+  "name": "Santa Cruz del Valle",
+  "lat": 40.21426,
+  "lon": -4.99188
+ },
+ {
+  "name": "Santa Marta del Cerro",
+  "lat": 41.21041,
+  "lon": -3.69005
+ },
+ {
+  "name": "Santa María de la Alameda",
+  "lat": 40.60846,
+  "lon": -4.24595
+ },
+ {
+  "name": "Santa María de los Caballeros",
+  "lat": 40.38517,
+  "lon": -5.45528
+ },
+ {
+  "name": "Santa María de los Llanos",
+  "lat": 39.49208,
+  "lon": -2.81231
+ },
+ {
+  "name": "Santa María del Arroyo",
+  "lat": 40.59598,
+  "lon": -4.94117
+ },
+ {
+  "name": "Santa María del Berrocal",
+  "lat": 40.50256,
+  "lon": -5.42497
+ },
+ {
+  "name": "Santa María del Cubillo",
+  "lat": 40.72309,
+  "lon": -4.47218
+ },
+ {
+  "name": "Santa María del Tiétar",
+  "lat": 40.30801,
+  "lon": -4.554
+ },
+ {
+  "name": "Santa María la Real de Nieva",
+  "lat": 41.01141,
+  "lon": -4.4256
+ },
+ {
+  "name": "Santa Olalla",
+  "lat": 40.01078,
+  "lon": -4.44757
+ },
+ {
+  "name": "Santiago de la Puebla",
+  "lat": 40.78458,
+  "lon": -5.2943
+ },
+ {
+  "name": "Santiago del Collado",
+  "lat": 40.4285,
+  "lon": -5.34221
+ },
+ {
+  "name": "Santiago del Tormes",
+  "lat": 40.34353,
+  "lon": -5.37836
+ },
+ {
+  "name": "Santibáñez de Béjar",
+  "lat": 40.48411,
+  "lon": -5.56685
+ },
+ {
+  "name": "Santibáñez de Valcorba",
+  "lat": 41.55527,
+  "lon": -4.42305
+ },
+ {
+  "name": "Santiuste",
+  "lat": 41.08593,
+  "lon": -2.81468
+ },
+ {
+  "name": "Santiuste de Pedraza",
+  "lat": 41.08427,
+  "lon": -3.87881
+ },
+ {
+  "name": "Santiuste de San Juan Bautista",
+  "lat": 41.16194,
+  "lon": -4.57466
+ },
+ {
+  "name": "Santo Domingo de Pirón",
+  "lat": 41.01115,
+  "lon": -3.95798
+ },
+ {
+  "name": "Santo Domingo de las Posadas",
+  "lat": 40.79781,
+  "lon": -4.63631
+ },
+ {
+  "name": "Santo Domingo-Caudilla",
+  "lat": 40.01343,
+  "lon": -4.34378
+ },
+ {
+  "name": "Santo Tomé de Zabarcos",
+  "lat": 40.78651,
+  "lon": -4.9057
+ },
+ {
+  "name": "Santo Tomé del Puerto",
+  "lat": 41.18637,
+  "lon": -3.6031
+ },
+ {
+  "name": "Santorcaz",
+  "lat": 40.47126,
+  "lon": -3.22308
+ },
+ {
+  "name": "Sanzoles",
+  "lat": 41.42205,
+  "lon": -5.56329
+ },
+ {
+  "name": "Sartajada",
+  "lat": 40.21261,
+  "lon": -4.80815
+ },
+ {
+  "name": "Sauquillo de Cabezas",
+  "lat": 41.1991,
+  "lon": -4.06031
+ },
+ {
+  "name": "Sayatón",
+  "lat": 40.42228,
+  "lon": -2.82836
+ },
+ {
+  "name": "Saúca",
+  "lat": 41.02885,
+  "lon": -2.58669
+ },
+ {
+  "name": "Sebúlcor",
+  "lat": 41.28541,
+  "lon": -3.87341
+ },
+ {
+  "name": "Segovia",
+  "lat": 40.8987,
+  "lon": -4.1862
+ },
+ {
+  "name": "Segurilla",
+  "lat": 40.0402,
+  "lon": -4.87723
+ },
+ {
+  "name": "Semillas",
+  "lat": 41.04269,
+  "lon": -3.1327
+ },
+ {
+  "name": "Sepúlveda",
+  "lat": 41.29205,
+  "lon": -3.77813
+ },
+ {
+  "name": "Sequera de Fresno",
+  "lat": 41.36005,
+  "lon": -3.55876
+ },
+ {
+  "name": "Serrada",
+  "lat": 41.46992,
+  "lon": -4.86016
+ },
+ {
+  "name": "Serranillos",
+  "lat": 40.32928,
+  "lon": -4.91273
+ },
+ {
+  "name": "Serranillos del Valle",
+  "lat": 40.20631,
+  "lon": -3.90625
+ },
+ {
+  "name": "Seseña",
+  "lat": 40.08936,
+  "lon": -3.6729
+ },
+ {
+  "name": "Sevilla la Nueva",
+  "lat": 40.35163,
+  "lon": -4.04769
+ },
+ {
+  "name": "Sevilleja de la Jara",
+  "lat": 39.57382,
+  "lon": -4.94782
+ },
+ {
+  "name": "Sienes",
+  "lat": 41.20428,
+  "lon": -2.6355
+ },
+ {
+  "name": "Siete Iglesias de Trabancos",
+  "lat": 41.3708,
+  "lon": -5.18773
+ },
+ {
+  "name": "Sieteiglesias de Tormes",
+  "lat": 40.74248,
+  "lon": -5.57285
+ },
+ {
+  "name": "Sigeres",
+  "lat": 40.78909,
+  "lon": -4.95164
+ },
+ {
+  "name": "Sigüenza",
+  "lat": 41.11213,
+  "lon": -2.68549
+ },
+ {
+  "name": "Simancas",
+  "lat": 41.56389,
+  "lon": -4.83551
+ },
+ {
+  "name": "Sinlabajos",
+  "lat": 41.07691,
+  "lon": -4.852
+ },
+ {
+  "name": "Socuéllamos",
+  "lat": 39.32347,
+  "lon": -2.86088
+ },
+ {
+  "name": "Solana de Rioalmar",
+  "lat": 40.74868,
+  "lon": -5.01404
+ },
+ {
+  "name": "Solanillos del Extremo",
+  "lat": 40.75985,
+  "lon": -2.6997
+ },
+ {
+  "name": "Solosancho",
+  "lat": 40.54941,
+  "lon": -4.91667
+ },
+ {
+  "name": "Somolinos",
+  "lat": 41.25854,
+  "lon": -3.06958
+ },
+ {
+  "name": "Somosierra",
+  "lat": 41.14097,
+  "lon": -3.5754
+ },
+ {
+  "name": "Sonseca",
+  "lat": 39.64883,
+  "lon": -3.99134
+ },
+ {
+  "name": "Sotalbo",
+  "lat": 40.51738,
+  "lon": -4.86556
+ },
+ {
+  "name": "Sotillo",
+  "lat": 41.25775,
+  "lon": -3.64494
+ },
+ {
+  "name": "Sotillo de la Adrada",
+  "lat": 40.2989,
+  "lon": -4.59742
+ },
+ {
+  "name": "Sotillo de las Palomas",
+  "lat": 40.09158,
+  "lon": -4.84947
+ },
+ {
+  "name": "Soto del Real",
+  "lat": 40.76367,
+  "lon": -3.79809
+ },
+ {
+  "name": "Sotosalbos",
+  "lat": 41.02143,
+  "lon": -3.9359
+ },
+ {
+  "name": "Tabanera la Luenga",
+  "lat": 41.09823,
+  "lon": -4.25011
+ },
+ {
+  "name": "Tajueco",
+  "lat": 41.53696,
+  "lon": -2.84556
+ },
+ {
+  "name": "Talamanca de Jarama",
+  "lat": 40.74369,
+  "lon": -3.4889
+ },
+ {
+  "name": "Talarrubias",
+  "lat": 39.28101,
+  "lon": -5.29246
+ },
+ {
+  "name": "Talavera de la Reina",
+  "lat": 39.95492,
+  "lon": -4.84242
+ },
+ {
+  "name": "Talaveruela de la Vera",
+  "lat": 40.13689,
+  "lon": -5.51793
+ },
+ {
+  "name": "Talayuela",
+  "lat": 40.00994,
+  "lon": -5.45901
+ },
+ {
+  "name": "Tamajón",
+  "lat": 41.02922,
+  "lon": -3.23213
+ },
+ {
+  "name": "Taragudo",
+  "lat": 40.834,
+  "lon": -3.0824
+ },
+ {
+  "name": "Tarancón",
+  "lat": 40.00038,
+  "lon": -3.00625
+ },
+ {
+  "name": "Tarazona de Guareña",
+  "lat": 41.17022,
+  "lon": -5.26822
+ },
+ {
+  "name": "Tardelcuende",
+  "lat": 41.56097,
+  "lon": -2.63935
+ },
+ {
+  "name": "Tardáguila",
+  "lat": 41.14275,
+  "lon": -5.56925
+ },
+ {
+  "name": "Tembleque",
+  "lat": 39.66489,
+  "lon": -3.53157
+ },
+ {
+  "name": "Tendilla",
+  "lat": 40.54335,
+  "lon": -2.95583
+ },
+ {
+  "name": "Terradillos",
+  "lat": 40.84736,
+  "lon": -5.55036
+ },
+ {
+  "name": "Tielmes",
+  "lat": 40.23615,
+  "lon": -3.30991
+ },
+ {
+  "name": "Tinajas",
+  "lat": 40.32747,
+  "lon": -2.59079
+ },
+ {
+  "name": "Titulcia",
+  "lat": 40.1453,
+  "lon": -3.56101
+ },
+ {
+  "name": "Tiétar",
+  "lat": 40.02043,
+  "lon": -5.48388
+ },
+ {
+  "name": "Tiñosillos",
+  "lat": 40.9502,
+  "lon": -4.71634
+ },
+ {
+  "name": "Tolbaños",
+  "lat": 40.75793,
+  "lon": -4.58858
+ },
+ {
+  "name": "Toledo",
+  "lat": 39.872,
+  "lon": -4.03398
+ },
+ {
+  "name": "Tolocirio",
+  "lat": 41.13352,
+  "lon": -4.63336
+ },
+ {
+  "name": "Tomelloso",
+  "lat": 39.28933,
+  "lon": -2.9745
+ },
+ {
+  "name": "Tordelrábano",
+  "lat": 41.21707,
+  "lon": -2.76182
+ },
+ {
+  "name": "Tordesillas",
+  "lat": 41.50966,
+  "lon": -4.99142
+ },
+ {
+  "name": "Tordillos",
+  "lat": 40.85129,
+  "lon": -5.35986
+ },
+ {
+  "name": "Torija",
+  "lat": 40.74477,
+  "lon": -3.04615
+ },
+ {
+  "name": "Tormellas",
+  "lat": 40.31093,
+  "lon": -5.50891
+ },
+ {
+  "name": "Tornadizos de Ávila",
+  "lat": 40.6079,
+  "lon": -4.60235
+ },
+ {
+  "name": "Toro",
+  "lat": 41.467,
+  "lon": -5.44006
+ },
+ {
+  "name": "Torralba de Oropesa",
+  "lat": 39.94777,
+  "lon": -5.12425
+ },
+ {
+  "name": "Torre Val de San Pedro",
+  "lat": 41.04545,
+  "lon": -3.87289
+ },
+ {
+  "name": "Torre de Peñafiel",
+  "lat": 41.53994,
+  "lon": -4.13223
+ },
+ {
+  "name": "Torre del Burgo",
+  "lat": 40.80286,
+  "lon": -3.08476
+ },
+ {
+  "name": "Torreadrada",
+  "lat": 41.46091,
+  "lon": -3.83749
+ },
+ {
+  "name": "Torrecaballeros",
+  "lat": 40.97588,
+  "lon": -3.98111
+ },
+ {
+  "name": "Torrecilla de la Abadesa",
+  "lat": 41.48216,
+  "lon": -5.136
+ },
+ {
+  "name": "Torrecilla de la Jara",
+  "lat": 39.66921,
+  "lon": -4.80258
+ },
+ {
+  "name": "Torrecilla de la Orden",
+  "lat": 41.21557,
+  "lon": -5.27484
+ },
+ {
+  "name": "Torrecilla del Pinar",
+  "lat": 41.35682,
+  "lon": -4.05722
+ },
+ {
+  "name": "Torrecuadradilla",
+  "lat": 40.8337,
+  "lon": -2.56866
+ },
+ {
+  "name": "Torregalindo",
+  "lat": 41.56901,
+  "lon": -3.74806
+ },
+ {
+  "name": "Torreiglesias",
+  "lat": 41.10335,
+  "lon": -4.04782
+ },
+ {
+  "name": "Torrejoncillo del Rey",
+  "lat": 39.98873,
+  "lon": -2.61798
+ },
+ {
+  "name": "Torrejón de Ardoz",
+  "lat": 40.47921,
+  "lon": -3.4643
+ },
+ {
+  "name": "Torrejón de Velasco",
+  "lat": 40.17528,
+  "lon": -3.74513
+ },
+ {
+  "name": "Torrejón de la Calzada",
+  "lat": 40.19869,
+  "lon": -3.80541
+ },
+ {
+  "name": "Torrejón del Rey",
+  "lat": 40.65931,
+  "lon": -3.354
+ },
+ {
+  "name": "Torrelaguna",
+  "lat": 40.82315,
+  "lon": -3.54639
+ },
+ {
+  "name": "Torrelodones",
+  "lat": 40.57705,
+  "lon": -3.92874
+ },
+ {
+  "name": "Torremocha de Jadraque",
+  "lat": 41.01269,
+  "lon": -2.91139
+ },
+ {
+  "name": "Torremocha de Jarama",
+  "lat": 40.83821,
+  "lon": -3.5086
+ },
+ {
+  "name": "Torremocha del Campo",
+  "lat": 40.93343,
+  "lon": -2.60541
+ },
+ {
+  "name": "Torres de la Alameda",
+  "lat": 40.41604,
+  "lon": -3.37118
+ },
+ {
+  "name": "Torrescárcela",
+  "lat": 41.48042,
+  "lon": -4.35804
+ },
+ {
+  "name": "Torrico",
+  "lat": 39.83672,
+  "lon": -5.21566
+ },
+ {
+  "name": "Torrijos",
+  "lat": 39.9825,
+  "lon": -4.28731
+ },
+ {
+  "name": "Torrubia del Campo",
+  "lat": 39.88025,
+  "lon": -2.94732
+ },
+ {
+  "name": "Tortuero",
+  "lat": 40.96519,
+  "lon": -3.37861
+ },
+ {
+  "name": "Totanés",
+  "lat": 39.71082,
+  "lon": -4.22832
+ },
+ {
+  "name": "Traspinedo",
+  "lat": 41.56766,
+  "lon": -4.47359
+ },
+ {
+  "name": "Tres Cantos",
+  "lat": 40.61158,
+  "lon": -3.74068
+ },
+ {
+  "name": "Trescasas",
+  "lat": 40.95347,
+  "lon": -4.00677
+ },
+ {
+  "name": "Tresjuncos",
+  "lat": 39.69973,
+  "lon": -2.74851
+ },
+ {
+  "name": "Tribaldos",
+  "lat": 39.98293,
+  "lon": -2.92113
+ },
+ {
+  "name": "Trijueque",
+  "lat": 40.77953,
+  "lon": -2.98922
+ },
+ {
+  "name": "Trillo",
+  "lat": 40.66415,
+  "lon": -2.61197
+ },
+ {
+  "name": "Tudela de Duero",
+  "lat": 41.56061,
+  "lon": -4.63169
+ },
+ {
+  "name": "Turleque",
+  "lat": 39.59757,
+  "lon": -3.64865
+ },
+ {
+  "name": "Turégano",
+  "lat": 41.1376,
+  "lon": -3.9963
+ },
+ {
+  "name": "Tórtola de Henares",
+  "lat": 40.70879,
+  "lon": -3.1357
+ },
+ {
+  "name": "Tórtoles",
+  "lat": 40.58504,
+  "lon": -5.27491
+ },
+ {
+  "name": "Uceda",
+  "lat": 40.82096,
+  "lon": -3.45748
+ },
+ {
+  "name": "Uclés",
+  "lat": 39.92749,
+  "lon": -2.8738
+ },
+ {
+  "name": "Ugena",
+  "lat": 40.16807,
+  "lon": -3.87701
+ },
+ {
+  "name": "Ujados",
+  "lat": 41.22999,
+  "lon": -3.01399
+ },
+ {
+  "name": "Umbrías",
+  "lat": 40.31006,
+  "lon": -5.56655
+ },
+ {
+  "name": "Urda",
+  "lat": 39.35362,
+  "lon": -3.72844
+ },
+ {
+  "name": "Urueñas",
+  "lat": 41.36301,
+  "lon": -3.76281
+ },
+ {
+  "name": "Utande",
+  "lat": 40.85808,
+  "lon": -2.92721
+ },
+ {
+  "name": "Vadillo de la Guareña",
+  "lat": 41.29785,
+  "lon": -5.34299
+ },
+ {
+  "name": "Vadillo de la Sierra",
+  "lat": 40.61835,
+  "lon": -5.12377
+ },
+ {
+  "name": "Valdaracete",
+  "lat": 40.19993,
+  "lon": -3.20579
+ },
+ {
+  "name": "Valdarachas",
+  "lat": 40.51566,
+  "lon": -3.12548
+ },
+ {
+  "name": "Valdearenas",
+  "lat": 40.82185,
+  "lon": -2.9917
+ },
+ {
+  "name": "Valdeavellano",
+  "lat": 40.65927,
+  "lon": -2.96921
+ },
+ {
+  "name": "Valdeavero",
+  "lat": 40.62373,
+  "lon": -3.34828
+ },
+ {
+  "name": "Valdeaveruelo",
+  "lat": 40.64338,
+  "lon": -3.30941
+ },
+ {
+  "name": "Valdecaballeros",
+  "lat": 39.29625,
+  "lon": -5.23413
+ },
+ {
+  "name": "Valdecarros",
+  "lat": 40.77026,
+  "lon": -5.42341
+ },
+ {
+  "name": "Valdecasa",
+  "lat": 40.67484,
+  "lon": -5.02164
+ },
+ {
+  "name": "Valdeconcha",
+  "lat": 40.4553,
+  "lon": -2.87728
+ },
+ {
+  "name": "Valdefinjas",
+  "lat": 41.42488,
+  "lon": -5.4632
+ },
+ {
+  "name": "Valdegrudas",
+  "lat": 40.71766,
+  "lon": -3.0076
+ },
+ {
+  "name": "Valdehúncar",
+  "lat": 39.8253,
+  "lon": -5.53236
+ },
+ {
+  "name": "Valdelacasa de Tajo",
+  "lat": 39.72202,
+  "lon": -5.31479
+ },
+ {
+  "name": "Valdelaguna",
+  "lat": 40.17935,
+  "lon": -3.37928
+ },
+ {
+  "name": "Valdelcubo",
+  "lat": 41.22561,
+  "lon": -2.67662
+ },
+ {
+  "name": "Valdemanco",
+  "lat": 40.86547,
+  "lon": -3.67037
+ },
+ {
+  "name": "Valdemaqueda",
+  "lat": 40.50135,
+  "lon": -4.30081
+ },
+ {
+  "name": "Valdemierque",
+  "lat": 40.81397,
+  "lon": -5.5571
+ },
+ {
+  "name": "Valdemorillo",
+  "lat": 40.50677,
+  "lon": -4.06064
+ },
+ {
+  "name": "Valdemoro",
+  "lat": 40.1713,
+  "lon": -3.67106
+ },
+ {
+  "name": "Valdenebro",
+  "lat": 41.56524,
+  "lon": -2.94992
+ },
+ {
+  "name": "Valdenuño Fernández",
+  "lat": 40.7571,
+  "lon": -3.37478
+ },
+ {
+  "name": "Valdeolmos-Alalpardo",
+  "lat": 40.63771,
+  "lon": -3.46407
+ },
+ {
+  "name": "Valdepeñas de la Sierra",
+  "lat": 40.90872,
+  "lon": -3.40212
+ },
+ {
+  "name": "Valdepiélagos",
+  "lat": 40.75808,
+  "lon": -3.46522
+ },
+ {
+  "name": "Valdeprados",
+  "lat": 40.82225,
+  "lon": -4.27792
+ },
+ {
+  "name": "Valderrebollo",
+  "lat": 40.80771,
+  "lon": -2.74205
+ },
+ {
+  "name": "Valderrodilla",
+  "lat": 41.56174,
+  "lon": -2.82392
+ },
+ {
+  "name": "Valdesotos",
+  "lat": 40.9793,
+  "lon": -3.31323
+ },
+ {
+  "name": "Valdestillas",
+  "lat": 41.47683,
+  "lon": -4.78666
+ },
+ {
+  "name": "Valdetorres de Jarama",
+  "lat": 40.68674,
+  "lon": -3.51003
+ },
+ {
+  "name": "Valdevacas de Montejo",
+  "lat": 41.52981,
+  "lon": -3.62382
+ },
+ {
+  "name": "Valdevacas y Guijar",
+  "lat": 41.15388,
+  "lon": -3.92149
+ },
+ {
+  "name": "Valdeverdeja",
+  "lat": 39.81471,
+  "lon": -5.27259
+ },
+ {
+  "name": "Valdezate",
+  "lat": 41.57547,
+  "lon": -3.93436
+ },
+ {
+  "name": "Valdilecha",
+  "lat": 40.29437,
+  "lon": -3.30773
+ },
+ {
+  "name": "Valfermoso de Tajuña",
+  "lat": 40.61318,
+  "lon": -2.96762
+ },
+ {
+  "name": "Valladolid",
+  "lat": 41.55328,
+  "lon": -4.79398
+ },
+ {
+  "name": "Valle de Tabladillo",
+  "lat": 41.36478,
+  "lon": -3.84135
+ },
+ {
+  "name": "Vallelado",
+  "lat": 41.39215,
+  "lon": -4.42845
+ },
+ {
+  "name": "Valleruela de Pedraza",
+  "lat": 41.17224,
+  "lon": -3.825
+ },
+ {
+  "name": "Valleruela de Sepúlveda",
+  "lat": 41.19445,
+  "lon": -3.77066
+ },
+ {
+  "name": "Vallesa de la Guareña",
+  "lat": 41.14938,
+  "lon": -5.31825
+ },
+ {
+  "name": "Valmojado",
+  "lat": 40.2191,
+  "lon": -4.10912
+ },
+ {
+  "name": "Valseca",
+  "lat": 40.9971,
+  "lon": -4.16957
+ },
+ {
+  "name": "Valtiendas",
+  "lat": 41.48936,
+  "lon": -3.91075
+ },
+ {
+  "name": "Valverde de Alcalá",
+  "lat": 40.40683,
+  "lon": -3.30208
+ },
+ {
+  "name": "Valverde de la Vera",
+  "lat": 40.12551,
+  "lon": -5.49399
+ },
+ {
+  "name": "Valverde de los Arroyos",
+  "lat": 41.12939,
+  "lon": -3.23724
+ },
+ {
+  "name": "Valverde del Majano",
+  "lat": 40.95397,
+  "lon": -4.21732
+ },
+ {
+  "name": "Vega de Santa María",
+  "lat": 40.83578,
+  "lon": -4.66245
+ },
+ {
+  "name": "Vega de Valdetronco",
+  "lat": 41.57897,
+  "lon": -5.10728
+ },
+ {
+  "name": "Veganzones",
+  "lat": 41.20971,
+  "lon": -4.00321
+ },
+ {
+  "name": "Vegas de Matute",
+  "lat": 40.78844,
+  "lon": -4.26903
+ },
+ {
+  "name": "Velada",
+  "lat": 40.00843,
+  "lon": -5.01325
+ },
+ {
+  "name": "Velamazán",
+  "lat": 41.46703,
+  "lon": -2.74233
+ },
+ {
+  "name": "Velascálvaro",
+  "lat": 41.23412,
+  "lon": -4.96933
+ },
+ {
+  "name": "Velayos",
+  "lat": 40.84741,
+  "lon": -4.61067
+ },
+ {
+  "name": "Velilla",
+  "lat": 41.55662,
+  "lon": -5.00869
+ },
+ {
+  "name": "Velilla de San Antonio",
+  "lat": 40.36341,
+  "lon": -3.48004
+ },
+ {
+  "name": "Vellisca",
+  "lat": 40.12491,
+  "lon": -2.80818
+ },
+ {
+  "name": "Velliza",
+  "lat": 41.56734,
+  "lon": -4.9341
+ },
+ {
+  "name": "Venialbo",
+  "lat": 41.38286,
+  "lon": -5.53963
+ },
+ {
+  "name": "Ventosa de la Cuesta",
+  "lat": 41.42326,
+  "lon": -4.84273
+ },
+ {
+  "name": "Ventosa del Río Almar",
+  "lat": 40.93898,
+  "lon": -5.35243
+ },
+ {
+  "name": "Ventosilla y Tejadilla",
+  "lat": 41.18605,
+  "lon": -3.69078
+ },
+ {
+  "name": "Venturada",
+  "lat": 40.79802,
+  "lon": -3.62145
+ },
+ {
+  "name": "Viana de Cega",
+  "lat": 41.52016,
+  "lon": -4.77531
+ },
+ {
+  "name": "Viana de Jadraque",
+  "lat": 41.03583,
+  "lon": -2.80458
+ },
+ {
+  "name": "Viandar de la Vera",
+  "lat": 40.1409,
+  "lon": -5.53731
+ },
+ {
+  "name": "Villa del Prado",
+  "lat": 40.26997,
+  "lon": -4.3082
+ },
+ {
+  "name": "Villabuena del Puente",
+  "lat": 41.37572,
+  "lon": -5.38954
+ },
+ {
+  "name": "Villacastín",
+  "lat": 40.76914,
+  "lon": -4.42422
+ },
+ {
+  "name": "Villacañas",
+  "lat": 39.59148,
+  "lon": -3.3812
+ },
+ {
+  "name": "Villaconejos",
+  "lat": 40.11013,
+  "lon": -3.50526
+ },
+ {
+  "name": "Villaescusa",
+  "lat": 41.19216,
+  "lon": -5.45646
+ },
+ {
+  "name": "Villaescusa de Haro",
+  "lat": 39.6193,
+  "lon": -2.61229
+ },
+ {
+  "name": "Villaflor",
+  "lat": 40.74951,
+  "lon": -4.88619
+ },
+ {
+  "name": "Villaflores",
+  "lat": 41.10412,
+  "lon": -5.25634
+ },
+ {
+  "name": "Villafranca de Duero",
+  "lat": 41.43814,
+  "lon": -5.31495
+ },
+ {
+  "name": "Villafranca de la Sierra",
+  "lat": 40.48701,
+  "lon": -5.17175
+ },
+ {
+  "name": "Villafranca de los Caballeros",
+  "lat": 39.45719,
+  "lon": -3.36903
+ },
+ {
+  "name": "Villagonzalo de Tormes",
+  "lat": 40.90313,
+  "lon": -5.50692
+ },
+ {
+  "name": "Villalar de los Comuneros",
+  "lat": 41.53292,
+  "lon": -5.15805
+ },
+ {
+  "name": "Villalazán",
+  "lat": 41.50573,
+  "lon": -5.56535
+ },
+ {
+  "name": "Villalba del Rey",
+  "lat": 40.34661,
+  "lon": -2.68123
+ },
+ {
+  "name": "Villalbilla",
+  "lat": 40.44189,
+  "lon": -3.34217
+ },
+ {
+  "name": "Villalgordo del Marquesado",
+  "lat": 39.67953,
+  "lon": -2.54965
+ },
+ {
+  "name": "Villalube",
+  "lat": 41.57315,
+  "lon": -5.54541
+ },
+ {
+  "name": "Villaluenga de la Sagra",
+  "lat": 40.02808,
+  "lon": -3.9183
+ },
+ {
+  "name": "Villamanrique de Tajo",
+  "lat": 40.07644,
+  "lon": -3.23871
+ },
+ {
+  "name": "Villamanta",
+  "lat": 40.29325,
+  "lon": -4.12711
+ },
+ {
+  "name": "Villamantilla",
+  "lat": 40.34404,
+  "lon": -4.15202
+ },
+ {
+  "name": "Villamayor de Santiago",
+  "lat": 39.73723,
+  "lon": -2.92874
+ },
+ {
+  "name": "Villamiel de Toledo",
+  "lat": 39.98144,
+  "lon": -4.13296
+ },
+ {
+  "name": "Villaminaya",
+  "lat": 39.71494,
+  "lon": -3.88432
+ },
+ {
+  "name": "Villamor de los Escuderos",
+  "lat": 41.26913,
+  "lon": -5.53536
+ },
+ {
+  "name": "Villamuelas",
+  "lat": 39.80031,
+  "lon": -3.73368
+ },
+ {
+  "name": "Villanueva de Alcardete",
+  "lat": 39.67199,
+  "lon": -3.02438
+ },
+ {
+  "name": "Villanueva de Argecilla",
+  "lat": 40.90256,
+  "lon": -2.91701
+ },
+ {
+  "name": "Villanueva de Bogas",
+  "lat": 39.73783,
+  "lon": -3.65678
+ },
+ {
+  "name": "Villanueva de Duero",
+  "lat": 41.51508,
+  "lon": -4.86172
+ },
+ {
+  "name": "Villanueva de Gormaz",
+  "lat": 41.46709,
+  "lon": -3.05299
+ },
+ {
+  "name": "Villanueva de Gómez",
+  "lat": 40.88784,
+  "lon": -4.70519
+ },
+ {
+  "name": "Villanueva de Perales",
+  "lat": 40.3729,
+  "lon": -4.0903
+ },
+ {
+  "name": "Villanueva de la Cañada",
+  "lat": 40.4443,
+  "lon": -3.98704
+ },
+ {
+  "name": "Villanueva de la Torre",
+  "lat": 40.59384,
+  "lon": -3.30658
+ },
+ {
+  "name": "Villanueva de la Vera",
+  "lat": 40.16312,
+  "lon": -5.43813
+ },
+ {
+  "name": "Villanueva de Ávila",
+  "lat": 40.37452,
+  "lon": -4.83199
+ },
+ {
+  "name": "Villanueva del Aceral",
+  "lat": 41.04512,
+  "lon": -4.87498
+ },
+ {
+  "name": "Villanueva del Campillo",
+  "lat": 40.58859,
+  "lon": -5.20534
+ },
+ {
+  "name": "Villanueva del Pardillo",
+  "lat": 40.49201,
+  "lon": -3.97022
+ },
+ {
+  "name": "Villar de Cañas",
+  "lat": 39.8034,
+  "lon": -2.59501
+ },
+ {
+  "name": "Villar de Corneja",
+  "lat": 40.4755,
+  "lon": -5.4424
+ },
+ {
+  "name": "Villar de Gallimazo",
+  "lat": 40.95754,
+  "lon": -5.30561
+ },
+ {
+  "name": "Villar de la Encina",
+  "lat": 39.65207,
+  "lon": -2.55865
+ },
+ {
+  "name": "Villar del Olmo",
+  "lat": 40.3315,
+  "lon": -3.24557
+ },
+ {
+  "name": "Villar del Pedroso",
+  "lat": 39.65956,
+  "lon": -5.25522
+ },
+ {
+  "name": "Villardondiego",
+  "lat": 41.55797,
+  "lon": -5.41878
+ },
+ {
+  "name": "Villarejo de Fuentes",
+  "lat": 39.7588,
+  "lon": -2.70777
+ },
+ {
+  "name": "Villarejo de Montalbán",
+  "lat": 39.76375,
+  "lon": -4.5514
+ },
+ {
+  "name": "Villarejo de Salvanés",
+  "lat": 40.12259,
+  "lon": -3.27337
+ },
+ {
+  "name": "Villarejo del Valle",
+  "lat": 40.32377,
+  "lon": -4.99073
+ },
+ {
+  "name": "Villares de Jadraque",
+  "lat": 41.09913,
+  "lon": -3.03543
+ },
+ {
+  "name": "Villares del Saz",
+  "lat": 39.85294,
+  "lon": -2.57289
+ },
+ {
+  "name": "Villarrobledo",
+  "lat": 39.30861,
+  "lon": -2.66136
+ },
+ {
+  "name": "Villarrubia de Santiago",
+  "lat": 40.01292,
+  "lon": -3.33567
+ },
+ {
+  "name": "Villarrubia de los Ojos",
+  "lat": 39.28346,
+  "lon": -3.65046
+ },
+ {
+  "name": "Villarrubio",
+  "lat": 39.94704,
+  "lon": -2.91418
+ },
+ {
+  "name": "Villarta de San Juan",
+  "lat": 39.25597,
+  "lon": -3.44443
+ },
+ {
+  "name": "Villarta de los Montes",
+  "lat": 39.25937,
+  "lon": -4.79792
+ },
+ {
+  "name": "Villasayas",
+  "lat": 41.36544,
+  "lon": -2.63699
+ },
+ {
+  "name": "Villaseca de Henares",
+  "lat": 40.96665,
+  "lon": -2.8045
+ },
+ {
+  "name": "Villaseca de Uceda",
+  "lat": 40.84265,
+  "lon": -3.34509
+ },
+ {
+  "name": "Villaseca de la Sagra",
+  "lat": 39.97157,
+  "lon": -3.86638
+ },
+ {
+  "name": "Villasequilla",
+  "lat": 39.86667,
+  "lon": -3.73007
+ },
+ {
+  "name": "Villatobas",
+  "lat": 39.87403,
+  "lon": -3.33297
+ },
+ {
+  "name": "Villatoro",
+  "lat": 40.528,
+  "lon": -5.10101
+ },
+ {
+  "name": "Villavendimio",
+  "lat": 41.56483,
+  "lon": -5.344
+ },
+ {
+  "name": "Villaverde de Guareña",
+  "lat": 41.0715,
+  "lon": -5.5128
+ },
+ {
+  "name": "Villaverde de Medina",
+  "lat": 41.31885,
+  "lon": -5.02537
+ },
+ {
+  "name": "Villaverde de Montejo",
+  "lat": 41.5095,
+  "lon": -3.67559
+ },
+ {
+  "name": "Villaverde de Íscar",
+  "lat": 41.30079,
+  "lon": -4.55849
+ },
+ {
+  "name": "Villaviciosa de Odón",
+  "lat": 40.36432,
+  "lon": -3.93717
+ },
+ {
+  "name": "Villavieja del Lozoya",
+  "lat": 41.02433,
+  "lon": -3.7099
+ },
+ {
+  "name": "Villeguillo",
+  "lat": 41.24938,
+  "lon": -4.59173
+ },
+ {
+  "name": "Villoria",
+  "lat": 40.9855,
+  "lon": -5.35968
+ },
+ {
+  "name": "Villoruela",
+  "lat": 41.01009,
+  "lon": -5.39792
+ },
+ {
+  "name": "Viloria",
+  "lat": 41.45618,
+  "lon": -4.3915
+ },
+ {
+  "name": "Vita",
+  "lat": 40.82375,
+  "lon": -5.00307
+ },
+ {
+  "name": "Viñegra de Moraña",
+  "lat": 40.85248,
+  "lon": -4.92623
+ },
+ {
+  "name": "Viñuelas",
+  "lat": 40.7917,
+  "lon": -3.35072
+ },
+ {
+  "name": "Yanguas de Eresma",
+  "lat": 41.06696,
+  "lon": -4.23912
+ },
+ {
+  "name": "Yebes",
+  "lat": 40.55193,
+  "lon": -3.10158
+ },
+ {
+  "name": "Yebra",
+  "lat": 40.34905,
+  "lon": -2.96672
+ },
+ {
+  "name": "Yeles",
+  "lat": 40.11898,
+  "lon": -3.7883
+ },
+ {
+  "name": "Yelo",
+  "lat": 41.22159,
+  "lon": -2.57702
+ },
+ {
+  "name": "Yepes",
+  "lat": 39.91299,
+  "lon": -3.70858
+ },
+ {
+  "name": "Yuncler",
+  "lat": 40.05301,
+  "lon": -3.9103
+ },
+ {
+  "name": "Yunclillos",
+  "lat": 40.02107,
+  "lon": -3.99949
+ },
+ {
+  "name": "Yuncos",
+  "lat": 40.08748,
+  "lon": -3.89875
+ },
+ {
+  "name": "Yunquera de Henares",
+  "lat": 40.75775,
+  "lon": -3.18383
+ },
+ {
+  "name": "Yélamos de Abajo",
+  "lat": 40.6186,
+  "lon": -2.85848
+ },
+ {
+  "name": "Yélamos de Arriba",
+  "lat": 40.64433,
+  "lon": -2.84635
+ },
+ {
+  "name": "Zafra de Záncara",
+  "lat": 39.8868,
+  "lon": -2.58995
+ },
+ {
+  "name": "Zapardiel de la Cañada",
+  "lat": 40.61027,
+  "lon": -5.31607
+ },
+ {
+  "name": "Zapardiel de la Ribera",
+  "lat": 40.31447,
+  "lon": -5.31975
+ },
+ {
+  "name": "Zarza de Tajo",
+  "lat": 40.0343,
+  "lon": -3.12918
+ },
+ {
+  "name": "Zarzalejo",
+  "lat": 40.5486,
+  "lon": -4.17642
+ },
+ {
+  "name": "Zarzuela de Jadraque",
+  "lat": 41.07401,
+  "lon": -3.07101
+ },
+ {
+  "name": "Zarzuela del Monte",
+  "lat": 40.80686,
+  "lon": -4.32998
+ },
+ {
+  "name": "Zarzuela del Pinar",
+  "lat": 41.26105,
+  "lon": -4.19164
+ },
+ {
+  "name": "Zorita",
+  "lat": 39.26647,
+  "lon": -5.57547
+ },
+ {
+  "name": "Zorita de la Frontera",
+  "lat": 41.01512,
+  "lon": -5.21224
+ },
+ {
+  "name": "Zorita de los Canes",
+  "lat": 40.3307,
+  "lon": -2.88908
+ },
+ {
+  "name": "Ávila",
+  "lat": 40.66733,
+  "lon": -4.66177
+ },
+ {
+  "name": "Éjeme",
+  "lat": 40.76723,
+  "lon": -5.5269
+ },
+ {
+  "name": "Íscar",
+  "lat": 41.33578,
+  "lon": -4.52298
+ }
+]
