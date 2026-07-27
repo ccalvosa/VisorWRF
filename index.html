@@ -102,6 +102,10 @@
   #mgcv{display:block;width:100%;height:250px;cursor:crosshair}
   #mgfoot{padding:5px 10px 7px;font-size:10px;color:var(--fg-faint);
     border-top:1px solid var(--line);line-height:1.45}
+  #credit{position:fixed;left:12px;bottom:0;padding:3px 6px;z-index:14;
+    font-size:9.5px;color:var(--fg-faint);max-width:min(560px,68vw);
+    pointer-events:none;line-height:1.3}
+  #credit[hidden]{display:none}
   #status{position:fixed;top:46px;left:50%;transform:translateX(-50%);
     background:var(--panel);border:1px solid var(--line);padding:6px 12px;z-index:30;
     color:var(--fg-dim)}
@@ -182,6 +186,19 @@
     <input type="range" id="ctr" min="0" max="4" step="1" value="2">
   </div>
   <div class="grp">
+    <div class="lbl">Limites administrativos</div>
+    <select id="adm">
+      <option value="none">ninguno</option>
+      <option value="municipio" selected>municipios</option>
+      <option value="provincia">provincias</option>
+      <option value="both">ambos</option>
+    </select>
+  </div>
+  <div class="grp">
+    <div class="lbl">Rotulos <span id="labL"></span></div>
+    <input type="range" id="lab" min="0" max="4" step="1" value="2">
+  </div>
+  <div class="grp">
     <div class="lbl">Reticula geografica</div>
     <select id="grat">
       <option value="0">sin reticula</option>
@@ -213,6 +230,7 @@
   <div id="sbar"><span id="sbarL"></span></div>
 </div>
 <div id="pins"></div>
+<div id="credit" hidden></div>
 
 <div id="legend">
   <div class="t" id="lt"></div>
@@ -424,7 +442,7 @@ function utm(lat, lon){
 const S = {
   man:null, nx:0, ny:0, dx:0, dy:0, W:0, H:0,
   terrain:null, lat:null, lon:null,
-  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0.1, mode:'3d',
+  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0.1, adm:'municipio', lab:2, mode:'3d',
   cache:new Map(), playing:false, timer:null,
   pins:[], hover:null, gridNorth:0,
 };
@@ -727,9 +745,10 @@ const RIB_FRAG = `
     gl_FragColor = vec4(c, a*edge);
   }`;
 
-function ribbonMaterial(){
-  if (ribbonMat) return ribbonMat;
-  ribbonMat = new THREE.ShaderMaterial({
+const RIBMATS = new Map();
+function ribbonMaterial(key = 'wind'){
+  if (RIBMATS.has(key)) return RIBMATS.get(key);
+  const m = new THREE.ShaderMaterial({
     transparent:true, depthWrite:false, side:THREE.DoubleSide,
     vertexShader:RIB_VERT, fragmentShader:RIB_FRAG,
     uniforms:{
@@ -740,7 +759,9 @@ function ribbonMaterial(){
       wlut:{ value:lutTexture('wind') },
     },
   });
-  return ribbonMat;
+  RIBMATS.set(key, m);
+  if (key === 'wind') ribbonMat = m;
+  return m;
 }
 
 function applyWindColor(){
@@ -750,7 +771,8 @@ function applyWindColor(){
   if (!speed) ribbonMat.uniforms.tint.value.set(S.wcol);
 }
 
-function makeRibbons({ pos, arc, spd, spmax = 1, freq = 0.08, mode = 0 }){
+function makeRibbons({ pos, arc, spd, spmax = 1, freq = 0.08, mode = 0 },
+                     matKey = 'wind'){
   const ns = pos.length/6;
   const P = new Float32Array(ns*12), O = new Float32Array(ns*12);
   const SD = new Float32Array(ns*4), AR = new Float32Array(ns*4), SP = new Float32Array(ns*4);
@@ -785,12 +807,11 @@ function makeRibbons({ pos, arc, spd, spmax = 1, freq = 0.08, mode = 0 }){
   g.setIndex(new THREE.BufferAttribute(idx, 1));
   g.computeBoundingSphere();
 
-  const m = ribbonMaterial();
+  const m = ribbonMaterial(matKey);
   m.uniforms.mode.value = mode;
   m.uniforms.spmax.value = spmax;
   m.uniforms.freq.value = freq;
-  m.uniforms.width.value = S.width;
-  applyWindColor();
+  if (matKey === 'wind'){ m.uniforms.width.value = S.width; applyWindColor(); }
   m.uniforms.resolution.value.set(innerWidth, innerHeight);
   return new THREE.Mesh(g, m);
 }
@@ -1068,6 +1089,7 @@ function setVex(v){
   mat.uniforms.vex.value = S.vex;
   $('vexL').textContent = S.vex === 0 ? 'plano' : S.vex.toFixed(1).replace('.0','')+'×';
   updateWind();
+  buildAdmin();
 }
 
 function bindUI(){
@@ -1111,6 +1133,13 @@ function bindUI(){
     S.ci = KEYCI[+e.target.value];
     mat.uniforms.ci.value = S.ci;
     $('ctrL').textContent = S.ci ? S.ci+' m' : 'sin curvas';
+  };
+  $('adm').onchange = e => { S.adm = e.target.value; buildAdmin(); };
+  $('lab').oninput = e => {
+    S.lab = +e.target.value;
+    const n = LAB_MAX[S.lab];
+    $('labL').textContent = n === 0 ? 'ninguno'
+      : n > 1e8 ? 'los que quepan' : `hasta ${n}`;
   };
   $('grat').onchange = e => {
     S.grat = +e.target.value;
@@ -1183,6 +1212,77 @@ function onMove(ev){
   meteoFollow(gi, gj);
 }
 
+/* ---- limites administrativos (data/admin.geojson) ----
+ * Los vertices se guardan en coordenadas de malla, no en mundo: cambiar la
+ * exageracion vertical recalcula solo alturas, sin reproyectar 18.000 puntos.
+ */
+const ADM = { lines:[], obj:null };
+
+async function loadAdmin(){
+  let gj;
+  try {
+    const r = await fetch('data/admin.geojson');
+    if (!r.ok) return;
+    gj = await r.json();
+  } catch { return; }
+  if (!gj || !Array.isArray(gj.features)) return;
+  if (gj.attribution){
+    $('credit').textContent = gj.attribution;
+    $('credit').hidden = false;
+  }
+  let dropped = 0;
+  for (const f of gj.features){
+    const layer = f.properties?.layer || 'municipio';
+    const geom = f.geometry;
+    if (!geom) continue;
+    const parts = geom.type === 'MultiLineString' ? geom.coordinates
+                : geom.type === 'LineString' ? [geom.coordinates] : [];
+    for (const part of parts){
+      const g = [];
+      for (const c of part){
+        const q = latlonToGrid(c[1], c[0]);
+        if (!q){ dropped++; continue; }
+        g.push(q[0], q[1]);
+      }
+      if (g.length >= 4) ADM.lines.push({ layer, g: Float32Array.from(g) });
+    }
+  }
+  boot(`limites: ${ADM.lines.length} tramos` +
+       (dropped ? `, ${dropped} vertices fuera` : ''));
+  buildAdmin();
+}
+
+function buildAdmin(){
+  if (ADM.obj){
+    scene.remove(ADM.obj); ADM.obj.geometry.dispose(); ADM.obj = null;
+  }
+  if (S.adm === 'none' || !ADM.lines.length) return;
+  const want = S.adm === 'both' ? null : S.adm;
+  const lift = 0.05 + 0.035*S.vex;
+  const pos = [];
+  for (const ln of ADM.lines){
+    if (want && ln.layer !== want) continue;
+    const g = ln.g;
+    let px = 0, py = 0, pz = 0, have = false;
+    for (let n=0;n<g.length;n+=2){
+      const e = sampleGrid(S.terrain, g[n], g[n+1]);
+      const x = worldX(g[n]), z = worldZ(g[n+1]);
+      const y = (Number.isFinite(e) ? e/1000*S.vex : 0) + lift;
+      if (have) pos.push(px, py, pz, x, y, z);
+      px = x; py = y; pz = z; have = true;
+    }
+  }
+  if (!pos.length) return;
+  ADM.obj = makeRibbons({ pos, mode: 0 }, 'admin');
+  const m = ribbonMaterial('admin');
+  m.uniforms.width.value = S.adm === 'provincia' ? 2.0 : 1.3;
+  m.uniforms.useSpd.value = 0;
+  m.uniforms.tint.value.set(0x0c1115);
+  ADM.obj.frustumCulled = false;
+  ADM.obj.renderOrder = 1;
+  scene.add(ADM.obj);
+}
+
 /* ---- rotulos de toponimos (data/places.json) ---- */
 // Rotulos en HTML proyectado cada fotograma: nada de texto en texturas y se
 // leen igual a cualquier zoom y en cualquier orientacion de camara.
@@ -1198,19 +1298,44 @@ function renderPins(){
   S.pins.forEach((p, i) => { pinEls[i].textContent = p.name; });
 }
 const _pv = new THREE.Vector3();
+// Reparto por colision en pantalla: se recorren de mayor a menor rango y
+// cada rotulo se coloca solo si su caja no pisa a otro ya puesto. Es el
+// decluttering clasico; evita el amasijo al alejar la vista, a cambio de que
+// un rotulo pueda entrar y salir al mover la camara.
+const LAB_MAX = [0, 12, 30, 70, 1e9];
 function projectPins(){
   if (!S.pins.length) return;
   const cam = S.mode === '3d' ? camP : camO;
+  const limit = LAB_MAX[S.lab];
+  const boxes = [];
+  let shown = 0;
+  const CAND = Math.min(S.pins.length, 700);
   for (let i=0;i<S.pins.length;i++){
-    const p = S.pins[i], el = pinEls[i];
+    const el = pinEls[i];
+    if (!el) continue;
+    if (i >= CAND || shown >= limit){ el.style.display = 'none'; continue; }
+    const p = S.pins[i];
     const y = terrainYAt(p.x, p.z);
     _pv.set(p.x, Number.isFinite(y) ? y : 0, p.z).project(cam);
-    if (_pv.z > 1 || Math.abs(_pv.x) > 1.15 || Math.abs(_pv.y) > 1.15){
+    if (_pv.z > 1 || Math.abs(_pv.x) > 1.05 || Math.abs(_pv.y) > 1.05){
       el.style.display = 'none'; continue;
     }
+    const sx = (_pv.x + 1)/2*innerWidth, sy = (1 - _pv.y)/2*innerHeight;
+    const w = p.name.length*5.9 + 10, h = 15;
+    const x0 = sx - w/2, y0 = sy - h;
+    let hit = false;
+    for (let b=0;b<boxes.length;b++){
+      const q = boxes[b];
+      if (x0 < q[2] && x0 + w > q[0] && y0 < q[3] && y0 + h > q[1]){
+        hit = true; break;
+      }
+    }
+    if (hit){ el.style.display = 'none'; continue; }
+    boxes.push([x0, y0, x0 + w, y0 + h]);
+    shown++;
     el.style.display = '';
-    el.style.left = ((_pv.x + 1)/2*innerWidth).toFixed(1) + 'px';
-    el.style.top  = ((1 - _pv.y)/2*innerHeight).toFixed(1) + 'px';
+    el.style.left = sx.toFixed(1) + 'px';
+    el.style.top  = sy.toFixed(1) + 'px';
   }
 }
 
@@ -1257,28 +1382,90 @@ async function loadPlaces(){
     list = await r.json();
   } catch { return; }
   if (!Array.isArray(list)) return;
-  // lat/lon -> indices de rejilla por busqueda gruesa y refinado local, que
-  // invertir una Lambert a mano no merece la pena para un punado de puntos
-  const { nx, ny } = S;
-  for (const p of list.slice(0, 200)){
+  for (const p of list){
     if (!Number.isFinite(p?.lat) || !Number.isFinite(p?.lon)) continue;
-    let best = -1, bi = 0, bj = 0;
-    for (let j=0;j<ny;j+=4) for (let i=0;i<nx;i+=4){
-      const k = j*nx+i;
-      const d = (S.lat[k]-p.lat)**2 + ((S.lon[k]-p.lon)*0.76)**2;
-      if (best < 0 || d < best){ best = d; bi = i; bj = j; }
-    }
-    for (let j=Math.max(0,bj-4);j<Math.min(ny,bj+5);j++)
-      for (let i=Math.max(0,bi-4);i<Math.min(nx,bi+5);i++){
-        const k = j*nx+i;
-        const d = (S.lat[k]-p.lat)**2 + ((S.lon[k]-p.lon)*0.76)**2;
-        if (d < best){ best = d; bi = i; bj = j; }
-      }
-    if (Math.sqrt(best) > 0.05) continue;        // fuera del dominio
+    const c = latlonToGrid(p.lat, p.lon);
+    if (!c) continue;                            // fuera del dominio
     S.pins.push({ name:String(p.name ?? '?'), lat:p.lat, lon:p.lon,
-                  x:worldX(bi), z:worldZ(bj) });
+                  rank:Number(p.rank) || 0, x:worldX(c[0]), z:worldZ(c[1]) });
   }
+  // mayor rango primero: es el orden en que se disputan el sitio en pantalla
+  S.pins.sort((a, b) => b.rank - a.rank);
   renderPins();
+  boot(`toponimos: ${S.pins.length}`);
+}
+
+/* ------------------------------------------------------------------ *
+ * Indice inverso: de lat/lon a coordenadas fraccionarias de malla.
+ *
+ * No se invierte la Lambert analiticamente a proposito: asi funciona con
+ * cualquier proyeccion que traiga el wrfout sin empaquetar sus parametros.
+ * Se siembra con una rejilla de cubetas sobre el bbox y se refina con Newton
+ * usando el jacobiano local de los propios XLAT/XLONG.
+ * ------------------------------------------------------------------ */
+const GEO = { nb:64, lat0:0, lon0:0, dlat:1, dlon:1, cell:null };
+
+function buildGeoIndex(){
+  const { nx, ny, lat, lon } = S;
+  let la0 = Infinity, la1 = -Infinity, lo0 = Infinity, lo1 = -Infinity;
+  for (let k=0;k<lat.length;k++){
+    if (lat[k] < la0) la0 = lat[k];
+    if (lat[k] > la1) la1 = lat[k];
+    if (lon[k] < lo0) lo0 = lon[k];
+    if (lon[k] > lo1) lo1 = lon[k];
+  }
+  const nb = GEO.nb;
+  GEO.lat0 = la0; GEO.lon0 = lo0;
+  GEO.dlat = (la1 - la0)/nb || 1;
+  GEO.dlon = (lo1 - lo0)/nb || 1;
+  GEO.cell = new Int32Array(nb*nb).fill(-1);
+  const step = Math.max(1, Math.floor(Math.min(nx, ny)/128));
+  for (let j=0;j<ny;j+=step){
+    for (let i=0;i<nx;i+=step){
+      const k = j*nx+i;
+      const bi = Math.min(nb-1, Math.max(0, ((lon[k]-lo0)/GEO.dlon)|0));
+      const bj = Math.min(nb-1, Math.max(0, ((lat[k]-la0)/GEO.dlat)|0));
+      GEO.cell[bj*nb+bi] = k;
+    }
+  }
+}
+
+function latlonToGrid(lat, lon){
+  if (!GEO.cell) return null;
+  const nb = GEO.nb, { nx, ny } = S;
+  const bi = Math.min(nb-1, Math.max(0, ((lon-GEO.lon0)/GEO.dlon)|0));
+  const bj = Math.min(nb-1, Math.max(0, ((lat-GEO.lat0)/GEO.dlat)|0));
+  let seed = -1;
+  for (let r=0; r<4 && seed < 0; r++){
+    for (let dj=-r; dj<=r && seed<0; dj++){
+      for (let di=-r; di<=r && seed<0; di++){
+        if (r && Math.max(Math.abs(di), Math.abs(dj)) !== r) continue;
+        const a = bj+dj, b = bi+di;
+        if (a < 0 || b < 0 || a >= nb || b >= nb) continue;
+        if (GEO.cell[a*nb+b] >= 0) seed = GEO.cell[a*nb+b];
+      }
+    }
+  }
+  if (seed < 0) return null;
+  let gi = seed % nx, gj = (seed / nx) | 0;
+  for (let it=0; it<5; it++){
+    const la = sampleGrid(S.lat, gi, gj), lo = sampleGrid(S.lon, gi, gj);
+    if (!Number.isFinite(la) || !Number.isFinite(lo)) return null;
+    const fa = la - lat, fo = lo - lon;
+    if (Math.abs(fa) < 1e-7 && Math.abs(fo) < 1e-7) break;
+    const ii = Math.max(1, Math.min(nx-2, Math.round(gi)));
+    const jj = Math.max(1, Math.min(ny-2, Math.round(gj)));
+    const k = jj*nx + ii;
+    const ai = (S.lat[k+1] - S.lat[k-1])/2, aj = (S.lat[k+nx] - S.lat[k-nx])/2;
+    const oi = (S.lon[k+1] - S.lon[k-1])/2, oj = (S.lon[k+nx] - S.lon[k-nx])/2;
+    const det = ai*oj - aj*oi;
+    if (Math.abs(det) < 1e-14) return null;
+    gi -= ( oj*fa - aj*fo)/det;
+    gj -= (-oi*fa + ai*fo)/det;
+    if (gi < -8 || gj < -8 || gi > nx+8 || gj > ny+8) return null;
+  }
+  if (gi < 0 || gj < 0 || gi > nx-1 || gj > ny-1) return null;
+  return [gi, gj];
 }
 
 /* ------------------------------------------------------------------ *
@@ -1631,7 +1818,11 @@ addEventListener('resize', fitCameras);
     MG.anchor = !MG.anchor;
     drawMeteogram();
   });
+  buildGeoIndex();
+  boot('indice geografico listo');
+  await loadAdmin();
   await loadPlaces();
+  S.lab = +$('lab').value; $('lab').oninput({ target: $('lab') });
   computeGridNorth();
     await show();
     boot('listo');

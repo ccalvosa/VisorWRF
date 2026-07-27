@@ -98,6 +98,17 @@ def clip_ring(ring, bb):
     return segs
 
 
+def ring_area_km2(ring, lat0):
+    """Area por la formula del poligono, en km2. Aproximacion plana valida a
+    esta latitud y para estas extensiones; solo se usa para ordenar."""
+    if len(ring) < 3:
+        return 0.0
+    kx = 111.320*np.cos(np.radians(lat0))
+    x = ring[:, 0]*kx
+    y = ring[:, 1]*110.574
+    return abs(float(np.dot(x, np.roll(y, -1)) - np.dot(y, np.roll(x, -1))))/2.0
+
+
 def simplify(pts, tol):
     """Adelgazado por distancia acumulada. Suficiente para lineas de dibujo."""
     if len(pts) < 3:
@@ -112,7 +123,8 @@ def simplify(pts, tol):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--topo", required=True, help="municipalities.json de es-atlas")
+    ap.add_argument("--topo", default="assets/municipalities.json",
+                    help="TopoJSON de es-atlas (incluido en assets/)")
     ap.add_argument("--data", required=True, help="directorio data/ del visor")
     ap.add_argument("--tol", type=float, default=0.0012,
                     help="tolerancia de adelgazado en grados (~130 m)")
@@ -159,9 +171,15 @@ def main():
                 m = (p[:, 0] >= bb[0]) & (p[:, 0] <= bb[2]) & \
                     (p[:, 1] >= bb[1]) & (p[:, 1] <= bb[3])
                 if m.sum() > 2:
+                    # "rank" ordena que rotulos sobreviven cuando no caben
+                    # todos. Se usa el area del municipio: es un criterio
+                    # pobre pero objetivo y disponible. Si consigues poblacion
+                    # del INE, sustituye este campo y el visor la usara igual.
+                    area = sum(ring_area_km2(r, bb[1]) for r in allpts)
                     places.append({"name": name,
                                    "lat": round(float(p[m, 1].mean()), 5),
-                                   "lon": round(float(p[m, 0].mean()), 5)})
+                                   "lon": round(float(p[m, 0].mean()), 5),
+                                   "rank": round(area, 1)})
         print(f"  {objname}: {kept} entidades tocan el dominio")
 
     gj = {"type": "FeatureCollection",
@@ -171,8 +189,8 @@ def main():
     out_gj = os.path.join(args.data, "admin.geojson")
     out_pl = os.path.join(args.data, "places.json")
     json.dump(gj, open(out_gj, "w"), separators=(",", ":"))
-    json.dump(sorted(places, key=lambda p: p["name"]),
-              open(out_pl, "w"), ensure_ascii=False, indent=1)
+    places.sort(key=lambda p: -p["rank"])
+    json.dump(places, open(out_pl, "w"), ensure_ascii=False, indent=1)
 
     nv = sum(len(l) for f in features for l in f["geometry"]["coordinates"])
     print(f"{out_gj}: {os.path.getsize(out_gj)/1000:.0f} KB, {nv} vertices")

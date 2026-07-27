@@ -19,6 +19,7 @@ function mkEl(id = '') {
     appendChild(c) { this.children.push(c); return c; },
     removeChild(c) { this.children = this.children.filter(x => x !== c); return c; },
     setAttribute() {}, getAttribute() { return null; },
+    dispatchEvent(ev) { const h = this['on'+ev.type]; if (h) h({target:this}); },
     addEventListener() {}, scrollIntoView() {}, focus() {},
     getContext(kind) {
       if (kind !== '2d') return null;
@@ -46,6 +47,7 @@ globalThis.document = {
     return els.get(id);
   },
   createElement: () => mkEl(),
+  documentElement: mkEl(),
   addEventListener() {},
 };
 globalThis.window = globalThis;
@@ -55,6 +57,7 @@ globalThis.devicePixelRatio = 2;
 globalThis.addEventListener = () => {};
 globalThis.matchMedia = () => ({ matches: false });
 globalThis.getComputedStyle = () => ({ getPropertyValue: () => '#888888' });
+globalThis.Event = class { constructor(t){ this.type = t; } };
 globalThis.requestAnimationFrame = () => 0;   // no arrancamos el bucle
 globalThis.performance = { now: () => 0 };
 globalThis.setInterval = () => 0;
@@ -185,11 +188,21 @@ const handlers = [
   ['relieve',             () => els.get('shd').oninput?.({target:{value:'40'}})],
   ['curvas de nivel',     () => els.get('ctr').oninput?.({target:{value:'3'}})],
   ['reticula',            () => els.get('grat').onchange?.({target:{value:'0.25'}})],
+  ['limites municipios',  () => els.get('adm').onchange?.({target:{value:'municipio'}})],
+  ['limites provincias',  () => els.get('adm').onchange?.({target:{value:'provincia'}})],
+  ['limites ambos',       () => els.get('adm').onchange?.({target:{value:'both'}})],
+  ['limites ninguno',     () => els.get('adm').onchange?.({target:{value:'none'}})],
+  ['rotulos ninguno',     () => els.get('lab').oninput?.({target:{value:'0'}})],
+  ['rotulos todos',       () => els.get('lab').oninput?.({target:{value:'4'}})],
   ['slider temporal',     () => { const tr=els.get('tr'); tr.value='3'; tr.oninput?.(); }],
   ['play',                () => els.get('play').onclick?.()],
   ['meteograma sin punto',() => els.get('mbtn').onclick?.()],
   ['meteograma con punto',() => { els.get('mbtn').onclick?.(); }],
   ['clic en el grafico',  () => els.get('mgcv').onclick?.({clientX:300})],
+  ['seguimiento cursor',  () => { const d = mkEl();
+      // simula movimiento sobre el terreno: onMove esta enganchado al canvas
+      // real, asi que aqui se comprueba la funcion de seguimiento directa
+      globalThis.__meteoFollowProbe?.(); }],
   ['hover en el grafico', () => els.get('mgcv').onpointermove?.({clientX:250})],
   ['hover borde izq',     () => els.get('mgcv').onpointermove?.({clientX:10})],
   ['hover borde der',     () => els.get('mgcv').onpointermove?.({clientX:695})],
