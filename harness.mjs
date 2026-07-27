@@ -2,6 +2,7 @@
 // simulados. No dibuja nada: sirve para que los errores de ejecucion salten
 // con su linea en vez de quedarse mudos en un navegador.
 import fs from 'fs';
+import fsSync from 'fs';
 import path from 'path';
 
 const ROOT = process.argv[2] || '.';
@@ -20,6 +21,7 @@ function mkEl(id = '') {
     removeChild(c) { this.children = this.children.filter(x => x !== c); return c; },
     setAttribute() {}, getAttribute() { return null; },
     dispatchEvent(ev) { const h = this['on'+ev.type]; if (h) h({target:this}); },
+    insertAdjacentHTML() {}, onload: null, onerror: null,
     addEventListener() {}, scrollIntoView() {}, focus() {},
     getContext(kind) {
       if (kind !== '2d') return null;
@@ -40,9 +42,14 @@ function mkEl(id = '') {
   return el;
 }
 const els = new Map();
+const HTML_IDS = new Set(
+  [...fsSync.readFileSync(path.join(ROOT, 'index.html'), 'utf8')
+      .matchAll(/id="([\w-]+)"/g)].map(m => m[1]));
+const MISSING = new Set();
 globalThis.document = {
   getElementById(id) {
     IDS.add(id);
+    if (!HTML_IDS.has(id)) MISSING.add(id);
     if (!els.has(id)) els.set(id, mkEl(id));
     return els.get(id);
   },
@@ -188,6 +195,10 @@ const handlers = [
   ['relieve',             () => els.get('shd').oninput?.({target:{value:'40'}})],
   ['curvas de nivel',     () => els.get('ctr').oninput?.({target:{value:'3'}})],
   ['reticula',            () => els.get('grat').onchange?.({target:{value:'0.25'}})],
+  ['cerrar panel error',  () => document.getElementById('failclose').onclick?.()],
+  ['clic fuera creditos', () => document.getElementById('infoveil').onclick?.()],
+  ['abrir creditos',      () => els.get('infobtn').onclick?.()],
+  ['cerrar creditos',     () => els.get('infoclose').onclick?.()],
   ['limites municipios',  () => els.get('adm').onchange?.({target:{value:'municipio'}})],
   ['limites provincias',  () => els.get('adm').onchange?.({target:{value:'provincia'}})],
   ['limites ambos',       () => els.get('adm').onchange?.({target:{value:'both'}})],
@@ -222,4 +233,9 @@ if (failed) {
 } else {
   console.log('arranque completado sin error');
 }
-console.log('elementos pedidos por getElementById:', [...IDS].join(' '));
+if (MISSING.size){
+  console.log('\nELEMENTOS QUE EL JS PIDE Y NO ESTAN EN EL HTML:',
+              [...MISSING].join(' '));
+} else {
+  console.log('todos los elementos pedidos existen en el HTML');
+}
