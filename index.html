@@ -6,14 +6,17 @@
 <title>Visor de superficie WRF</title>
 <style>
   :root{
-    --bg:#0a0b0d; --panel:#131417; --panel-2:#1b1d21; --line:#26282c;
-    --fg:#e6e7ea; --fg-dim:#8a8c93; --fg-faint:#5b5d64;
-    --accent:#f2662a; --accent2:#3d9be0; --ok:#35c05a;
-    --warn:#f2662a;
+    --bg:#0b0b0c; --panel:#131416; --panel-2:#191a1d; --line:#26282c;
+    --fg:#e6e8ea; --fg-dim:#8b9096; --fg-faint:#5c6167;
+    --accent:#ff5a1f; --accent2:#38a9e8; --ok:#3ecf6a;
+    --warn:#ff5a1f;
     --mono: ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
     --sans: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   }
   *{box-sizing:border-box}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(1100px 520px at 6% -12%,
+      rgba(255,90,31,.10), transparent 62%)}
   html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
     font-family:var(--mono);font-size:12px;overflow:hidden;
     -webkit-font-smoothing:antialiased}
@@ -21,42 +24,29 @@
   #stage{position:fixed;inset:0}
 
   /* ---- cabecera ---- */
-  #head{position:fixed;top:0;left:0;right:0;height:54px;display:flex;
-    align-items:center;gap:12px;padding:0 12px;background:rgba(10,11,13,.9);
-    border-bottom:1px solid var(--line);backdrop-filter:blur(8px);z-index:20}
-  #logowrap{flex:none;width:36px;height:36px;border-radius:9px;background:#fff;
-    display:grid;place-items:center;overflow:hidden}
-  #logowrap:empty,#logowrap:has(#logo[hidden]){background:transparent;width:0}
-  /* el bloque de estado va pegado al boton de informacion, no suelto al
-     extremo derecho: los dos son metadatos de la ejecucion */
-  #live{margin-left:auto;text-align:right;flex:none;max-width:46vw;
-    min-width:0;overflow:hidden}
-  #liverow{display:flex;align-items:center;justify-content:flex-end;gap:5px;
-    font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg)}
-  #livedot{width:6px;height:6px;border-radius:50%;background:var(--ok);
-    display:inline-block}
-  #live .meta{font-size:10px}
-  #head b{font-family:var(--sans);font-weight:700;font-size:17px;
-    letter-spacing:-.01em;display:block;line-height:1.15}
-  #head b .a1{color:var(--accent)}
-  #head b .a2{color:var(--accent2)}
-  #head b .sep{color:var(--fg-faint);font-weight:400;margin:0 1px}
-  #logo{flex:none;width:auto;display:block}
-  #logo[hidden]{display:none}
+  #head{position:fixed;top:0;left:0;right:0;height:52px;display:flex;
+    align-items:center;gap:12px;padding:0 14px;
+    background:rgba(11,11,12,.88);border-bottom:1px solid var(--line);
+    backdrop-filter:blur(8px);z-index:20}
+  #head b{font-weight:700;font-size:17px;display:block;line-height:1.15;
+    letter-spacing:-.01em;font-family:var(--sans)}
+  #head b i{font-style:normal}
+  #logobox{flex:none;width:36px;height:36px;border-radius:9px;
+    background:#17181a;border:1px solid var(--line);display:grid;
+    place-items:center;overflow:hidden}
+  #logobox[hidden]{display:none}
+  #logo{max-width:30px;max-height:30px;display:block}
   #brand{flex:none;min-width:0}
   #brand small{display:block;font-size:9px;color:var(--fg-dim);
     letter-spacing:.16em;text-transform:uppercase;line-height:1.5}
-  #infobtn{flex:none;width:22px;height:22px;padding:0;margin-left:0;
-    border-radius:50%;font-size:10px;line-height:1;font-style:italic;
-    align-self:center}
-  #infoveil{position:fixed;inset:0;z-index:39;background:rgba(6,7,9,.62);
-    backdrop-filter:blur(2px)}
-  #infoveil[hidden]{display:none}
-  #info{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-    border-radius:10px;overflow:hidden;width:min(520px,92vw);z-index:40;
-    max-height:80vh;display:flex;flex-direction:column;
+  #live{margin-left:auto;display:flex;align-items:center;gap:7px;
+    font-size:10px;color:var(--fg-dim);white-space:nowrap}
+  #live i{width:7px;height:7px;border-radius:50%;background:var(--ok);
+    flex:none;box-shadow:0 0 6px rgba(62,207,106,.6)}
+  #infobtn{flex:none;width:20px;height:20px;padding:0;margin-left:auto;
+    border-radius:50%;font-size:10px;line-height:1;font-style:italic}
+  #info{position:fixed;top:60px;right:12px;width:min(420px,90vw);z-index:40;
     background:var(--panel);border:1px solid var(--line)}
-  #infobody{overflow-y:auto}
   #info[hidden]{display:none}
   #infohead{display:flex;justify-content:space-between;align-items:center;
     padding:7px 8px 7px 10px;border-bottom:1px solid var(--line);
@@ -64,54 +54,53 @@
     color:var(--fg-faint)}
   #infohead button{width:22px;border:0;background:transparent;font-size:15px;
     color:var(--fg-dim);cursor:pointer;padding:0}
-  #infobody{padding:9px 10px;font-size:10.5px;color:var(--fg-dim);
+  #infobody{padding:9px 12px;font-size:10.5px;color:var(--fg-dim);
     line-height:1.55}
   #infobody p{margin:0 0 7px}
   #infobody a{color:var(--fg)}
+  #infobody h4{margin:12px 0 6px;font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--fg-faint);font-weight:600;
+    border-top:1px solid var(--line);padding-top:10px}
+  #infobody h4:first-child{margin-top:0;border-top:0;padding-top:0}
+  #infobody dl{margin:0}
+  #infobody dt{color:var(--fg);margin-top:6px}
+  #infobody dt span{color:var(--fg-faint);font-size:9.5px;margin-left:4px}
+  #infobody dd{margin:1px 0 0}
   @media (max-width:720px){ #brand small, .meta{display:none} }
   .meta{color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .tag{border:1px solid var(--accent);color:var(--accent);padding:2px 9px;
-    border-radius:999px;letter-spacing:.12em;font-size:9px;
-    text-transform:uppercase;flex:none;align-self:center}
+    letter-spacing:.12em;font-size:9px;text-transform:uppercase;flex:none;
+    border-radius:999px}
 
   /* ---- panel de control ---- */
-  /* Barra de acento en el borde superior de cada tarjeta: es el rasgo que
-     identifica al panel de emergencias del grupo. */
-  #panel,#legend,#probe,#time,#mgram,#info{position:relative}
-  #panel::before,#legend::before,#probe::before,#mgram::before,#info::before{
-    content:'';position:absolute;left:0;right:0;top:0;height:2px;
-    background:var(--accent)}
-  #panel{position:fixed;top:66px;left:12px;width:250px;background:var(--panel);
-    border:1px solid var(--line);z-index:20}
+  #panel{position:fixed;top:64px;left:12px;width:250px;background:var(--panel);
+    border:1px solid var(--line);border-top:2px solid var(--accent);z-index:20}
   .grp{padding:10px 12px;border-bottom:1px solid var(--line)}
   .grp:last-child{border-bottom:0}
   .lbl{display:flex;justify-content:space-between;align-items:baseline;
     text-transform:uppercase;letter-spacing:.12em;font-size:9.5px;
     color:var(--fg-faint);margin-bottom:6px}
   .lbl span{color:var(--fg);letter-spacing:0;font-size:11px}
-  select{width:100%;background:var(--panel-2);color:var(--fg);
-    border:1px solid var(--line);border-radius:6px;
-    padding:5px 7px;font-family:var(--mono);font-size:11.5px}
+  select{width:100%;background:var(--panel-2);color:var(--fg);border:1px solid var(--line);
+    padding:5px 6px;font-family:var(--mono);font-size:11.5px}
   input[type=range]{width:100%;margin:0;accent-color:var(--accent);
     background:transparent}
   .row{display:flex;gap:6px}
-  button{flex:1;background:var(--panel-2);color:var(--fg);
-    border:1px solid var(--line);border-radius:999px;
-    padding:5px 10px;font-family:var(--mono);font-size:10.5px;cursor:pointer;
-    text-transform:uppercase;letter-spacing:.09em}
-  button:hover{background:#24262b;border-color:#33363c}
-  button[aria-pressed=true]{background:var(--accent);color:#12100e;
+  button{flex:1;background:var(--panel-2);color:var(--fg);border:1px solid var(--line);
+    padding:5px 0;font-family:var(--mono);font-size:11px;cursor:pointer;
+    text-transform:uppercase;letter-spacing:.08em;border-radius:999px}
+  button:hover{background:#22242８}
+  button[aria-pressed=true]{background:var(--accent);color:#0b0b0c;
     border-color:var(--accent);font-weight:600}
   button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #6fa8c0;outline-offset:1px}
 
   /* ---- linea de tiempo ---- */
   #time{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
     display:flex;align-items:center;gap:10px;background:var(--panel);
-    border:1px solid var(--line);border-radius:10px;z-index:20;
-    width:min(620px,86vw);padding:0 12px 0 0;overflow:hidden}
-  #time button{flex:none;width:40px;align-self:stretch;border:0;
-    border-radius:0;border-right:1px solid var(--line);
-    background:var(--panel-2);font-size:12px}
+    border:1px solid var(--line);border-top:2px solid var(--accent);
+    z-index:20;width:min(620px,86vw);padding-right:12px}
+  #time button{flex:none;width:38px;align-self:stretch;border:0;
+    border-right:1px solid var(--line)}
   #tinfo{flex:none;min-width:190px;padding:5px 0 5px 2px;line-height:1.3}
   #tmain{font-size:13px}
   #tsub{font-size:10px;color:var(--fg-dim)}
@@ -119,16 +108,16 @@
 
   /* ---- sonda ---- */
   #probe{position:fixed;bottom:12px;left:12px;background:var(--panel);
-    border:1px solid var(--line);border-radius:10px;padding:9px 10px;
-    z-index:20;min-width:210px}
-  #probe .big{font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+    border:1px solid var(--line);border-top:2px solid var(--accent);
+    padding:8px 10px;z-index:20;min-width:200px}
+  #probe .big{font-size:19px;letter-spacing:-.01em}
   #probe .big em{font-style:normal;font-size:11px;color:var(--fg-dim);margin-left:3px}
   #probe .co{color:var(--fg-dim);margin-top:3px;font-size:10.5px}
 
   /* ---- leyenda ---- */
   #legend{position:fixed;bottom:12px;right:12px;background:var(--panel);
-    border:1px solid var(--line);border-radius:10px;padding:9px 10px;
-    z-index:20;width:210px}
+    border:1px solid var(--line);border-top:2px solid var(--accent);
+    padding:8px 10px;z-index:20;width:210px}
   #legend .t{color:var(--fg-dim);font-size:10px;margin-bottom:5px}
   #bar{width:100%;height:9px;display:block;border:1px solid var(--line)}
   #ends{display:flex;justify-content:space-between;color:var(--fg-dim);
@@ -152,7 +141,7 @@
   #probe button{width:100%;margin-top:7px}
   #mgram{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);
     z-index:25;background:var(--panel);border:1px solid var(--line);
-    border-radius:10px;width:min(720px,94vw);overflow:hidden}
+    border-top:2px solid var(--accent);width:min(720px,94vw)}
   #mgram[hidden]{display:none}
   #mghead{display:flex;align-items:center;justify-content:space-between;
     padding:6px 8px 6px 10px;border-bottom:1px solid var(--line);font-size:11px}
@@ -166,20 +155,22 @@
     font-size:9.5px;color:var(--fg-faint);max-width:min(560px,68vw);
     pointer-events:none;line-height:1.3}
   #credit[hidden]{display:none}
-  #status{position:fixed;top:66px;left:50%;transform:translateX(-50%);
+  #status{position:fixed;top:64px;left:50%;transform:translateX(-50%);
     background:var(--panel);border:1px solid var(--line);padding:6px 12px;z-index:30;
     color:var(--fg-dim)}
   #status[hidden]{display:none}
-  #boot{position:fixed;top:66px;left:12px;z-index:40;background:var(--panel);
+  #boot{position:fixed;top:64px;left:12px;z-index:40;background:var(--panel);
     border:1px solid var(--line);padding:8px 10px;font-size:11px;
     color:var(--fg-dim);max-width:min(420px,88vw);line-height:1.5}
   #boot[hidden]{display:none}
   #boot b{color:var(--fg);display:block;margin-bottom:4px}
   #boot code{color:var(--fg);font-size:10.5px}
   #fail{position:fixed;inset:0;display:none;place-content:center;padding:40px;
-    z-index:50;background:var(--bg);font-family:var(--sans);line-height:1.6}
+    z-index:50;background:rgba(10,11,13,.96);font-family:var(--sans);
+    line-height:1.6}
+  #fail button{max-width:200px;margin-top:14px;flex:none}
   @media (max-width:720px){
-    #panel{width:calc(100vw - 24px);top:60px}
+    #panel{width:calc(100vw - 24px)}
     #legend,#probe{display:none}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -189,19 +180,16 @@
 <div id="stage"></div>
 
 <div id="head">
-  <div id="logowrap"><img id="logo" alt="" hidden></div>
+  <span id="logobox" hidden><img id="logo" alt=""></span>
   <div id="brand">
-    <small id="bsub"></small>
+    <small id="bkick"></small>
     <b id="btitle">Visor de superficie WRF</b>
   </div>
   <span class="tag" id="tag" hidden></span>
-  <div id="live">
-    <div id="liverow"><i id="livedot"></i><span id="livelbl">Pronostico</span></div>
-    <div class="meta" id="meta"></div>
-  </div>
+  <div id="live"><i></i><span id="livetxt"></span></div>
   <button id="infobtn" type="button" title="Fuentes y creditos">i</button>
 </div>
-<div id="infoveil" hidden></div>
+<span class="meta" id="meta" hidden></span>
 <div id="info" hidden>
   <div id="infohead"><span>Fuentes y creditos</span>
     <button id="infoclose" type="button">&#215;</button></div>
@@ -263,8 +251,8 @@
     <div class="lbl">Limites administrativos</div>
     <select id="adm">
       <option value="none">ninguno</option>
-      <option value="municipio">municipios</option>
-      <option value="provincia" selected>provincias</option>
+      <option value="municipio" selected>municipios</option>
+      <option value="provincia">provincias</option>
       <option value="both">ambos</option>
     </select>
   </div>
@@ -275,10 +263,10 @@
   <div class="grp">
     <div class="lbl">Reticula geografica</div>
     <select id="grat">
-      <option value="0" selected>sin reticula</option>
+      <option value="0">sin reticula</option>
       <option value="0.5">cada 0.5°</option>
       <option value="0.25">cada 0.25°</option>
-      <option value="0.1">cada 0.1°</option>
+      <option value="0.1" selected>cada 0.1°</option>
       <option value="0.05">cada 0.05°</option>
     </select>
   </div>
@@ -325,8 +313,9 @@
 <div id="status">cargando…</div>
 <div id="boot"></div>
 <div id="fail"><div>
-  <h2>No se ha podido iniciar el visor</h2>
+  <h2 id="failtitle">Ha ocurrido un error</h2>
   <p id="failmsg" style="white-space:pre-wrap;font-family:var(--mono);font-size:11.5px"></p>
+  <button id="failclose" type="button">Continuar</button>
 </div></div>
 
 <!-- three.js va dentro del repositorio a proposito: sin dependencia de CDN el
@@ -390,13 +379,27 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const BUILD = '2026-07-27.5';   // subir a mano en cada entrega
+const BUILD = '2026-07-27.8';   // subir en cada entrega y VERIFICAR que sale
 const boot = m => window.__boot?.(m);
-boot(`visor build ${BUILD} · three.js r${THREE.REVISION}`);
+boot(`visor build ${BUILD} \u00b7 three.js r${THREE.REVISION}`);
 
 const $ = id => document.getElementById(id);
-const fail = msg => { $('fail').style.display='grid'; $('failmsg').textContent = msg; };
+// Un error despues del arranque no debe matar la sesion: antes el panel se
+// abria a pantalla completa sin forma de cerrarlo y obligaba a recargar, o sea
+// que un fallo transitorio se convertia en fatal.
+let STARTED = false;
+const fail = (msg, fatal) => {
+  const f = fatal ?? !STARTED;
+  $('failtitle').textContent = f
+    ? 'No se ha podido iniciar el visor' : 'Ha ocurrido un error';
+  $('failmsg').textContent = msg;
+  $('failclose').hidden = f;
+  $('fail').style.display = 'grid';
+  console.error(msg);
+};
 window.addEventListener('error', e => fail(e.message));
+window.addEventListener('unhandledrejection',
+  e => fail('Promesa rechazada: ' + (e.reason?.message || e.reason)));
 
 /* ------------------------------------------------------------------ *
  * Paletas. Cada una es una lista de paradas [t, r, g, b] en 0..1/0..255
@@ -410,6 +413,9 @@ const CMAPS = {
   diverge: [[0,'#2a5d8f'],[.5,'#e9e6dd'],[1,'#a3462f']],
   cyclic:  [[0,'#c96a4a'],[.25,'#c5b356'],[.5,'#5aa06f'],[.75,'#4c72a8'],[1,'#c96a4a']],
   radar:   [[0,'#0e1b26'],[.25,'#2f8f6a'],[.5,'#d9cf5a'],[.75,'#c9563a'],[1,'#8e3f7d']],
+  // paleta para "hora en que ocurre el maximo": no es una magnitud, es un
+  // instante, asi que conviene que no se lea como intensidad
+  hours:   [[0,'#2b3a55'],[.25,'#4d7ea8'],[.5,'#8fbf9f'],[.75,'#d9a95c'],[1,'#a8553a']],
 };
 function hex(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
 function lutBytes(name){
@@ -517,7 +523,7 @@ function utm(lat, lon){
 const S = {
   man:null, nx:0, ny:0, dx:0, dy:0, W:0, H:0,
   terrain:null, lat:null, lon:null,
-  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0, adm:'provincia', lab:2, mode:'3d',
+  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0.1, adm:'municipio', lab:2, mode:'3d',
   cache:new Map(), playing:false, timer:null,
   pins:[], hover:null, gridNorth:0,
 };
@@ -1040,7 +1046,9 @@ async function load(key, t){
   if (S.cache.has(id)) return S.cache.get(id);
   const f = fmeta(key);
   if (!f) throw new Error(`campo ${key} no esta en el paquete`);
-  const dec = await decodePNG16('data/'+f.files[t], f.vmin, f.vmax);
+  // los campos de resumen traen un solo fichero y no varian con el tiempo
+  const rel = f.files[Math.min(t, f.files.length - 1)];
+  const dec = await decodePNG16('data/'+rel, f.vmin, f.vmax);
   const entry = { ...dec, tex: fieldTexture(dec.data, dec.nx, dec.ny, f.vmin, f.vmax) };
   if (S.cache.size > 26){
     // Nunca liberar la textura que el material tiene enlazada ahora mismo:
@@ -1069,8 +1077,14 @@ async function show(){
     mat.uniforms.lut.value.dispose();
     mat.uniforms.lut.value = lutTexture(f.cmap);
     drawLegend(f);
+    // Un campo de resumen no tiene eje temporal: el control se desactiva de
+    // verdad, no solo se atenua, para que no haya un camino que lo mueva.
+    setTimeEnabled(!f.single);
     updateTimeUI();
-    if (!$('mgram').hidden) drawMeteogram();
+    // envuelto aparte: un fallo dibujando el meteograma no debe abortar el
+    // pintado del mapa
+    try { if (!$('mgram').hidden) drawMeteogram(); }
+    catch (e){ console.error('meteograma:', e); }
     await updateWind();
     // prefetch del siguiente paso
     const next = (S.t+1) % S.man.times.length;
@@ -1094,7 +1108,8 @@ function drawLegend(f){
     img.data[o]=b[x*4]; img.data[o+1]=b[x*4+1]; img.data[o+2]=b[x*4+2]; img.data[o+3]=255;
   }
   ctx.putImageData(img, 0, 0);
-  $('lt').textContent = `${f.label} (${f.units})`;
+  $('lt').textContent = `${f.label} (${f.units})`
+    + (f.single ? ' · toda la simulacion' : '');
   $('e0').textContent = fmtNum(f.vmin);
   $('e1').textContent = fmtNum(f.vmax);
 }
@@ -1110,8 +1125,21 @@ function buildTicks(){
   tr.value = S.t;
   // Al arrastrar se refresca el rotulo en cada paso, pero la carga se
   // encola: descodificar un PNG por cada pixel arrastrado atasca el hilo.
-  tr.oninput = () => { S.t = +tr.value; updateTimeUI(); showQueued(); };
+  tr.oninput = () => {
+    if (tr.disabled) return;
+    S.t = +tr.value; updateTimeUI(); showQueued();
+  };
   updateTimeUI();
+}
+
+function setTimeEnabled(on){
+  $('tr').disabled = !on;
+  $('play').disabled = !on;
+  $('time').style.opacity = on ? '1' : '.4';
+  $('time').style.pointerEvents = on ? '' : 'none';
+  $('time').title = on ? ''
+    : 'Este campo resume toda la simulacion: no depende del instante';
+  if (!on && S.playing) togglePlay();
 }
 
 const LOCAL_TZ = 'Europe/Madrid';
@@ -1209,10 +1237,8 @@ function bindUI(){
     mat.uniforms.ci.value = S.ci;
     $('ctrL').textContent = S.ci ? S.ci+' m' : 'sin curvas';
   };
-  const infoShow = on => { $('info').hidden = !on; $('infoveil').hidden = !on; };
-  $('infobtn').onclick = () => infoShow($('info').hidden);
-  $('infoclose').onclick = () => infoShow(false);
-  $('infoveil').onclick = () => infoShow(false);   // clic fuera cierra
+  $('infobtn').onclick = () => { $('info').hidden = !$('info').hidden; };
+  $('infoclose').onclick = () => { $('info').hidden = true; };
   $('adm').onchange = e => { S.adm = e.target.value; buildAdmin(); };
   $('lab').oninput = e => {
     S.lab = +e.target.value;
@@ -1249,17 +1275,20 @@ function bindUI(){
   addEventListener('keydown', e => {
     if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
     if (e.code === 'Space'){ e.preventDefault(); togglePlay(); }
-    if (e.key === 'ArrowRight'){ S.t = (S.t+1)%S.man.times.length; showQueued(); }
-    if (e.key === 'ArrowLeft'){ S.t = (S.t-1+S.man.times.length)%S.man.times.length; showQueued(); }
+    const single = fmeta(S.field)?.single;
+    if (e.key === 'ArrowRight' && !single){
+      S.t = (S.t+1)%S.man.times.length; showQueued();
+    }
+    if (e.key === 'ArrowLeft' && !single){
+      S.t = (S.t-1+S.man.times.length)%S.man.times.length; showQueued();
+    }
     if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
     if (e.key.toLowerCase() === 'm'){ openMeteogram(); }
-    if (e.key === 'Escape'){
-      $('mgram').hidden = true;
-      $('info').hidden = true; $('infoveil').hidden = true;
-    }
+    if (e.key === 'Escape'){ $('mgram').hidden = true; $('info').hidden = true; }
   });
 }
 function togglePlay(){
+  if (!S.playing && fmeta(S.field)?.single) return;
   S.playing = !S.playing;
   $('play').textContent = S.playing ? '❚❚' : '▶';
   clearInterval(S.timer);
@@ -1456,6 +1485,51 @@ function computeGridNorth(){
  * mano con doble clic se guardan en el mismo formato, asi que la tecla P
  * copia al portapapeles algo que puedes pegar tal cual en places.json.
  */
+/* ---- que es cada producto ----
+ * La explicacion vive junto al visor y no en el fichero de marca porque
+ * describe el producto, no la identidad del sitio. Solo se muestran los que
+ * el manifest trae de verdad, asi que no puede quedar desincronizada con lo
+ * que se empaqueto.
+ */
+const PRODUCT_INFO = {
+  wspd10: 'Velocidad del viento a 10 m. Es el viento que empuja el frente, '
+        + 'no el que transporta el humo.',
+  gust10: 'Racha maxima alcanzada en el intervalo entre salidas, no valor '
+        + 'instantaneo. Es el campo que decide una maniobra.',
+  wchg10: 'Modulo del cambio vectorial del viento a 10 m respecto a la hora '
+        + 'anterior. Un giro brusco convierte un flanco en cabeza de fuego, y '
+        + 'eso no lo ve un campo de velocidad.',
+  t2:     'Temperatura del aire a 2 m.',
+  rh2:    'Humedad relativa a 2 m. Es un cociente, asi que a temperaturas '
+        + 'altas subestima la capacidad de secado; para eso esta el HDW.',
+  td2:    'Punto de rocio a 2 m: temperatura a la que el aire saturaria. A '
+        + 'diferencia de la humedad relativa no depende de la temperatura, '
+        + 'asi que se lee de un golpe.',
+  pblh:   'Altura de la capa limite. Explica cuando se rompe la inversion y '
+        + 'arranca el ciclo de brisas de ladera.',
+  hdw:    'Indice Hot-Dry-Windy (Srock et al. 2018): producto del deficit de '
+        + 'presion de vapor maximo por la velocidad maxima en los 500 m mas '
+        + 'bajos. Adimensional por convenio; sirve para comparar dias y '
+        + 'zonas, no como magnitud fisica.',
+  wtrans: 'Viento de transporte: viento medio en la capa de mezcla, ponderado '
+        + 'por espesor. Es el que se lleva el humo, no el de 10 m.',
+  wtransdir: 'Direccion del viento de transporte, en grados meteorologicos.',
+  vent:   'Indice de ventilacion: viento de transporte por altura de mezcla, '
+        + 'en m2/s. Valores bajos indican humo estancado. Las categorias '
+        + 'operativas americanas estan tabuladas en otras unidades y no son '
+        + 'comparables directamente.',
+  prec1h: 'Precipitacion acumulada en el intervalo entre salidas.',
+  refl1:  'Reflectividad simulada en el primer nivel del modelo. Util para '
+        + 'distinguir una racha convectiva de una sinoptica.',
+  vpd2:   'Deficit de presion de vapor a 2 m: cuanto vapor le falta al aire '
+        + 'para saturarse. Mide capacidad de secado real.',
+};
+const SUMMARY_INFO =
+  'Los campos marcados como resumen no corresponden a un instante: son el '
+  + 'maximo alcanzado en toda la simulacion, o la hora en que se alcanza, '
+  + 'contada desde la inicializacion. Con ellos el control de tiempo se '
+  + 'desactiva.';
+
 /* ---- marca configurable (site.json) ----
  * La identidad visual no se incrusta en el HTML: asi el mismo visor sirve
  * para otro caso o para otro grupo cambiando un JSON y un SVG. Si el fichero
@@ -1468,24 +1542,25 @@ async function loadSite(){
     if (!r.ok) return;
     cfg = await r.json();
   } catch { return; }
-  if (cfg.title){ $('btitle').textContent = cfg.title; document.title = cfg.title; }
-  // titleHtml permite colorear palabras con <span class="a1"> y "a2", como en
-  // el panel de emergencias. Es tu propio fichero, no entrada de usuario.
-  if (cfg.titleHtml) $('btitle').innerHTML = cfg.titleHtml;
-  if (cfg.kicker) $('bsub').textContent = cfg.kicker;
-  if (cfg.accent) document.documentElement.style.setProperty('--accent', cfg.accent);
-  if (cfg.accent2) document.documentElement.style.setProperty('--accent2', cfg.accent2);
-  if (cfg.liveLabel) $('livelbl').textContent = cfg.liveLabel;
-  $('livelbl').title = `Visor build ${BUILD}`;
-  if (!cfg.kicker){
-    const sub2 = [cfg.subtitle, cfg.org].filter(Boolean).join(' \u00b7 ');
-    if (sub2) $('bsub').textContent = sub2;
+  const root = document.documentElement;
+  if (cfg.theme?.accent)  root.style.setProperty('--accent',  cfg.theme.accent);
+  if (cfg.theme?.accent2) root.style.setProperty('--accent2', cfg.theme.accent2);
+  $('bkick').textContent = [cfg.kicker, cfg.org].filter(Boolean).join(' \u00b7 ');
+  // titulo por partes para poder colorearlas como en el panel de emergencias
+  if (Array.isArray(cfg.titleParts) && cfg.titleParts.length){
+    $('btitle').innerHTML = cfg.titleParts.map(t => {
+      const col = t.c === 'accent' ? 'var(--accent)'
+                : t.c === 'accent2' ? 'var(--accent2)'
+                : t.c === 'dim' ? 'var(--fg-dim)' : 'var(--fg)';
+      return `<i style="color:${col}">${t.t}</i>`;
+    }).join(' ');
+  } else if (cfg.title){
+    $('btitle').textContent = cfg.title;
   }
   if (cfg.logo){
     const img = $('logo');
-    img.onload = () => { img.hidden = false; };
-    img.onerror = () => { img.hidden = true; };   // sin logo, sin hueco
-    img.style.height = (cfg.logoHeight || 22) + 'px';
+    img.onload = () => { $('logobox').hidden = false; };
+    img.onerror = () => { $('logobox').hidden = true; };  // sin logo, sin hueco
     img.alt = cfg.org || '';
     img.src = cfg.logo;
   }
@@ -1494,7 +1569,7 @@ async function loadSite(){
     $('tag').title = cfg.tagTitle || '';
     $('tag').hidden = false;
   }
-  const parts = [];
+  const parts = ['<h4>Fuentes y creditos</h4>'];
   for (const c of (cfg.credits || [])) parts.push(`<p>${c}</p>`);
   if (Array.isArray(cfg.links) && cfg.links.length){
     parts.push('<p>' + cfg.links.map(l =>
@@ -1736,11 +1811,9 @@ function drawMeteogram(){
   const dim = CSS.getPropertyValue('--fg-faint').trim() || '#55636f';
   const mid = CSS.getPropertyValue('--fg-dim').trim() || '#7d8c9a';
   const line = CSS.getPropertyValue('--line').trim() || '#2b3742';
-  // las series usan los acentos de la marca: naranja exterior, azul
-  // secundario, gris para el viento. Igual que en el panel de estaciones.
-  const C_T = CSS.getPropertyValue('--accent').trim() || '#f2662a';
-  const C_R = CSS.getPropertyValue('--accent2').trim() || '#3d9be0';
-  const C_W = '#cbd0d8';
+  const C_T = CSS.getPropertyValue('--accent').trim() || '#ff5a1f';
+  const C_R = CSS.getPropertyValue('--accent2').trim() || '#38a9e8';
+  const C_W = '#d8dbde';
   c.font = '10px ui-monospace, Menlo, Consolas, monospace';
 
   function nice(lo, hi){
@@ -1928,6 +2001,9 @@ addEventListener('resize', fitCameras);
     S.field = (man.fields.find(f => f.key === 'wspd10') || man.fields[0]).key;
 
     await loadSite();
+    $('livetxt').innerHTML =
+      `Pasada ${man.grid.init}<br>d0${man.grid.grid_id} \u00b7 `
+      + `${man.grid.dx.toFixed(0)} m \u00b7 ${man.times.length} pasos`;
     $('meta').textContent =
       `d0${man.grid.grid_id} · ${S.nx}×${S.ny} · dx ${man.grid.dx.toFixed(0)} m · ` +
       `init ${man.grid.init} · ${man.title}` + (man.note ? ` · ${man.note}` : '');
@@ -1955,12 +2031,31 @@ addEventListener('resize', fitCameras);
     MG.anchor = !MG.anchor;
     drawMeteogram();
   });
+  // seccion de productos, generada de lo que el manifest trae de verdad
+  const rows = [];
+  let anySingle = false;
+  for (const f of man.fields){
+    if (f.key === 'u10' || f.key === 'v10') continue;
+    if (f.single) anySingle = true;
+    if (f.key.endsWith('_hora')) continue;   // se explica con el resumen
+    const base = f.key.replace(/_max$/, '');
+    const txt = PRODUCT_INFO[base] || PRODUCT_INFO[f.key] || '';
+    rows.push(`<dt>${f.label}<span>${f.units}</span></dt>`
+            + `<dd>${txt}${f.single ? ' Resumen de toda la simulacion.' : ''}</dd>`);
+  }
+  if (rows.length){
+    $('infobody').insertAdjacentHTML('beforeend',
+      '<h4>Productos</h4><dl>' + rows.join('') + '</dl>'
+      + (anySingle ? `<p style="margin-top:8px">${SUMMARY_INFO}</p>` : ''));
+  }
+  $('infobody').insertAdjacentHTML('beforeend', '<h4>Ejecucion</h4>');
+  $('infobody').insertAdjacentHTML('beforeend',
+    `<p>Visor build <b style="color:var(--fg)">${BUILD}</b>.</p>`);
   $('infobody').insertAdjacentHTML('beforeend',
       `<p>Ejecucion mostrada: ${man.grid.model || 'WRF'}, dominio d0`
       + `${man.grid.grid_id} de ${man.grid.nx}\u00d7${man.grid.ny} puntos a `
       + `${man.grid.dx.toFixed(0)} m, ${man.grid.map_proj}. `
-      + `Inicializada ${man.grid.init}. Empaquetado ${man.generated}.</p>`
-      + `<p>Visor build <b style="color:var(--fg)">${BUILD}</b>.</p>`);
+      + `Inicializada ${man.grid.init}. Empaquetado ${man.generated}.</p>`);
   buildGeoIndex();
   boot('indice geografico listo');
   await loadAdmin();
@@ -1968,6 +2063,7 @@ addEventListener('resize', fitCameras);
   S.lab = +$('lab').value; $('lab').oninput({ target: $('lab') });
   computeGridNorth();
     await show();
+    STARTED = true;
     boot('listo');
     loop();
   } catch (err){
