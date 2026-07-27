@@ -6,9 +6,10 @@
 <title>Visor de superficie WRF</title>
 <style>
   :root{
-    --bg:#11161b; --panel:#171e25; --panel-2:#1d262e; --line:#2b3742;
-    --fg:#c7d3dd; --fg-dim:#7d8c9a; --fg-faint:#55636f;
-    --warn:#d98f3f;
+    --bg:#0a0b0d; --panel:#131417; --panel-2:#1b1d21; --line:#26282c;
+    --fg:#e6e7ea; --fg-dim:#8a8c93; --fg-faint:#5b5d64;
+    --accent:#f2662a; --accent2:#3d9be0; --ok:#35c05a;
+    --warn:#f2662a;
     --mono: ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
     --sans: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   }
@@ -20,16 +21,57 @@
   #stage{position:fixed;inset:0}
 
   /* ---- cabecera ---- */
-  #head{position:fixed;top:0;left:0;right:0;height:34px;display:flex;align-items:center;
-    gap:14px;padding:0 12px;background:rgba(17,22,27,.86);
-    border-bottom:1px solid var(--line);backdrop-filter:blur(6px);z-index:20}
-  #head b{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+  #head{position:fixed;top:0;left:0;right:0;height:54px;display:flex;
+    align-items:center;gap:12px;padding:0 12px;background:rgba(10,11,13,.9);
+    border-bottom:1px solid var(--line);backdrop-filter:blur(8px);z-index:20}
+  #logowrap{flex:none;width:36px;height:36px;border-radius:9px;background:#fff;
+    display:grid;place-items:center;overflow:hidden}
+  #logowrap:empty,#logowrap:has(#logo[hidden]){background:transparent;width:0}
+  #live{margin-left:auto;text-align:right;flex:none;max-width:38vw}
+  #liverow{display:flex;align-items:center;justify-content:flex-end;gap:5px;
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg)}
+  #livedot{width:6px;height:6px;border-radius:50%;background:var(--ok);
+    display:inline-block}
+  #live .meta{font-size:10px}
+  #head b{font-family:var(--sans);font-weight:700;font-size:17px;
+    letter-spacing:-.01em;display:block;line-height:1.15}
+  #head b .a1{color:var(--accent)}
+  #head b .a2{color:var(--accent2)}
+  #head b .sep{color:var(--fg-faint);font-weight:400;margin:0 1px}
+  #logo{flex:none;width:auto;display:block}
+  #logo[hidden]{display:none}
+  #brand{flex:none;min-width:0}
+  #brand small{display:block;font-size:9px;color:var(--fg-dim);
+    letter-spacing:.16em;text-transform:uppercase;line-height:1.5}
+  #infobtn{flex:none;width:20px;height:20px;padding:0;margin-left:auto;
+    border-radius:50%;font-size:10px;line-height:1;font-style:italic}
+  #info{position:fixed;top:62px;right:12px;border-radius:10px;overflow:hidden;width:min(420px,90vw);z-index:40;
+    background:var(--panel);border:1px solid var(--line)}
+  #info[hidden]{display:none}
+  #infohead{display:flex;justify-content:space-between;align-items:center;
+    padding:7px 8px 7px 10px;border-bottom:1px solid var(--line);
+    text-transform:uppercase;letter-spacing:.12em;font-size:9.5px;
+    color:var(--fg-faint)}
+  #infohead button{width:22px;border:0;background:transparent;font-size:15px;
+    color:var(--fg-dim);cursor:pointer;padding:0}
+  #infobody{padding:9px 10px;font-size:10.5px;color:var(--fg-dim);
+    line-height:1.55}
+  #infobody p{margin:0 0 7px}
+  #infobody a{color:var(--fg)}
+  @media (max-width:720px){ #brand small, .meta{display:none} }
   .meta{color:var(--fg-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .tag{border:1px solid var(--warn);color:var(--warn);padding:1px 6px;
-    letter-spacing:.12em;font-size:9.5px;text-transform:uppercase;flex:none}
+  .tag{border:1px solid var(--accent);color:var(--accent);padding:2px 9px;
+    border-radius:999px;letter-spacing:.12em;font-size:9px;
+    text-transform:uppercase;flex:none;align-self:center}
 
   /* ---- panel de control ---- */
-  #panel{position:fixed;top:46px;left:12px;width:250px;background:var(--panel);
+  /* Barra de acento en el borde superior de cada tarjeta: es el rasgo que
+     identifica al panel de emergencias del grupo. */
+  #panel,#legend,#probe,#time,#mgram,#info{position:relative}
+  #panel::before,#legend::before,#probe::before,#mgram::before,#info::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:2px;
+    background:var(--accent)}
+  #panel{position:fixed;top:66px;left:12px;width:250px;background:var(--panel);
     border:1px solid var(--line);z-index:20}
   .grp{padding:10px 12px;border-bottom:1px solid var(--line)}
   .grp:last-child{border-bottom:0}
@@ -37,23 +79,29 @@
     text-transform:uppercase;letter-spacing:.12em;font-size:9.5px;
     color:var(--fg-faint);margin-bottom:6px}
   .lbl span{color:var(--fg);letter-spacing:0;font-size:11px}
-  select{width:100%;background:var(--panel-2);color:var(--fg);border:1px solid var(--line);
-    padding:5px 6px;font-family:var(--mono);font-size:11.5px}
-  input[type=range]{width:100%;margin:0;accent-color:#8fa7b8;background:transparent}
+  select{width:100%;background:var(--panel-2);color:var(--fg);
+    border:1px solid var(--line);border-radius:6px;
+    padding:5px 7px;font-family:var(--mono);font-size:11.5px}
+  input[type=range]{width:100%;margin:0;accent-color:var(--accent);
+    background:transparent}
   .row{display:flex;gap:6px}
-  button{flex:1;background:var(--panel-2);color:var(--fg);border:1px solid var(--line);
-    padding:5px 0;font-family:var(--mono);font-size:11px;cursor:pointer;
-    text-transform:uppercase;letter-spacing:.08em}
-  button:hover{background:#26313a}
-  button[aria-pressed=true]{background:#cbd8e2;color:#11161b;border-color:#cbd8e2}
+  button{flex:1;background:var(--panel-2);color:var(--fg);
+    border:1px solid var(--line);border-radius:999px;
+    padding:5px 10px;font-family:var(--mono);font-size:10.5px;cursor:pointer;
+    text-transform:uppercase;letter-spacing:.09em}
+  button:hover{background:#24262b;border-color:#33363c}
+  button[aria-pressed=true]{background:var(--accent);color:#12100e;
+    border-color:var(--accent);font-weight:600}
   button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #6fa8c0;outline-offset:1px}
 
   /* ---- linea de tiempo ---- */
   #time{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
     display:flex;align-items:center;gap:10px;background:var(--panel);
-    border:1px solid var(--line);z-index:20;width:min(620px,86vw);padding-right:12px}
-  #time button{flex:none;width:38px;align-self:stretch;border:0;
-    border-right:1px solid var(--line)}
+    border:1px solid var(--line);border-radius:10px;z-index:20;
+    width:min(620px,86vw);padding:0 12px 0 0;overflow:hidden}
+  #time button{flex:none;width:40px;align-self:stretch;border:0;
+    border-radius:0;border-right:1px solid var(--line);
+    background:var(--panel-2);font-size:12px}
   #tinfo{flex:none;min-width:190px;padding:5px 0 5px 2px;line-height:1.3}
   #tmain{font-size:13px}
   #tsub{font-size:10px;color:var(--fg-dim)}
@@ -61,14 +109,16 @@
 
   /* ---- sonda ---- */
   #probe{position:fixed;bottom:12px;left:12px;background:var(--panel);
-    border:1px solid var(--line);padding:8px 10px;z-index:20;min-width:200px}
-  #probe .big{font-size:19px;letter-spacing:-.01em}
+    border:1px solid var(--line);border-radius:10px;padding:9px 10px;
+    z-index:20;min-width:210px}
+  #probe .big{font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
   #probe .big em{font-style:normal;font-size:11px;color:var(--fg-dim);margin-left:3px}
   #probe .co{color:var(--fg-dim);margin-top:3px;font-size:10.5px}
 
   /* ---- leyenda ---- */
   #legend{position:fixed;bottom:12px;right:12px;background:var(--panel);
-    border:1px solid var(--line);padding:8px 10px;z-index:20;width:210px}
+    border:1px solid var(--line);border-radius:10px;padding:9px 10px;
+    z-index:20;width:210px}
   #legend .t{color:var(--fg-dim);font-size:10px;margin-bottom:5px}
   #bar{width:100%;height:9px;display:block;border:1px solid var(--line)}
   #ends{display:flex;justify-content:space-between;color:var(--fg-dim);
@@ -92,7 +142,7 @@
   #probe button{width:100%;margin-top:7px}
   #mgram{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);
     z-index:25;background:var(--panel);border:1px solid var(--line);
-    width:min(720px,94vw)}
+    border-radius:10px;width:min(720px,94vw);overflow:hidden}
   #mgram[hidden]{display:none}
   #mghead{display:flex;align-items:center;justify-content:space-between;
     padding:6px 8px 6px 10px;border-bottom:1px solid var(--line);font-size:11px}
@@ -106,11 +156,11 @@
     font-size:9.5px;color:var(--fg-faint);max-width:min(560px,68vw);
     pointer-events:none;line-height:1.3}
   #credit[hidden]{display:none}
-  #status{position:fixed;top:46px;left:50%;transform:translateX(-50%);
+  #status{position:fixed;top:66px;left:50%;transform:translateX(-50%);
     background:var(--panel);border:1px solid var(--line);padding:6px 12px;z-index:30;
     color:var(--fg-dim)}
   #status[hidden]{display:none}
-  #boot{position:fixed;top:46px;left:12px;z-index:40;background:var(--panel);
+  #boot{position:fixed;top:66px;left:12px;z-index:40;background:var(--panel);
     border:1px solid var(--line);padding:8px 10px;font-size:11px;
     color:var(--fg-dim);max-width:min(420px,88vw);line-height:1.5}
   #boot[hidden]{display:none}
@@ -119,7 +169,7 @@
   #fail{position:fixed;inset:0;display:none;place-content:center;padding:40px;
     z-index:50;background:var(--bg);font-family:var(--sans);line-height:1.6}
   @media (max-width:720px){
-    #panel{width:calc(100vw - 24px)}
+    #panel{width:calc(100vw - 24px);top:60px}
     #legend,#probe{display:none}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -129,9 +179,22 @@
 <div id="stage"></div>
 
 <div id="head">
-  <b>Superficie WRF</b>
-  <span class="tag" id="tag">experimental</span>
-  <span class="meta" id="meta"></span>
+  <div id="logowrap"><img id="logo" alt="" hidden></div>
+  <div id="brand">
+    <small id="bsub"></small>
+    <b id="btitle">Visor de superficie WRF</b>
+  </div>
+  <span class="tag" id="tag" hidden></span>
+  <div id="live">
+    <div id="liverow"><i id="livedot"></i><span id="livelbl">Pronostico</span></div>
+    <div class="meta" id="meta"></div>
+  </div>
+  <button id="infobtn" type="button" title="Fuentes y creditos">i</button>
+</div>
+<div id="info" hidden>
+  <div id="infohead"><span>Fuentes y creditos</span>
+    <button id="infoclose" type="button">&#215;</button></div>
+  <div id="infobody"></div>
 </div>
 
 <div id="panel">
@@ -1134,6 +1197,8 @@ function bindUI(){
     mat.uniforms.ci.value = S.ci;
     $('ctrL').textContent = S.ci ? S.ci+' m' : 'sin curvas';
   };
+  $('infobtn').onclick = () => { $('info').hidden = !$('info').hidden; };
+  $('infoclose').onclick = () => { $('info').hidden = true; };
   $('adm').onchange = e => { S.adm = e.target.value; buildAdmin(); };
   $('lab').oninput = e => {
     S.lab = +e.target.value;
@@ -1174,7 +1239,7 @@ function bindUI(){
     if (e.key === 'ArrowLeft'){ S.t = (S.t-1+S.man.times.length)%S.man.times.length; showQueued(); }
     if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
     if (e.key.toLowerCase() === 'm'){ openMeteogram(); }
-    if (e.key === 'Escape'){ $('mgram').hidden = true; }
+    if (e.key === 'Escape'){ $('mgram').hidden = true; $('info').hidden = true; }
   });
 }
 function togglePlay(){
@@ -1374,6 +1439,55 @@ function computeGridNorth(){
  * mano con doble clic se guardan en el mismo formato, asi que la tecla P
  * copia al portapapeles algo que puedes pegar tal cual en places.json.
  */
+/* ---- marca configurable (site.json) ----
+ * La identidad visual no se incrusta en el HTML: asi el mismo visor sirve
+ * para otro caso o para otro grupo cambiando un JSON y un SVG. Si el fichero
+ * no existe, la cabecera se queda con los valores por defecto.
+ */
+async function loadSite(){
+  let cfg;
+  try {
+    const r = await fetch('site.json');
+    if (!r.ok) return;
+    cfg = await r.json();
+  } catch { return; }
+  if (cfg.title){ $('btitle').textContent = cfg.title; document.title = cfg.title; }
+  // titleHtml permite colorear palabras con <span class="a1"> y "a2", como en
+  // el panel de emergencias. Es tu propio fichero, no entrada de usuario.
+  if (cfg.titleHtml) $('btitle').innerHTML = cfg.titleHtml;
+  if (cfg.kicker) $('bsub').textContent = cfg.kicker;
+  if (cfg.accent) document.documentElement.style.setProperty('--accent', cfg.accent);
+  if (cfg.accent2) document.documentElement.style.setProperty('--accent2', cfg.accent2);
+  if (cfg.liveLabel) $('livelbl').textContent = cfg.liveLabel;
+  if (!cfg.kicker){
+    const sub2 = [cfg.subtitle, cfg.org].filter(Boolean).join(' \u00b7 ');
+    if (sub2) $('bsub').textContent = sub2;
+  }
+  if (cfg.logo){
+    const img = $('logo');
+    img.onload = () => { img.hidden = false; };
+    img.onerror = () => { img.hidden = true; };   // sin logo, sin hueco
+    img.style.height = (cfg.logoHeight || 22) + 'px';
+    img.alt = cfg.org || '';
+    img.src = cfg.logo;
+  }
+  if (cfg.tag){
+    $('tag').textContent = cfg.tag;
+    $('tag').title = cfg.tagTitle || '';
+    $('tag').hidden = false;
+  }
+  const parts = [];
+  for (const c of (cfg.credits || [])) parts.push(`<p>${c}</p>`);
+  if (Array.isArray(cfg.links) && cfg.links.length){
+    parts.push('<p>' + cfg.links.map(l =>
+      `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
+    ).join(' · ') + '</p>');
+  }
+  MGRUN = cfg;
+  $('infobody').innerHTML = parts.join('');
+}
+let MGRUN = null;
+
 async function loadPlaces(){
   let list;
   try {
@@ -1604,7 +1718,11 @@ function drawMeteogram(){
   const dim = CSS.getPropertyValue('--fg-faint').trim() || '#55636f';
   const mid = CSS.getPropertyValue('--fg-dim').trim() || '#7d8c9a';
   const line = CSS.getPropertyValue('--line').trim() || '#2b3742';
-  const C_T = '#dc8b46', C_R = '#4a90a8', C_W = '#cbd8e2';
+  // las series usan los acentos de la marca: naranja exterior, azul
+  // secundario, gris para el viento. Igual que en el panel de estaciones.
+  const C_T = CSS.getPropertyValue('--accent').trim() || '#f2662a';
+  const C_R = CSS.getPropertyValue('--accent2').trim() || '#3d9be0';
+  const C_W = '#cbd0d8';
   c.font = '10px ui-monospace, Menlo, Consolas, monospace';
 
   function nice(lo, hi){
@@ -1791,6 +1909,7 @@ addEventListener('resize', fitCameras);
 
     S.field = (man.fields.find(f => f.key === 'wspd10') || man.fields[0]).key;
 
+    await loadSite();
     $('meta').textContent =
       `d0${man.grid.grid_id} · ${S.nx}×${S.ny} · dx ${man.grid.dx.toFixed(0)} m · ` +
       `init ${man.grid.init} · ${man.title}` + (man.note ? ` · ${man.note}` : '');
@@ -1818,6 +1937,11 @@ addEventListener('resize', fitCameras);
     MG.anchor = !MG.anchor;
     drawMeteogram();
   });
+  $('infobody').insertAdjacentHTML('beforeend',
+      `<p>Ejecucion mostrada: ${man.grid.model || 'WRF'}, dominio d0`
+      + `${man.grid.grid_id} de ${man.grid.nx}\u00d7${man.grid.ny} puntos a `
+      + `${man.grid.dx.toFixed(0)} m, ${man.grid.map_proj}. `
+      + `Inicializada ${man.grid.init}. Empaquetado ${man.generated}.</p>`);
   buildGeoIndex();
   boot('indice geografico listo');
   await loadAdmin();
