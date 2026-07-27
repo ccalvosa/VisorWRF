@@ -287,6 +287,16 @@
     <input type="range" id="ctr" min="0" max="4" step="1" value="2">
   </div>
   <div class="grp">
+    <div class="lbl">Focos NASA FIRMS <span id="fireL"></span></div>
+    <select id="fire">
+      <option value="0">ninguno</option>
+      <option value="6">ultimas 6 h</option>
+      <option value="12">ultimas 12 h</option>
+      <option value="24" selected>ultimas 24 h</option>
+      <option value="48">ultimas 48 h</option>
+    </select>
+  </div>
+  <div class="grp">
     <div class="lbl">Limites administrativos</div>
     <select id="adm">
       <option value="none">ninguno</option>
@@ -419,7 +429,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const BUILD = '2026-07-27.12';   // subir en cada entrega y VERIFICAR que sale
+const BUILD = '2026-07-27.13';   // subir en cada entrega y VERIFICAR que sale
 const boot = m => window.__boot?.(m);
 boot(`visor build ${BUILD} \u00b7 three.js r${THREE.REVISION}`);
 
@@ -563,7 +573,7 @@ function utm(lat, lon){
 const S = {
   man:null, nx:0, ny:0, dx:0, dy:0, W:0, H:0,
   terrain:null, lat:null, lon:null,
-  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0, adm:'provincia', lab:2, mode:'3d',
+  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0, adm:'provincia', lab:2, fire:24, mode:'3d',
   cache:new Map(), playing:false, timer:null,
   pins:[], hover:null, gridNorth:0,
 };
@@ -1233,6 +1243,7 @@ function setVex(v){
   $('vexL').textContent = S.vex === 0 ? 'plano' : S.vex.toFixed(1).replace('.0','')+'×';
   updateWind();
   buildAdmin();
+  buildFires();
 }
 
 function bindUI(){
@@ -1281,6 +1292,7 @@ function bindUI(){
   $('infobtn').onclick = () => infoShow($('info').hidden);
   $('infoclose').onclick = () => infoShow(false);
   $('infoveil').onclick = () => infoShow(false);   // clic fuera cierra
+  $('fire').onchange = e => { S.fire = +e.target.value; buildFires(); };
   $('adm').onchange = e => { S.adm = e.target.value; buildAdmin(); };
   $('lab').oninput = e => {
     S.lab = +e.target.value;
@@ -1530,6 +1542,119 @@ function computeGridNorth(){
  * mano con doble clic se guardan en el mismo formato, asi que la tecla P
  * copia al portapapeles algo que puedes pegar tal cual en places.json.
  */
+/* ---- focos termicos de NASA FIRMS ----
+ * El fichero lo genera fetch_firms.py: la clave de FIRMS no puede vivir en el
+ * navegador porque el sitio es publico, y FIRMS tampoco sirve CORS.
+ *
+ * La antiguedad se recalcula aqui contra la hora actual, no se usa la que
+ * venia en el fichero: si el paquete lleva horas publicado, esa cifra ya
+ * miente. El color y la opacidad salen de esa antiguedad viva.
+ */
+const FIRE = { pts:[], obj:null, meta:null };
+
+async function loadFires(){
+  let d;
+  try {
+    const r = await fetch('data/fires.json');
+    if (!r.ok) return;
+    d = await r.json();
+  } catch { return; }
+  if (!d || !Array.isArray(d.points)) return;
+  FIRE.meta = d;
+  const now = Date.now();
+  for (const p of d.points){
+    if (!Number.isFinite(p?.lat) || !Number.isFinite(p?.lon)) continue;
+    const c = latlonToGrid(p.lat, p.lon);
+    if (!c) continue;
+    const t = Date.parse(p.at);
+    FIRE.pts.push({
+      gi:c[0], gj:c[1],
+      age: Number.isFinite(t) ? Math.max(0, (now - t)/3600000) : (p.age_h || 0),
+      frp: Number(p.frp) || 0,
+    });
+  }
+  if (d.attribution){
+    const c = $('credit');
+    c.textContent = (c.textContent ? c.textContent + ' · ' : '') + d.attribution;
+    c.hidden = false;
+  }
+  const n = FIRE.pts.length;
+  $('fireL').textContent = n ? `${n} celdas` : 'sin datos';
+  boot(`focos FIRMS: ${n} celdas de ${d.observations || 0} observaciones`);
+  buildFires();
+}
+
+const FIRE_VERT = `
+  attribute float age;
+  attribute float frp;
+  uniform float maxAge, dpr, vex;
+  varying float vAge;
+  void main(){
+    vAge = age;
+    if (age > maxAge){ gl_Position = vec4(2.0, 2.0, 2.0, 1.0); return; }
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    // tamano por potencia radiativa, sin atenuacion por distancia: un foco
+    // debe seguir siendo visible con el dominio completo en pantalla
+    float s = 5.0 + 8.0*sqrt(clamp(frp, 0.0, 250.0)/250.0);
+    gl_PointSize = s*dpr;
+  }`;
+
+const FIRE_FRAG = `
+  uniform float maxAge;
+  varying float vAge;
+  void main(){
+    vec2 d = gl_PointCoord - vec2(0.5);
+    float r = length(d);
+    if (r > 0.5) discard;
+    float t = clamp(vAge/max(maxAge, 1.0), 0.0, 1.0);
+    vec3 c = t < 0.5
+      ? mix(vec3(1.0,0.95,0.60), vec3(0.95,0.42,0.12), t*2.0)
+      : mix(vec3(0.95,0.42,0.12), vec3(0.50,0.12,0.10), (t-0.5)*2.0);
+    float edge = smoothstep(0.5, 0.32, r);
+    gl_FragColor = vec4(c, edge*mix(1.0, 0.40, t));
+  }`;
+
+let fireMat = null;
+
+function buildFires(){
+  if (FIRE.obj){
+    scene.remove(FIRE.obj); FIRE.obj.geometry.dispose(); FIRE.obj = null;
+  }
+  if (!S.fire || !FIRE.pts.length) return;
+  const lift = 0.06 + 0.04*S.vex;
+  const n = FIRE.pts.length;
+  const pos = new Float32Array(n*3);
+  const age = new Float32Array(n);
+  const frp = new Float32Array(n);
+  for (let k=0;k<n;k++){
+    const p = FIRE.pts[k];
+    const e = sampleGrid(S.terrain, p.gi, p.gj);
+    pos[k*3]   = worldX(p.gi);
+    pos[k*3+1] = (Number.isFinite(e) ? e/1000*S.vex : 0) + lift;
+    pos[k*3+2] = worldZ(p.gj);
+    age[k] = p.age;
+    frp[k] = p.frp;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('age', new THREE.BufferAttribute(age, 1));
+  g.setAttribute('frp', new THREE.BufferAttribute(frp, 1));
+  g.computeBoundingSphere();
+  if (!fireMat){
+    fireMat = new THREE.ShaderMaterial({
+      transparent:true, depthWrite:false,
+      vertexShader:FIRE_VERT, fragmentShader:FIRE_FRAG,
+      uniforms:{ maxAge:{value:24}, dpr:{value:Math.min(devicePixelRatio,2)},
+                 vex:{value:S.vex} },
+    });
+  }
+  fireMat.uniforms.maxAge.value = S.fire;
+  FIRE.obj = new THREE.Points(g, fireMat);
+  FIRE.obj.frustumCulled = false;
+  FIRE.obj.renderOrder = 2;
+  scene.add(FIRE.obj);
+}
+
 /* ---- estaciones meteorologicas ----
  * Se declaran en site.json, no en el codigo, por lo mismo que la marca: el
  * visor tiene que servir para otro caso sin tocar el HTML. Cada marcador es
@@ -2202,6 +2327,7 @@ addEventListener('resize', fitCameras);
   buildGeoIndex();
   boot('indice geografico listo');
   await loadAdmin();
+  await loadFires();
   await loadPlaces();
   buildStations(SITE?.stations);
   S.lab = +$('lab').value; $('lab').oninput({ target: $('lab') });
