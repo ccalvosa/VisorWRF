@@ -1120,11 +1120,20 @@ function bindUI(){
   $('mgclose').onclick = () => { $('mgram').hidden = true; };
   $('mgcv').onclick = e => {
     if (!MG.data || !MG.pt) return;
-    const r = $('mgcv').getBoundingClientRect();
-    const L = 44, R = 44, n = S.man.times.length;
-    const f = (e.clientX - r.left - L)/Math.max(r.width - L - R, 1);
-    S.t = Math.max(0, Math.min(n-1, Math.round(f*(n-1))));
-    updateTimeUI(); showQueued(); drawMeteogram();
+    const t = mgIndexAt(e.clientX);
+    if (t === null) return;
+    S.t = t; updateTimeUI(); showQueued(); drawMeteogram();
+  };
+  $('mgcv').onpointermove = e => {
+    if (!MG.data || !MG.pt) return;
+    const t = mgIndexAt(e.clientX);
+    if (t === MG.hoverT) return;          // solo redibuja al cambiar de paso
+    MG.hoverT = t;
+    drawMeteogram();
+  };
+  $('mgcv').onpointerleave = () => {
+    if (MG.hoverT === null) return;
+    MG.hoverT = null; drawMeteogram();
   };
   addEventListener('resize', () => { if (!$('mgram').hidden) drawMeteogram(); });
   $('play').onclick = togglePlay;
@@ -1301,7 +1310,7 @@ async function loadPlaces(){
  * cubo, no la del pixel exacto; por eso se muestran siempre las coordenadas
  * del punto realmente usado y no las del cursor.
  * ------------------------------------------------------------------ */
-const MG = { data:null, loading:false, pt:null };
+const MG = { data:null, loading:false, pt:null, hoverT:null };
 
 async function loadMeteoCube(){
   if (MG.data || MG.loading) return MG.data;
@@ -1355,12 +1364,28 @@ async function openMeteogram(){
   drawMeteogram();
 }
 
+const ROSA = ['N','NNE','NE','ENE','E','ESE','SE','SSE',
+              'S','SSO','SO','OSO','O','ONO','NO','NNO'];
+const rumbo = deg => ROSA[Math.round(((deg % 360) + 360) % 360 / 22.5) % 16];
+
 function seriesAt(key, p){
   const v = MG.data.vars[key];
   if (!v) return null;
   const out = new Float32Array(v.nt);
   for (let t=0;t<v.nt;t++) out[t] = v.data[t*v.npts + p];
   return out;
+}
+
+// La geometria del grafico vive en un solo sitio para que el raton y el
+// dibujo no puedan discrepar.
+const MGEO = { L:44, R:44, T:12, B:22, GAP:16 };
+function mgIndexAt(clientX){
+  const r = $('mgcv').getBoundingClientRect();
+  const n = S.man.times.length;
+  const pw = Math.max(r.width - MGEO.L - MGEO.R, 1);
+  const f = (clientX - r.left - MGEO.L)/pw;
+  if (f < -0.04 || f > 1.04) return null;
+  return Math.max(0, Math.min(n-1, Math.round(f*(n-1))));
 }
 
 function drawMeteogram(){
@@ -1382,7 +1407,7 @@ function drawMeteogram(){
     dr[t] = (Math.atan2(-u[t], -v[t])*180/Math.PI + 360) % 360;
   }
 
-  const L = 44, R = 44, T = 12, B = 22, GAP = 16;
+  const { L, R, T, B, GAP } = MGEO;
   const pw = W - L - R, ph = (H - T - B - GAP)/2;
   const yA = T, yB = T + ph + GAP;
   const X = t => L + (n === 1 ? pw/2 : pw*t/(n-1));
@@ -1468,6 +1493,49 @@ function drawMeteogram(){
     c.arc(xc, Y(arr[S.t]), 2.8, 0, 6.2832); c.fill();
   }
 
+  // lectura bajo el cursor
+  const ht = MG.hoverT;
+  if (ht !== null && ht >= 0 && ht < n){
+    const xh = Math.round(X(ht)) + .5;
+    c.strokeStyle = '#f2f6f8'; c.lineWidth = 1;
+    c.setLineDash([3, 3]);
+    c.beginPath(); c.moveTo(xh, T); c.lineTo(xh, H-B); c.stroke();
+    c.setLineDash([]);
+    for (const [arr, Y, col] of [[t2,Yt,C_T],[rh,Yr,C_R],[sp,Yw,C_W]]){
+      c.fillStyle = col; c.strokeStyle = '#11161b'; c.lineWidth = 1.5;
+      c.beginPath(); c.arc(xh, Y(arr[ht]), 3.6, 0, 6.2832);
+      c.fill(); c.stroke();
+    }
+    const rows = [
+      ['', S.man.times[ht].slice(11,16) + ' UTC'],
+      ['T2',  t2[ht].toFixed(1) + ' \u00b0C'],
+      ['HR',  rh[ht].toFixed(0) + ' %'],
+      ['V',   sp[ht].toFixed(1) + ' m/s'],
+      ['Dir', dr[ht].toFixed(0) + '\u00b0 ' + rumbo(dr[ht])],
+    ];
+    c.font = '10px ui-monospace, Menlo, Consolas, monospace';
+    let bw = 0;
+    for (const [k, v] of rows)
+      bw = Math.max(bw, c.measureText((k ? k + '  ' : '') + v).width);
+    bw += 16;
+    const bh = rows.length*13 + 8;
+    const bx = xh + 10 + bw > L + pw ? xh - 10 - bw : xh + 10;
+    const by = T + 4;
+    c.fillStyle = 'rgba(23,30,37,.94)';
+    c.fillRect(bx, by, bw, bh);
+    c.strokeStyle = line; c.lineWidth = 1;
+    c.strokeRect(Math.round(bx)+.5, Math.round(by)+.5, bw, bh);
+    rows.forEach(([k, v], r) => {
+      const y = by + 15 + r*13;
+      c.textAlign = 'left'; c.fillStyle = dim;
+      if (k) c.fillText(k, bx + 8, y);
+      c.textAlign = 'right';
+      c.fillStyle = k === 'T2' ? C_T : k === 'HR' ? C_R
+                  : (k === 'V' || k === 'Dir') ? C_W : mid;
+      c.fillText(v, bx + bw - 8, y);
+    });
+  }
+
   const u2 = utm(MG.pt.lat, MG.pt.lon);
   $('mgtitle').textContent =
     `${MG.pt.lat.toFixed(4)}\u00b0N ${MG.pt.lon.toFixed(4)}\u00b0E · `
@@ -1480,7 +1548,8 @@ function drawMeteogram(){
     + `sentido del flujo<br>`
     + `Punto de malla i=${MG.pt.i} j=${MG.pt.j}, el mas cercano cada `
     + `${(S.dx*MG.data.stride/1000).toFixed(1)} km. `
-    + `Horas en UTC. Pincha en el grafico para saltar a ese instante.`;
+    + `Horas en UTC. Pasa el cursor para leer valores; pincha para saltar `
+    + `a ese instante.`;
 }
 
 /* ------------------------------------------------------------------ *

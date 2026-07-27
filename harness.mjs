@@ -27,6 +27,8 @@ function mkEl(id = '') {
         setTransform() {}, clearRect() {}, beginPath() {}, moveTo() {},
         lineTo() {}, stroke() {}, fill() {}, arc() {}, closePath() {},
         fillText() {}, save() {}, restore() {},
+        fillRect() {}, strokeRect() {}, setLineDash() {},
+        measureText: (t) => ({ width: String(t).length * 6 }),
         set fillStyle(v) {}, set strokeStyle(v) {}, set lineWidth(v) {},
         set font(v) {}, set textAlign(v) {}, set globalAlpha(v) {},
         createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }),
@@ -188,6 +190,10 @@ const handlers = [
   ['meteograma sin punto',() => els.get('mbtn').onclick?.()],
   ['meteograma con punto',() => { els.get('mbtn').onclick?.(); }],
   ['clic en el grafico',  () => els.get('mgcv').onclick?.({clientX:300})],
+  ['hover en el grafico', () => els.get('mgcv').onpointermove?.({clientX:250})],
+  ['hover borde izq',     () => els.get('mgcv').onpointermove?.({clientX:10})],
+  ['hover borde der',     () => els.get('mgcv').onpointermove?.({clientX:695})],
+  ['salir del grafico',   () => els.get('mgcv').onpointerleave?.()],
   ['cerrar meteograma',   () => els.get('mgclose').onclick?.()],
 ];
 for (const [n,f] of handlers) probe(n, f);
