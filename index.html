@@ -150,6 +150,25 @@
   #sbar span{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
     white-space:nowrap;color:var(--fg-dim);font-size:10px}
   #pins{position:fixed;inset:0;pointer-events:none;z-index:15}
+  /* El contenedor no captura el raton para no robarle el arrastre a la
+     camara; solo lo capturan los propios marcadores. */
+  #stations{position:fixed;inset:0;pointer-events:none;z-index:17}
+  .stn{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;
+    width:14px;height:14px;display:grid;place-items:center;cursor:pointer;
+    text-decoration:none}
+  .stn::before{content:'';width:11px;height:11px;border-radius:50%;
+    border:2px solid var(--accent2);background:rgba(10,11,13,.55);
+    box-sizing:border-box;transition:transform .12s ease}
+  .stn::after{content:'';position:absolute;width:3px;height:3px;
+    border-radius:50%;background:var(--accent2)}
+  .stn:hover::before{transform:scale(1.45);background:var(--accent2)}
+  .stn:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+  .stn b{position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    white-space:nowrap;font-size:10px;font-weight:500;color:#fff;
+    background:rgba(19,20,23,.92);border:1px solid var(--line);
+    border-radius:4px;padding:2px 6px;opacity:0;transition:opacity .12s ease;
+    pointer-events:none}
+  .stn:hover b,.stn:focus-visible b{opacity:1}
   .pin{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;
     font-size:10.5px;color:#fff;text-shadow:0 0 3px #000,0 0 6px #000;
     padding-bottom:9px}
@@ -313,6 +332,7 @@
   <div id="sbar"><span id="sbarL"></span></div>
 </div>
 <div id="pins"></div>
+<div id="stations"></div>
 <div id="credit" hidden></div>
 
 <div id="legend">
@@ -400,7 +420,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const BUILD = '2026-07-27.10';   // subir en cada entrega y VERIFICAR que sale
+const BUILD = '2026-07-27.11';   // subir en cada entrega y VERIFICAR que sale
 const boot = m => window.__boot?.(m);
 boot(`visor build ${BUILD} \u00b7 three.js r${THREE.REVISION}`);
 
@@ -1511,6 +1531,53 @@ function computeGridNorth(){
  * mano con doble clic se guardan en el mismo formato, asi que la tecla P
  * copia al portapapeles algo que puedes pegar tal cual en places.json.
  */
+/* ---- estaciones meteorologicas ----
+ * Se declaran en site.json, no en el codigo, por lo mismo que la marca: el
+ * visor tiene que servir para otro caso sin tocar el HTML. Cada marcador es
+ * un enlace de verdad, asi que funciona con teclado y con clic central.
+ */
+const STN = { list: [] };
+
+function buildStations(list){
+  const box = $('stations');
+  box.innerHTML = '';
+  STN.list = [];
+  if (!Array.isArray(list)) return;
+  for (const st of list){
+    if (!Number.isFinite(st?.lat) || !Number.isFinite(st?.lon)) continue;
+    const c = latlonToGrid(st.lat, st.lon);
+    if (!c) continue;                       // fuera del dominio
+    const a = document.createElement('a');
+    a.className = 'stn';
+    a.title = st.name || 'Estacion';
+    if (st.url){
+      a.href = st.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+    a.innerHTML = `<b>${st.name || 'Estacion'}</b>`;
+    box.appendChild(a);
+    STN.list.push({ el: a, x: worldX(c[0]), z: worldZ(c[1]) });
+  }
+  if (STN.list.length) boot(`estaciones: ${STN.list.length}`);
+}
+
+const _sv = new THREE.Vector3();
+function projectStations(){
+  if (!STN.list.length) return;
+  const cam = S.mode === '3d' ? camP : camO;
+  for (const st of STN.list){
+    const y = terrainYAt(st.x, st.z);
+    _sv.set(st.x, Number.isFinite(y) ? y : 0, st.z).project(cam);
+    if (_sv.z > 1 || Math.abs(_sv.x) > 1.05 || Math.abs(_sv.y) > 1.05){
+      st.el.style.display = 'none'; continue;
+    }
+    st.el.style.display = '';
+    st.el.style.left = ((_sv.x + 1)/2*innerWidth).toFixed(1) + 'px';
+    st.el.style.top  = ((1 - _sv.y)/2*innerHeight).toFixed(1) + 'px';
+  }
+}
+
 /* ---- que es cada producto ----
  * La explicacion vive junto al visor y no en el fichero de marca porque
  * describe el producto, no la identidad del sitio. Solo se muestran los que
@@ -1605,9 +1672,11 @@ async function loadSite(){
     ).join(' · ') + '</p>');
   }
   MGRUN = cfg;
+  SITE = cfg;
   $('infobody').innerHTML = parts.join('');
 }
 let MGRUN = null;
+let SITE = null;
 
 async function loadPlaces(){
   let list;
@@ -1997,6 +2066,7 @@ function loop(){
   (S.mode === '3d' ? ctrP : ctrO).update();
   renderer.render(scene, S.mode === '3d' ? camP : camO);
   projectPins();
+  projectStations();
   updateRuler();
 }
 
@@ -2097,6 +2167,7 @@ addEventListener('resize', fitCameras);
   boot('indice geografico listo');
   await loadAdmin();
   await loadPlaces();
+  buildStations(SITE?.stations);
   S.lab = +$('lab').value; $('lab').oninput({ target: $('lab') });
   computeGridNorth();
     await show();

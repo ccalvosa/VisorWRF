@@ -1,25 +1,35 @@
 {
-  "kicker": "Vigilancia meteorologica · modelizacion numerica",
-  "title": "WRF-ARW 500-m | Climatoc-Lab",
-  "titleHtml": "WRF-ARW <span class=\"a1\">500-m</span> <span class=\"sep\">|</span> <span class=\"a2\">Climatoc-Lab</span>",
-  "org": "CIDE (CSIC–UV–GVA)",
-  "logo": "assets/climatoc-lab.png",
-  "logoHeight": 26,
-  "liveLabel": "Pronostico",
-  "accent": "#f2662a",
-  "accent2": "#3d9be0",
+  "eyebrow": "VIGILANCIA METEOROLOGICA · MODELIZACION NUMERICA",
+  "title": "Visor ",
+  "titleAccent": "superficie WRF",
+  "titleOrg": "GADE-CSIC",
+  "subtitle": "WRF-ARW 500 m · CLIMATOC-LAB, CIDE (CSIC–UV–GVA)",
+  "logo": "assets/logo.png",
+  "logoHeight": 34,
   "tag": "experimental",
   "tagTitle": "Simulacion de investigacion. No es un producto operativo ni sustituye a la informacion oficial de AEMET o de Proteccion Civil.",
   "links": [
     {
       "label": "CLIMATOC-LAB",
       "url": "https://climatoclab.csic.es/"
+    },
+    {
+      "label": "Estaciones en emergencias",
+      "url": "https://climatoclab.csic.es/emergencias/"
     }
   ],
   "credits": [
-    "Simulaciones WRF-ARW: Laboratorio de Clima, Atmosfera y Oceano (CLIMATOC-LAB), CIDE (CSIC–UV–GVA).",
+    "Simulaciones WRF-ARW: CLIMATOC-LAB, CIDE (CSIC–UV–GVA), en el marco de la actuacion de Gestion de Emergencias y Desastres del CSIC (GADE).",
     "Condiciones iniciales y de contorno: NCEP GFS 0.25°, dominio publico.",
     "Lineas limite municipales © Instituto Geografico Nacional, CC BY 4.0, via es-atlas (MIT).",
     "Renderizado con three.js r169 (MIT)."
+  ],
+  "stations": [
+    {
+      "name": "Estacion 1 · Embalse de San Juan",
+      "lat": 40.380997,
+      "lon": -4.398389,
+      "url": "https://climatoclab.csic.es/emergencias/"
+    }
   ]
 }
