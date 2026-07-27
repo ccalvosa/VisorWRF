@@ -197,7 +197,7 @@
   <div class="big"><span id="pv">—</span><em id="pu"></em></div>
   <div class="co" id="pc">mueve el cursor sobre el terreno</div>
   <div class="co" id="pu2"></div>
-  <div class="co" id="phint">doble clic: marcar · M: meteograma · P: copiar puntos</div>
+  <div class="co" id="phint">M: abrir meteograma · clic: anclar el punto</div>
   <button id="mbtn" type="button">Meteograma aqui</button>
 </div>
 <div id="mgram" hidden>
@@ -1146,13 +1146,6 @@ function bindUI(){
     if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
     if (e.key.toLowerCase() === 'm'){ openMeteogram(); }
     if (e.key === 'Escape'){ $('mgram').hidden = true; }
-    if (e.key.toLowerCase() === 'p' && S.pins.length){
-      const json = JSON.stringify(S.pins.map(({name,lat,lon}) =>
-        ({ name, lat:+lat.toFixed(5), lon:+lon.toFixed(5) })), null, 1);
-      navigator.clipboard?.writeText(json).then(
-        () => { $('phint').textContent = `${S.pins.length} puntos copiados`; },
-        () => { $('phint').textContent = 'no se pudo copiar'; });
-    }
   });
 }
 function togglePlay(){
@@ -1187,20 +1180,10 @@ function onMove(ev){
   $('pu2').textContent =
     `UTM ${u.zone}${u.band}  ${u.x.toFixed(0)} E  ${u.y.toFixed(0)} N`;
   S.hover = { lat:la, lon:lo, z, x:hit.x, wz:hit.z };
+  meteoFollow(gi, gj);
 }
 
-/* ---- puntos marcados por el usuario ---- */
-function addPin(){
-  if (!S.hover) return;
-  const u = utm(S.hover.lat, S.hover.lon);
-  const def = `${u.x.toFixed(0)}E ${u.y.toFixed(0)}N`;
-  const name = prompt('Nombre del punto:', def);
-  if (name === null) return;
-  S.pins.push({ name: name || def, lat:S.hover.lat, lon:S.hover.lon,
-                x:S.hover.x, z:S.hover.wz });
-  renderPins();
-}
-
+/* ---- rotulos de toponimos (data/places.json) ---- */
 // Rotulos en HTML proyectado cada fotograma: nada de texto en texturas y se
 // leen igual a cualquier zoom y en cualquier orientacion de camara.
 const pinEls = [];
@@ -1310,7 +1293,7 @@ async function loadPlaces(){
  * cubo, no la del pixel exacto; por eso se muestran siempre las coordenadas
  * del punto realmente usado y no las del cursor.
  * ------------------------------------------------------------------ */
-const MG = { data:null, loading:false, pt:null, hoverT:null };
+const MG = { data:null, loading:false, pt:null, hoverT:null, anchor:false };
 
 async function loadMeteoCube(){
   if (MG.data || MG.loading) return MG.data;
@@ -1337,6 +1320,30 @@ async function loadMeteoCube(){
   }
 }
 
+// Traduce una posicion de la malla del modelo al punto del cubo, y guarda
+// tambien los indices reales usados: el cubo esta submuestreado y el usuario
+// tiene que ver de donde sale la serie, no donde puso el cursor.
+function meteoPointFrom(gi, gj){
+  const cube = MG.data;
+  if (!cube) return null;
+  const mi = Math.max(0, Math.min(cube.nx-1, Math.round(gi/cube.stride)));
+  const mj = Math.max(0, Math.min(cube.ny-1, Math.round(gj/cube.stride)));
+  const i  = Math.min(S.nx-1, mi*cube.stride), j = Math.min(S.ny-1, mj*cube.stride);
+  const k  = j*S.nx + i;
+  return { p: mj*cube.nx + mi, i, j, lat:S.lat[k], lon:S.lon[k], z:S.terrain[k] };
+}
+
+// Sigue al cursor sobre el terreno. Solo redibuja cuando cambia de punto del
+// cubo, asi que a 2 km de paso el repintado es esporadico aunque el raton se
+// mueva sin parar.
+function meteoFollow(gi, gj){
+  if ($('mgram').hidden || MG.anchor || !MG.data) return;
+  const pt = meteoPointFrom(gi, gj);
+  if (!pt || (MG.pt && pt.p === MG.pt.p)) return;
+  MG.pt = pt;
+  drawMeteogram();
+}
+
 async function openMeteogram(){
   if (!S.hover){
     $('phint').textContent = 'pasa el cursor por el terreno primero';
@@ -1352,14 +1359,8 @@ async function openMeteogram(){
     return;
   }
   const [gi, gj] = worldToGrid(S.hover.x, S.hover.wz);
-  const cube = await loadMeteoCube();
-  if (!cube) return;
-  const mi = Math.max(0, Math.min(cube.nx-1, Math.round(gi/cube.stride)));
-  const mj = Math.max(0, Math.min(cube.ny-1, Math.round(gj/cube.stride)));
-  const p  = mj*cube.nx + mi;
-  const i  = Math.min(S.nx-1, mi*cube.stride), j = Math.min(S.ny-1, mj*cube.stride);
-  const k  = j*S.nx + i;
-  MG.pt = { p, i, j, lat:S.lat[k], lon:S.lon[k], z:S.terrain[k] };
+  if (!await loadMeteoCube()) return;
+  MG.pt = meteoPointFrom(gi, gj);
   $('mgram').hidden = false;
   drawMeteogram();
 }
@@ -1537,10 +1538,13 @@ function drawMeteogram(){
   }
 
   const u2 = utm(MG.pt.lat, MG.pt.lon);
-  $('mgtitle').textContent =
+  $('mgtitle').innerHTML =
     `${MG.pt.lat.toFixed(4)}\u00b0N ${MG.pt.lon.toFixed(4)}\u00b0E · `
     + `${MG.pt.z.toFixed(0)} m · UTM ${u2.zone}${u2.band} `
-    + `${u2.x.toFixed(0)}E ${u2.y.toFixed(0)}N`;
+    + `${u2.x.toFixed(0)}E ${u2.y.toFixed(0)}N`
+    + (MG.anchor
+        ? ` <span style="color:#f0a33c">\u25c9 anclado</span>`
+        : ` <span style="color:${dim}">\u25cb sigue al cursor</span>`);
   $('mgfoot').innerHTML =
     `<span style="color:${C_T}">\u25cf</span> temperatura 2 m &nbsp; `
     + `<span style="color:${C_R}">\u25cf</span> humedad relativa 2 m &nbsp; `
@@ -1548,8 +1552,9 @@ function drawMeteogram(){
     + `sentido del flujo<br>`
     + `Punto de malla i=${MG.pt.i} j=${MG.pt.j}, el mas cercano cada `
     + `${(S.dx*MG.data.stride/1000).toFixed(1)} km. `
-    + `Horas en UTC. Pasa el cursor para leer valores; pincha para saltar `
-    + `a ese instante.`;
+    + `El punto sigue al cursor sobre el terreno; clic en el mapa para `
+    + `anclarlo o soltarlo. Sobre el grafico, el cursor lee valores y el `
+    + `clic salta a ese instante. Horas en UTC.`;
 }
 
 /* ------------------------------------------------------------------ *
@@ -1613,7 +1618,19 @@ addEventListener('resize', fitCameras);
     bindUI();
     setVex(S.vex);
     renderer.domElement.addEventListener('pointermove', onMove);
-  renderer.domElement.addEventListener('dblclick', addPin);
+  // Un clic sin arrastre ancla o suelta el punto. Hace falta el umbral porque
+  // el mismo boton orbita la camara, y una orbita no debe anclar nada.
+  let downAt = null;
+  renderer.domElement.addEventListener('pointerdown',
+    e => { downAt = [e.clientX, e.clientY]; });
+  renderer.domElement.addEventListener('pointerup', e => {
+    if (!downAt) return;
+    const moved = Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]);
+    downAt = null;
+    if (moved > 4 || $('mgram').hidden) return;
+    MG.anchor = !MG.anchor;
+    drawMeteogram();
+  });
   await loadPlaces();
   computeGridNorth();
     await show();
