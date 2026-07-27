@@ -39,14 +39,23 @@
   #brand{flex:none;min-width:0}
   #brand small{display:block;font-size:9px;color:var(--fg-dim);
     letter-spacing:.16em;text-transform:uppercase;line-height:1.5}
-  #live{margin-left:auto;display:flex;align-items:center;gap:7px;
-    font-size:10px;color:var(--fg-dim);white-space:nowrap}
+  /* el bloque de estado va pegado al boton de informacion, no suelto al
+     extremo derecho: los dos son metadatos de la misma ejecucion */
+  #live{margin-left:auto;text-align:right;flex:none;max-width:46vw;
+    min-width:0;overflow:hidden}
   #live i{width:7px;height:7px;border-radius:50%;background:var(--ok);
     flex:none;box-shadow:0 0 6px rgba(62,207,106,.6)}
-  #infobtn{flex:none;width:20px;height:20px;padding:0;margin-left:auto;
-    border-radius:50%;font-size:10px;line-height:1;font-style:italic}
-  #info{position:fixed;top:60px;right:12px;width:min(420px,90vw);z-index:40;
+  #infobtn{flex:none;width:22px;height:22px;padding:0;margin-left:0;
+    border-radius:50%;font-size:10px;line-height:1;font-style:italic;
+    align-self:center}
+  #infoveil{position:fixed;inset:0;z-index:39;background:rgba(6,7,9,.62);
+    backdrop-filter:blur(2px)}
+  #infoveil[hidden]{display:none}
+  #info{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+    border-radius:10px;overflow:hidden;width:min(520px,92vw);z-index:40;
+    max-height:80vh;display:flex;flex-direction:column;
     background:var(--panel);border:1px solid var(--line)}
+  #infobody{overflow-y:auto}
   #info[hidden]{display:none}
   #infohead{display:flex;justify-content:space-between;align-items:center;
     padding:7px 8px 7px 10px;border-bottom:1px solid var(--line);
@@ -190,6 +199,7 @@
   <button id="infobtn" type="button" title="Fuentes y creditos">i</button>
 </div>
 <span class="meta" id="meta" hidden></span>
+<div id="infoveil" hidden></div>
 <div id="info" hidden>
   <div id="infohead"><span>Fuentes y creditos</span>
     <button id="infoclose" type="button">&#215;</button></div>
@@ -251,8 +261,8 @@
     <div class="lbl">Limites administrativos</div>
     <select id="adm">
       <option value="none">ninguno</option>
-      <option value="municipio" selected>municipios</option>
-      <option value="provincia">provincias</option>
+      <option value="municipio">municipios</option>
+      <option value="provincia" selected>provincias</option>
       <option value="both">ambos</option>
     </select>
   </div>
@@ -263,10 +273,10 @@
   <div class="grp">
     <div class="lbl">Reticula geografica</div>
     <select id="grat">
-      <option value="0">sin reticula</option>
+      <option value="0" selected>sin reticula</option>
       <option value="0.5">cada 0.5°</option>
       <option value="0.25">cada 0.25°</option>
-      <option value="0.1" selected>cada 0.1°</option>
+      <option value="0.1">cada 0.1°</option>
       <option value="0.05">cada 0.05°</option>
     </select>
   </div>
@@ -379,7 +389,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const BUILD = '2026-07-27.8';   // subir en cada entrega y VERIFICAR que sale
+const BUILD = '2026-07-27.9';   // subir en cada entrega y VERIFICAR que sale
 const boot = m => window.__boot?.(m);
 boot(`visor build ${BUILD} \u00b7 three.js r${THREE.REVISION}`);
 
@@ -523,7 +533,7 @@ function utm(lat, lon){
 const S = {
   man:null, nx:0, ny:0, dx:0, dy:0, W:0, H:0,
   terrain:null, lat:null, lon:null,
-  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0.1, adm:'municipio', lab:2, mode:'3d',
+  field:null, t:0, vex:8, dens:5, wmode:'off', width:2, wcol:'#f2f6f8', shade:.7, ci:200, grat:0, adm:'provincia', lab:2, mode:'3d',
   cache:new Map(), playing:false, timer:null,
   pins:[], hover:null, gridNorth:0,
 };
@@ -1237,8 +1247,10 @@ function bindUI(){
     mat.uniforms.ci.value = S.ci;
     $('ctrL').textContent = S.ci ? S.ci+' m' : 'sin curvas';
   };
-  $('infobtn').onclick = () => { $('info').hidden = !$('info').hidden; };
-  $('infoclose').onclick = () => { $('info').hidden = true; };
+  const infoShow = on => { $('info').hidden = !on; $('infoveil').hidden = !on; };
+  $('infobtn').onclick = () => infoShow($('info').hidden);
+  $('infoclose').onclick = () => infoShow(false);
+  $('infoveil').onclick = () => infoShow(false);   // clic fuera cierra
   $('adm').onchange = e => { S.adm = e.target.value; buildAdmin(); };
   $('lab').oninput = e => {
     S.lab = +e.target.value;
@@ -1284,7 +1296,10 @@ function bindUI(){
     }
     if (e.key.toLowerCase() === 'd'){ setMode(S.mode === '3d' ? '2d' : '3d'); }
     if (e.key.toLowerCase() === 'm'){ openMeteogram(); }
-    if (e.key === 'Escape'){ $('mgram').hidden = true; $('info').hidden = true; }
+    if (e.key === 'Escape'){
+      $('mgram').hidden = true;
+      $('info').hidden = true; $('infoveil').hidden = true;
+    }
   });
 }
 function togglePlay(){
