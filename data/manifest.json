@@ -440,5 +440,44 @@
     "v10/t030.png"
    ]
   }
- ]
+ ],
+ "meteo": {
+  "stride": 4,
+  "nx": 126,
+  "ny": 126,
+  "vars": [
+   {
+    "key": "t2",
+    "label": "Temperatura 2 m",
+    "units": "C",
+    "vmin": 9.594263076782227,
+    "vmax": 38.82017135620117,
+    "file": "meteo/t2.png"
+   },
+   {
+    "key": "rh2",
+    "label": "Humedad relativa 2 m",
+    "units": "%",
+    "vmin": 9.242389678955078,
+    "vmax": 100.0,
+    "file": "meteo/rh2.png"
+   },
+   {
+    "key": "u10",
+    "label": "Componente u 10 m",
+    "units": "m/s",
+    "vmin": -12.073014259338379,
+    "vmax": 9.547493934631348,
+    "file": "meteo/u10.png"
+   },
+   {
+    "key": "v10",
+    "label": "Componente v 10 m",
+    "units": "m/s",
+    "vmin": -11.917372703552246,
+    "vmax": 13.296635627746582,
+    "file": "meteo/v10.png"
+   }
+  ]
+ }
 }

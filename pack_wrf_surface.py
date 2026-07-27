@@ -198,6 +198,12 @@ FIELDS = {
 
 DEFAULT_VARS = ["wspd10", "gust10", "t2", "rh2", "vpd2", "hdw_sfc", "pblh", "u10", "v10"]
 
+# Cubo transpuesto para los meteogramas: [tiempo, punto] por variable. Se
+# guardan u10/v10 en vez de velocidad y direccion porque la direccion es una
+# magnitud circular y no se puede interpolar ni cuantizar sin cuidado; el
+# visor deriva ambas de las componentes.
+METEO_VARS = ["t2", "rh2", "u10", "v10"]
+
 # Rangos fijos donde una escala estable importa mas que ajustarse a los datos.
 FIXED_RANGE = {
     "rh2": (0.0, 100.0),
@@ -272,7 +278,7 @@ def collect(paths: list[str], keys: list[str], stride: int):
     order = np.argsort(times)
     times = [times[i] for i in order]
     index = [index[i] for i in order]
-    return times, index, usable, skipped, static, geo
+    return times, index, usable, skipped, static, geo, available
 
 
 def main() -> int:
@@ -286,6 +292,9 @@ def main() -> int:
                     help="submuestreo espacial (2 = mitad de resolucion)")
     ap.add_argument("--title", default="", help="titulo mostrado en el visor")
     ap.add_argument("--note", default="", help="linea de aviso mostrada en la cabecera")
+    ap.add_argument("--meteo-stride", type=int, default=4,
+                    help="submuestreo espacial del cubo de meteogramas "
+                         "(4 = un punto cada 4 de malla; 0 lo desactiva)")
     args = ap.parse_args()
 
     keys = list(FIELDS) if args.vars.strip() == "all" else [
@@ -294,7 +303,8 @@ def main() -> int:
 
     paths = sorted(args.wrfout)
     print(f"[1/4] Leyendo {len(paths)} fichero(s)...")
-    times, index, keys, skipped, static, geo = collect(paths, keys, args.stride)
+    times, index, keys, skipped, static, geo, avail_vars = collect(
+        paths, keys, args.stride)
     for k, why in skipped:
         print(f"      omitido {k}: {why}")
     if not keys:
@@ -315,6 +325,19 @@ def main() -> int:
     print("[2/4] Calculando rangos globales...")
     stats = {k: [np.inf, -np.inf] for k in keys}
     cache: dict[str, dict[int, np.ndarray]] = {k: {} for k in keys}
+
+    ms = max(0, args.meteo_stride)
+    mkeys = [k for k in METEO_VARS if k in FIELDS and
+             all(v in avail_vars for v in FIELDS[k][4])] if ms else []
+    if ms and mkeys:
+        msl = (slice(None, None, ms), slice(None, None, ms))
+        mny, mnx = static["terrain"][msl].shape
+        cube = {k: np.zeros((len(index), mny*mnx), dtype=np.float32) for k in mkeys}
+        print(f"      cubo de meteogramas: {mnx}x{mny} puntos "
+              f"({geo['dx']*ms/1000:.1f} km), {len(mkeys)} variables")
+    else:
+        cube, mnx, mny = {}, 0, 0
+
     for n, (path, it) in enumerate(index):
         with Dataset(path) as nc:
             for k in keys:
@@ -323,6 +346,11 @@ def main() -> int:
                 cache[k][n] = arr
                 stats[k][0] = min(stats[k][0], float(arr.min()))
                 stats[k][1] = max(stats[k][1], float(arr.max()))
+            for k in mkeys:
+                # se reaprovecha el campo ya calculado si esta empaquetado
+                a = cache[k][n] if k in keys else np.asarray(
+                    FIELDS[k][3](nc, it), dtype=np.float32)[sl]
+                cube[k][n] = np.nan_to_num(a[msl]).ravel()
 
     ranges = {}
     for k in keys:
@@ -363,6 +391,27 @@ def main() -> int:
         encode_png16(os.path.join(args.outdir, rel), arr, lo, hi)
         statics[name] = {"file": rel, "vmin": lo, "vmax": hi}
 
+    meteo = None
+    if cube:
+        mvars = []
+        for k in cube:
+            label, units, _, _, _ = FIELDS[k]
+            lo, hi = float(cube[k].min()), float(cube[k].max())
+            if hi <= lo:
+                hi = lo + 1.0
+            rel = f"meteo/{k}.png"
+            # una fila por instante, una columna por punto: el meteograma es
+            # entonces una columna, y PNG comprime bien porque las filas
+            # contiguas se parecen mucho
+            encode_png16(os.path.join(args.outdir, rel), cube[k], lo, hi)
+            mvars.append({"key": k, "label": label, "units": units,
+                          "vmin": lo, "vmax": hi, "file": rel})
+        meteo = {"stride": args.meteo_stride, "nx": mnx, "ny": mny,
+                 "vars": mvars}
+        tot = sum(os.path.getsize(os.path.join(args.outdir, v["file"]))
+                  for v in mvars)
+        print(f"      cubo escrito: {tot/1e6:.1f} MB")
+
     manifest = {
         "format": "wrf-surface-pack/1",
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -372,6 +421,7 @@ def main() -> int:
         "times": times,
         "static": statics,
         "fields": manifest_fields,
+        "meteo": meteo,
     }
     with open(os.path.join(args.outdir, "manifest.json"), "w") as fh:
         json.dump(manifest, fh, indent=1)
